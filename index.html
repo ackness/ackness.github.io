@@ -361,63 +361,16 @@
 
       
         
-          
-            <h1 id="FAST-RCNN"><a href="#FAST-RCNN" class="headerlink" title="FAST-RCNN"></a>FAST-RCNN</h1><hr>
-<p>这篇文章主要介绍比起传统的R-CNN的优点，它是R-CNN和SPPnet的进阶版。主要摘自<a href="http://blog.csdn.net/liumaolincycle/article/details/50203333" target="_blank" rel="external">这里</a></p>
-<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><h3 id="R-CNN"><a href="#R-CNN" class="headerlink" title="R-CNN"></a>R-CNN</h3><ul>
-<li>训练要经过多阶段。首先要提取特征微调ConvNet，再用线性SVM处理proposal，计算得到的ConvNet特征，然后进行用bounding box回归。</li>
-<li>训练时间和空间开销大。要从每一张图像上提取大量proposal，还要从每个proposal中提取特征，并存到磁盘中。 </li>
-<li>测试时间开销大。同样是要从每个测试图像上提取大量proposal，再从每个proposal中提取特征来进行检测过程，可想而知是很慢的。<br></li>
-</ul>
-<h3 id="SPPnet"><a href="#SPPnet" class="headerlink" title="SPPnet:"></a>SPPnet:</h3><ul>
-<li>SPP已有一定的速度提升，它在ConvNet的最后一个卷积层才提取proposal，但是依然有不足之处。和R-CNN一样，它的训练要经过多个阶段，特征也要存在磁盘中，另外，SPP中的微调只更新spp层后面的全连接层，对很深的网络这样肯定是不行的。</li>
-</ul>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><h3 id="针对R-CNN和SPPnet缺点，FRCNN有如下优点："><a href="#针对R-CNN和SPPnet缺点，FRCNN有如下优点：" class="headerlink" title="针对R-CNN和SPPnet缺点，FRCNN有如下优点："></a>针对R-CNN和SPPnet缺点，FRCNN有如下优点：</h3><ul>
-<li>比R-CNN更高的检测质量(mAP)</li>
-<li>把多个任务的损失函数写到一起，实现单级训练</li>
-<li>在训练时可更新所有层</li>
-<li><p>不需要在磁盘中存储特征</p>
-<p>  整个结构如下图所示<br><img src="https://ww1.sinaimg.cn/large/006tKfTcgy1fcxudqu6sjj30ey05tt9q.jpg" alt=""></p>
-<blockquote>
-<p>Fast R-CNN architecture. An input image and multi- ple regions of interest (RoIs) are input into a fully convolutional network. Each RoI is pooled into a fixed-size feature map and then mapped to a feature vector by fully connected layers (FCs). The network has two output vectors per RoI: softmax probabilities and per-class bounding-box regression offsets. The architecture is trained end-to-end with a multi-task loss.</p>
-</blockquote>
-</li>
-</ul>
-<p>大概过程就是，用<a href="http://blog.csdn.net/charwing/article/details/27180421" target="_blank" rel="external">selective search</a>在一张图片中生成约2000个object proposal，即RoI。把它们整体输入到全卷积的网络中，在最后一个卷积层上对每个ROI求映射关系，并用一个RoI pooling layer来统一到相同的大小。继续经过两个全连接层（FC）得到特征向量。特征向量经由各自的FC层，得到两个输出向量：第一个是分类，使用softmax，第二个是每一类的<a href="http://blog.csdn.net/u013832707/article/details/53641055" target="_blank" rel="external">bounding box回归</a>。</p>
-<h3 id="ROI-POOLING-LAYER"><a href="#ROI-POOLING-LAYER" class="headerlink" title="ROI POOLING LAYER"></a>ROI POOLING LAYER</h3><p>ROI(Regions of interest)<br>是SPP pooling层的简化版，只有一级“金字塔”</p>
-<blockquote>
-<p>The RoI pooling layer uses max pooling to convert the features inside any valid region of interest into a small fea- ture map with a fixed spatial extent of H × W (e.g., 7 × 7), where H and W are layer hyper-parameters that are inde- pendent of any particular RoI. In this paper, an RoI is a rectangular window into a conv feature map. Each RoI is defined by a four-tuple (r, c, h, w) that specifies its top-left corner (r, c) and its height and width (h, w).</p>
-<p>RoI max pooling works by dividing the h × w RoI win- dow into an H × W grid of sub-windows of approximate size h/H × w/W and then max-pooling the values in each sub-window into the corresponding output grid cell. Pool- ing is applied independently to each feature map channel, as in standard max pooling. The RoI layer is simply the special-case of the spatial pyramid pooling layer used in <code>SPPnets</code> in which there is only one pyramid level. We use the pooling sub-window calculation given in <code>SPPnets</code>.</p>
-</blockquote>
-<p><br><br><a href="http://blog.csdn.net/mao_kun/article/details/50507376" target="_blank" rel="external">这里有池化的具体介绍</a> <br><br>空间金字塔池化可以把任何尺度的图像的卷积特征转化成相同维度，这不仅可以让CNN处理任意尺度的图像，还能避免cropping和warping操作，导致一些信息的丢失，具有非常重要的意义。</p>
-<h3 id="PRE-TRAINED-NETWORD"><a href="#PRE-TRAINED-NETWORD" class="headerlink" title="PRE-TRAINED NETWORD"></a>PRE-TRAINED NETWORD</h3><p>用了三个预训练的<code>ImageNet网络</code>(CaffeNet/VGG_CNN_M_1024/VGG16),预训练的网络初始化FRCNN要经过三次变形：</p>
-<ul>
-<li><p>最后一个max pooling层替换为RoI pooling层，设置 H 和 W 与第一个全连接层兼容(e.g.H = W = 7 for VGG16)。</p>
-<blockquote>
-<p>First, the last max pooling layer is replaced by a RoI pooling layer that is configured by setting H and W to be compatible with the net’s first fully connected layer (e.g., H =W =7forVGG16).</p>
-</blockquote>
-</li>
-<li><p>最后一个全连接层和softmax（原本是1000个类）替换为softmax的对K+1个类别的分类层，和bounding box 回归层。</p>
-<blockquote>
-<p>Second,the network’s last fully connected layer and soft- max (which were trained for 1000-way ImageNet classifi- cation) are replaced with the two sibling layers described earlier (a fully connected layer and softmax over K + 1 cat- egories and category-specific bounding-box regressors). </p>
-</blockquote>
-</li>
-<li><p>输入修改为两种数据：一组N个图形，R个RoI，batch size和ROI数、图像分辨率都是可变的。</p>
-<blockquote>
-<p>Third, the network is modified to take two data inputs: a list of images and a list of RoIs in those images.</p>
-</blockquote>
-</li>
-</ul>
-<h3 id="微调"><a href="#微调" class="headerlink" title="微调"></a>微调</h3><h4 id="论文中提到了几个点："><a href="#论文中提到了几个点：" class="headerlink" title="论文中提到了几个点："></a>论文中提到了几个点：</h4><ul>
-<li>Multi-task loss</li>
-<li>Mini-batch sampling</li>
-<li>Back-propagation through RoI pooling layers</li>
-<li>SGD hyper-parameters</li>
-</ul>
-<p>直接看上面那个<a href="http://blog.csdn.net/liumaolincycle/article/details/50203333" target="_blank" rel="external">博客</a>的中文分析吧</p>
-<h2 id="另外"><a href="#另外" class="headerlink" title="另外"></a>另外</h2><p><a href="https://github.com/rbgirshick/fast-rcnn" target="_blank" rel="external">Fast-RCNN代码</a><br><br><a href="https://arxiv.org/pdf/1504.08083v2.pdf" target="_blank" rel="external">原论文</a></p>
-
-          
+          <h1 id="FAST-RCNN"><a href="#FAST-RCNN" class="headerlink" title="FAST-RCNN"></a>FAST-RCNN</h1><hr>
+<p>这篇文章主要介绍比起传统的R-CNN的优点，它是R-CNN和SPPnet的进阶版。主要摘自<a href="http://blog.csdn.net/liumaolincycle/article/details/50203333">这里</a></p>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/02/21/FastRCNN/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

@@ -89,27 +89,21 @@
 
 <meta name="description" content="FAST-RCNN
 这篇文章主要介绍比起传统的R-CNN的优点，它是R-CNN和SPPnet的进阶版。主要摘自这里
-缺点R-CNN
-训练要经过多阶段。首先要提取特征微调ConvNet，再用线性SVM处理proposal，计算得到的ConvNet特征，然后进行用bounding box回归。
-训练时间和空间开销大。要从每一张图像上提取大量proposal，还要从每个proposal中提取特征，并存到">
+缺点">
 <meta property="og:type" content="article">
 <meta property="og:title" content="FastRCNN">
 <meta property="og:url" content="http://www.heywe.cn/2017/02/21/FastRCNN/index.html">
 <meta property="og:site_name" content="MyBlog OvO">
 <meta property="og:description" content="FAST-RCNN
 这篇文章主要介绍比起传统的R-CNN的优点，它是R-CNN和SPPnet的进阶版。主要摘自这里
-缺点R-CNN
-训练要经过多阶段。首先要提取特征微调ConvNet，再用线性SVM处理proposal，计算得到的ConvNet特征，然后进行用bounding box回归。
-训练时间和空间开销大。要从每一张图像上提取大量proposal，还要从每个proposal中提取特征，并存到">
+缺点">
 <meta property="og:image" content="https://ww1.sinaimg.cn/large/006tKfTcgy1fcxudqu6sjj30ey05tt9q.jpg">
-<meta property="og:updated_time" content="2017-02-21T06:38:47.840Z">
+<meta property="og:updated_time" content="2017-02-21T11:18:37.034Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="FastRCNN">
 <meta name="twitter:description" content="FAST-RCNN
 这篇文章主要介绍比起传统的R-CNN的优点，它是R-CNN和SPPnet的进阶版。主要摘自这里
-缺点R-CNN
-训练要经过多阶段。首先要提取特征微调ConvNet，再用线性SVM处理proposal，计算得到的ConvNet特征，然后进行用bounding box回归。
-训练时间和空间开销大。要从每一张图像上提取大量proposal，还要从每个proposal中提取特征，并存到">
+缺点">
 <meta name="twitter:image" content="https://ww1.sinaimg.cn/large/006tKfTcgy1fcxudqu6sjj30ey05tt9q.jpg">
 
 
@@ -372,7 +366,8 @@
       
         <h1 id="FAST-RCNN"><a href="#FAST-RCNN" class="headerlink" title="FAST-RCNN"></a>FAST-RCNN</h1><hr>
 <p>这篇文章主要介绍比起传统的R-CNN的优点，它是R-CNN和SPPnet的进阶版。主要摘自<a href="http://blog.csdn.net/liumaolincycle/article/details/50203333" target="_blank" rel="external">这里</a></p>
-<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><h3 id="R-CNN"><a href="#R-CNN" class="headerlink" title="R-CNN"></a>R-CNN</h3><ul>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><a id="more"></a>
+<h3 id="R-CNN"><a href="#R-CNN" class="headerlink" title="R-CNN"></a>R-CNN</h3><ul>
 <li>训练要经过多阶段。首先要提取特征微调ConvNet，再用线性SVM处理proposal，计算得到的ConvNet特征，然后进行用bounding box回归。</li>
 <li>训练时间和空间开销大。要从每一张图像上提取大量proposal，还要从每个proposal中提取特征，并存到磁盘中。 </li>
 <li>测试时间开销大。同样是要从每个测试图像上提取大量proposal，再从每个proposal中提取特征来进行检测过程，可想而知是很慢的。<br></li>
