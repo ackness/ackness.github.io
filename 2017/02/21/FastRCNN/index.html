@@ -102,7 +102,7 @@
 训练要经过多阶段。首先要提取特征微调ConvNet，再用线性SVM处理proposal，计算得到的ConvNet特征，然后进行用bounding box回归。
 训练时间和空间开销大。要从每一张图像上提取大量proposal，还要从每个proposal中提取特征，并存到">
 <meta property="og:image" content="https://ww1.sinaimg.cn/large/006tKfTcgy1fcxudqu6sjj30ey05tt9q.jpg">
-<meta property="og:updated_time" content="2017-02-21T06:24:51.554Z">
+<meta property="og:updated_time" content="2017-02-21T06:38:47.840Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="FastRCNN">
 <meta name="twitter:description" content="FAST-RCNN
@@ -380,7 +380,7 @@
 <h3 id="SPPnet"><a href="#SPPnet" class="headerlink" title="SPPnet:"></a>SPPnet:</h3><ul>
 <li>SPP已有一定的速度提升，它在ConvNet的最后一个卷积层才提取proposal，但是依然有不足之处。和R-CNN一样，它的训练要经过多个阶段，特征也要存在磁盘中，另外，SPP中的微调只更新spp层后面的全连接层，对很深的网络这样肯定是不行的。</li>
 </ul>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><h3 id="针对R-CNN和SPPnet缺点，NFRCN有如下优点："><a href="#针对R-CNN和SPPnet缺点，NFRCN有如下优点：" class="headerlink" title="针对R-CNN和SPPnet缺点，NFRCN有如下优点："></a>针对R-CNN和SPPnet缺点，NFRCN有如下优点：</h3><ul>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><h3 id="针对R-CNN和SPPnet缺点，FRCNN有如下优点："><a href="#针对R-CNN和SPPnet缺点，FRCNN有如下优点：" class="headerlink" title="针对R-CNN和SPPnet缺点，FRCNN有如下优点："></a>针对R-CNN和SPPnet缺点，FRCNN有如下优点：</h3><ul>
 <li>比R-CNN更高的检测质量(mAP)</li>
 <li>把多个任务的损失函数写到一起，实现单级训练</li>
 <li>在训练时可更新所有层</li>
@@ -450,22 +450,6 @@
         
       
 
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/02/18/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-          </div>
-        </div>
       
 
       
@@ -538,7 +522,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">1</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -584,7 +568,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#FAST-RCNN"><span class="nav-number">1.</span> <span class="nav-text">FAST-RCNN</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#缺点"><span class="nav-number">1.1.</span> <span class="nav-text">缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#R-CNN"><span class="nav-number">1.1.1.</span> <span class="nav-text">R-CNN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SPPnet"><span class="nav-number">1.1.2.</span> <span class="nav-text">SPPnet:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.2.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#针对R-CNN和SPPnet缺点，NFRCN有如下优点："><span class="nav-number">1.2.1.</span> <span class="nav-text">针对R-CNN和SPPnet缺点，NFRCN有如下优点：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ROI-POOLING-LAYER"><span class="nav-number">1.2.2.</span> <span class="nav-text">ROI POOLING LAYER</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PRE-TRAINED-NETWORD"><span class="nav-number">1.2.3.</span> <span class="nav-text">PRE-TRAINED NETWORD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#微调"><span class="nav-number">1.2.4.</span> <span class="nav-text">微调</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#论文中提到了几个点："><span class="nav-number">1.2.4.1.</span> <span class="nav-text">论文中提到了几个点：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#另外"><span class="nav-number">1.3.</span> <span class="nav-text">另外</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#FAST-RCNN"><span class="nav-number">1.</span> <span class="nav-text">FAST-RCNN</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#缺点"><span class="nav-number">1.1.</span> <span class="nav-text">缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#R-CNN"><span class="nav-number">1.1.1.</span> <span class="nav-text">R-CNN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SPPnet"><span class="nav-number">1.1.2.</span> <span class="nav-text">SPPnet:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.2.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#针对R-CNN和SPPnet缺点，FRCNN有如下优点："><span class="nav-number">1.2.1.</span> <span class="nav-text">针对R-CNN和SPPnet缺点，FRCNN有如下优点：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ROI-POOLING-LAYER"><span class="nav-number">1.2.2.</span> <span class="nav-text">ROI POOLING LAYER</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PRE-TRAINED-NETWORD"><span class="nav-number">1.2.3.</span> <span class="nav-text">PRE-TRAINED NETWORD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#微调"><span class="nav-number">1.2.4.</span> <span class="nav-text">微调</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#论文中提到了几个点："><span class="nav-number">1.2.4.1.</span> <span class="nav-text">论文中提到了几个点：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#另外"><span class="nav-number">1.3.</span> <span class="nav-text">另外</span></a></li></ol></li></ol></div>
             
 
           </div>
