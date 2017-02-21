@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="fastrcnn,machine learning" />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -87,24 +87,43 @@
 
 
 
-<meta name="description" content="FAST-RCNN
-这篇文章主要介绍比起传统的R-CNN的优点，它是R-CNN和SPPnet的进阶版。主要摘自这里
-缺点">
+<meta name="description" content="关于DROPOUT一些总结
+概述这是Hinton大神的原论文《Improving neural networks by preventing co-adaptation of feature Detectors》
+从以往的神经网络来看，大规模的网络：
+
+训练费时
+易过拟合
+
+这时候Dropout的出现很好的解决了其中的问题。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="FastRCNN">
-<meta property="og:url" content="http://www.heywe.cn/2017/02/21/FastRCNN/index.html">
+<meta property="og:title" content="AboutDropout">
+<meta property="og:url" content="http://www.heywe.cn/2017/02/21/AboutDropout/index.html">
 <meta property="og:site_name" content="MyBlog OvO">
-<meta property="og:description" content="FAST-RCNN
-这篇文章主要介绍比起传统的R-CNN的优点，它是R-CNN和SPPnet的进阶版。主要摘自这里
-缺点">
-<meta property="og:image" content="https://ww1.sinaimg.cn/large/006tKfTcgy1fcxudqu6sjj30ey05tt9q.jpg">
-<meta property="og:updated_time" content="2017-02-21T11:18:37.034Z">
+<meta property="og:description" content="关于DROPOUT一些总结
+概述这是Hinton大神的原论文《Improving neural networks by preventing co-adaptation of feature Detectors》
+从以往的神经网络来看，大规模的网络：
+
+训练费时
+易过拟合
+
+这时候Dropout的出现很好的解决了其中的问题。">
+<meta property="og:image" content="https://ww1.sinaimg.cn/large/006tKfTcgy1fcy6rfw5r2j30gp075q40.jpg">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl= r = a(Wv)">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl= r = m.\ast a(Wv)">
+<meta property="og:image" content="https://ww4.sinaimg.cn/large/006tKfTcgy1fcy6pjg26qj30o109twgb.jpg">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl= r = a((M.\ast W)v)">
+<meta property="og:updated_time" content="2017-02-21T12:34:17.602Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="FastRCNN">
-<meta name="twitter:description" content="FAST-RCNN
-这篇文章主要介绍比起传统的R-CNN的优点，它是R-CNN和SPPnet的进阶版。主要摘自这里
-缺点">
-<meta name="twitter:image" content="https://ww1.sinaimg.cn/large/006tKfTcgy1fcxudqu6sjj30ey05tt9q.jpg">
+<meta name="twitter:title" content="AboutDropout">
+<meta name="twitter:description" content="关于DROPOUT一些总结
+概述这是Hinton大神的原论文《Improving neural networks by preventing co-adaptation of feature Detectors》
+从以往的神经网络来看，大规模的网络：
+
+训练费时
+易过拟合
+
+这时候Dropout的出现很好的解决了其中的问题。">
+<meta name="twitter:image" content="https://ww1.sinaimg.cn/large/006tKfTcgy1fcy6rfw5r2j30gp075q40.jpg">
 
 
 
@@ -132,13 +151,13 @@
 
 
 
-  <link rel="canonical" href="http://www.heywe.cn/2017/02/21/FastRCNN/"/>
+  <link rel="canonical" href="http://www.heywe.cn/2017/02/21/AboutDropout/"/>
 
 
 
 
 
-  <title> FastRCNN | MyBlog OvO </title>
+  <title> AboutDropout | MyBlog OvO </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -257,7 +276,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://www.heywe.cn/2017/02/21/FastRCNN/">
+  <link itemprop="mainEntityOfPage" href="http://www.heywe.cn/2017/02/21/AboutDropout/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Mr.Wu">
@@ -281,7 +300,7 @@
             
             
               
-                FastRCNN
+                AboutDropout
               
             
           </h1>
@@ -296,7 +315,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-21T10:48:45+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-21T20:30:26+08:00">
                 2017-02-21
               </time>
             
@@ -337,8 +356,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/02/21/FastRCNN/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/21/FastRCNN/" itemprop="commentCount"></span>
+                <a href="/2017/02/21/AboutDropout/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/21/AboutDropout/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -364,61 +383,66 @@
       
 
       
-        <h1 id="FAST-RCNN"><a href="#FAST-RCNN" class="headerlink" title="FAST-RCNN"></a>FAST-RCNN</h1><hr>
-<p>这篇文章主要介绍比起传统的R-CNN的优点，它是R-CNN和SPPnet的进阶版。主要摘自<a href="http://blog.csdn.net/liumaolincycle/article/details/50203333" target="_blank" rel="external">这里</a></p>
-<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><a id="more"></a>
-<h3 id="R-CNN"><a href="#R-CNN" class="headerlink" title="R-CNN"></a>R-CNN</h3><ul>
-<li>训练要经过多阶段。首先要提取特征微调ConvNet，再用线性SVM处理proposal，计算得到的ConvNet特征，然后进行用bounding box回归。</li>
-<li>训练时间和空间开销大。要从每一张图像上提取大量proposal，还要从每个proposal中提取特征，并存到磁盘中。 </li>
-<li>测试时间开销大。同样是要从每个测试图像上提取大量proposal，再从每个proposal中提取特征来进行检测过程，可想而知是很慢的。<br></li>
-</ul>
-<h3 id="SPPnet"><a href="#SPPnet" class="headerlink" title="SPPnet:"></a>SPPnet:</h3><ul>
-<li>SPP已有一定的速度提升，它在ConvNet的最后一个卷积层才提取proposal，但是依然有不足之处。和R-CNN一样，它的训练要经过多个阶段，特征也要存在磁盘中，另外，SPP中的微调只更新spp层后面的全连接层，对很深的网络这样肯定是不行的。</li>
-</ul>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><h3 id="针对R-CNN和SPPnet缺点，FRCNN有如下优点："><a href="#针对R-CNN和SPPnet缺点，FRCNN有如下优点：" class="headerlink" title="针对R-CNN和SPPnet缺点，FRCNN有如下优点："></a>针对R-CNN和SPPnet缺点，FRCNN有如下优点：</h3><ul>
-<li>比R-CNN更高的检测质量(mAP)</li>
-<li>把多个任务的损失函数写到一起，实现单级训练</li>
-<li>在训练时可更新所有层</li>
-<li><p>不需要在磁盘中存储特征</p>
-<p>  整个结构如下图所示<br><img src="https://ww1.sinaimg.cn/large/006tKfTcgy1fcxudqu6sjj30ey05tt9q.jpg" alt=""></p>
-<blockquote>
-<p>Fast R-CNN architecture. An input image and multi- ple regions of interest (RoIs) are input into a fully convolutional network. Each RoI is pooled into a fixed-size feature map and then mapped to a feature vector by fully connected layers (FCs). The network has two output vectors per RoI: softmax probabilities and per-class bounding-box regression offsets. The architecture is trained end-to-end with a multi-task loss.</p>
-</blockquote>
-</li>
-</ul>
-<p>大概过程就是，用<a href="http://blog.csdn.net/charwing/article/details/27180421" target="_blank" rel="external">selective search</a>在一张图片中生成约2000个object proposal，即RoI。把它们整体输入到全卷积的网络中，在最后一个卷积层上对每个ROI求映射关系，并用一个RoI pooling layer来统一到相同的大小。继续经过两个全连接层（FC）得到特征向量。特征向量经由各自的FC层，得到两个输出向量：第一个是分类，使用softmax，第二个是每一类的<a href="http://blog.csdn.net/u013832707/article/details/53641055" target="_blank" rel="external">bounding box回归</a>。</p>
-<h3 id="ROI-POOLING-LAYER"><a href="#ROI-POOLING-LAYER" class="headerlink" title="ROI POOLING LAYER"></a>ROI POOLING LAYER</h3><p>ROI(Regions of interest)<br>是SPP pooling层的简化版，只有一级“金字塔”</p>
-<blockquote>
-<p>The RoI pooling layer uses max pooling to convert the features inside any valid region of interest into a small fea- ture map with a fixed spatial extent of H × W (e.g., 7 × 7), where H and W are layer hyper-parameters that are inde- pendent of any particular RoI. In this paper, an RoI is a rectangular window into a conv feature map. Each RoI is defined by a four-tuple (r, c, h, w) that specifies its top-left corner (r, c) and its height and width (h, w).</p>
-<p>RoI max pooling works by dividing the h × w RoI win- dow into an H × W grid of sub-windows of approximate size h/H × w/W and then max-pooling the values in each sub-window into the corresponding output grid cell. Pool- ing is applied independently to each feature map channel, as in standard max pooling. The RoI layer is simply the special-case of the spatial pyramid pooling layer used in <code>SPPnets</code> in which there is only one pyramid level. We use the pooling sub-window calculation given in <code>SPPnets</code>.</p>
-</blockquote>
-<p><br><br><a href="http://blog.csdn.net/mao_kun/article/details/50507376" target="_blank" rel="external">这里有池化的具体介绍</a> <br><br>空间金字塔池化可以把任何尺度的图像的卷积特征转化成相同维度，这不仅可以让CNN处理任意尺度的图像，还能避免cropping和warping操作，导致一些信息的丢失，具有非常重要的意义。</p>
-<h3 id="PRE-TRAINED-NETWORD"><a href="#PRE-TRAINED-NETWORD" class="headerlink" title="PRE-TRAINED NETWORD"></a>PRE-TRAINED NETWORD</h3><p>用了三个预训练的<code>ImageNet网络</code>(CaffeNet/VGG_CNN_M_1024/VGG16),预训练的网络初始化FRCNN要经过三次变形：</p>
+        <h1 id="关于DROPOUT一些总结"><a href="#关于DROPOUT一些总结" class="headerlink" title="关于DROPOUT一些总结"></a>关于DROPOUT一些总结</h1><hr>
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p><a href="https://arxiv.org/pdf/1207.0580.pdf" target="_blank" rel="external">这是Hinton大神的原论文《Improving neural networks by preventing co-adaptation of feature Detectors》</a><br></p>
+<p>从以往的神经网络来看，大规模的网络：</p>
 <ul>
-<li><p>最后一个max pooling层替换为RoI pooling层，设置 H 和 W 与第一个全连接层兼容(e.g.H = W = 7 for VGG16)。</p>
+<li>训练费时</li>
+<li>易过拟合</li>
+</ul>
+<p>这时候Dropout的出现很好的解决了其中的问题。 <br></p>
+<a id="more"></a>
+<p>从原文来看大量的实验数据说明Dropout确实能够提高准确率。</p>
+<p>下面简单说明一下<strong>Dropout</strong>的原理及作用： <br><br>Dropout是指在训练模型时随机让网络的某一些节点不工作，他们的权重得以保留(只是暂时不更新)，下次可能又更新了。它是为了提高Deep Network的泛化能力，防止CNN的过拟合。<br></p>
+<p>在训练开始时，我们随机地“删除”一半的隐藏单元，视它们为不存在。</p>
+<p><img src="https://ww1.sinaimg.cn/large/006tKfTcgy1fcy6rfw5r2j30gp075q40.jpg" alt=""><br><br>这张图左边表示没有Dropout的普通2层全连接结构，用公式记做<img src="http://chart.googleapis.com/chart?cht=tx&chl= r = a(Wv)" style="border:none;">,其中的a为激活函数。<br></p>
+<p>右图表示在第二个全连接层加入了Dropout的示意图，用公式记做<img src="http://chart.googleapis.com/chart?cht=tx&chl= r = m.\ast a(Wv)" style="border:none;">，即在训练时随机(以概率1-p)使某些网络的结点不工作(将隐含的结点输出清0)。</p>
 <blockquote>
-<p>First, the last max pooling layer is replaced by a RoI pooling layer that is configured by setting H and W to be compatible with the net’s first fully connected layer (e.g., H =W =7forVGG16).</p>
+<p>其中v是n*1维的列向量，W是d*n维的矩阵，m是个d*1的01列向量，a(x)是一个满足a(0)=0的激活函数，这里的m和a(Wv)相乘是对应元素相乘。</p>
+</blockquote>
+<p>它为什么有助于防止过拟合呢？可以简单地这样解释，运用了Dropout的训练过程，相当于训练了很多个只有半数隐层单元的神经网络（后面简称为“半数网络”），每一个这样的半数网络，都可以给出一个分类结果，这些结果有的是正确的，有的是错误的。随着训练的进行，大部分半数网络都可以给出正确的分类结果，那么少数的错误分类结果就不会对最终结果造成大的影响。<br>从实验结果来看，它会降低训练集的效果，但会提高验证集的效果。<br><br><br><img src="https://ww4.sinaimg.cn/large/006tKfTcgy1fcy6pjg26qj30o109twgb.jpg" alt=""><br><br></p>
+<blockquote>
+<p>右图是Dropout的一种延伸的方法<a href="http://yann.lecun.com/exdb/publis/pdf/wan-icml-13.pdf" target="_blank" rel="external">DropConnect</a>，用表达式描述为：<img src="http://chart.googleapis.com/chart?cht=tx&chl= r = a((M.\ast W)v)" style="border:none;"><br><br>二者的区别很明显：Dropout是将随机输出置0，而DropConnect是将权重随机置0.</p>
+<blockquote>
+<p>与Dropout不同的是，这个不是随机将隐含层节点的输出清0，而是将节点中的每个与其相连的输入权值以1-p的概率清0。（一个是输出，一个是输入）</p>
+</blockquote>
+</blockquote>
+<p><br></p>
+<h3 id="对于Dropout-Hintion给出的解释："><a href="#对于Dropout-Hintion给出的解释：" class="headerlink" title="对于Dropout Hintion给出的解释："></a>对于Dropout <em>Hintion给出的解释</em>：</h3><ol>
+<li>由于每次用输入网络的样本进行权值更新时，隐含节点都是以一定概率随机出现，因此不能保证每2个隐含节点每次都同时出现，这样权值的更新不再依赖于有固定关系隐含节点的共同作用，阻止了某些特征仅仅在其它特定特征下才有效果的情况。</li>
+<li>可以将Dropout看作是模型平均的一种。对于每次输入到网络中的样本（可能是一个样本，也可能是一个Batch的样本），其对应的网络结构都是不同的，但所有的这些不同的网络结构又同时share隐含节点的权值。这样不同的样本就对应不同的模型，是Bagging的一种极端情况。个人感觉这个解释稍微靠谱些，和Bagging，Boosting理论有点像，但又不完全相同。Bagging-&gt;一个特例是Dropout，Dropout-&gt;一个特例是Naive Bayes</li>
+<li>Native Bayes是Dropout的一个特例。Native bayes有个错误的前提，即假设各个特征之间相互独立，这样在训练样本比较少的情况下，单独对每个特征进行学习，测试时将所有的特征都相乘，且在实际应用时效果还不错。而Droput每次不是训练一个特征，而是一部分隐含层特征。</li>
+<li><p>还有一个比较有意思的解释是，Dropout类似于性别在生物进化中的角色，物种为了使适应不断变化的环境，性别的出现有效的阻止了过拟合，即避免环境改变时物种可能面临的灭亡。</p>
+<blockquote>
+<p>这是原文：</p>
+<p>Finally, there is an intriguing similarity between dropout and a recent theory of the role of sex in evolution (17). One possible interpretation of the theory of mixability articulated in (17) is that sex breaks up sets of co-adapted genes and this means that achieving a function by using a large set of co-adapted genes is not nearly as robust as achieving the same function, perhaps less than optimally, in multiple alternative ways, each of which only uses a small number of co-adapted genes. This allows evolution to avoid dead-ends in which improvements in fitness require co- ordinated changes to a large number of co-adapted genes. It also reduces the proba- bility that small changes in the environment will cause large decreases in fitness a phenomenon which is known as “overfitting” in the field of machine learning.</p>
 </blockquote>
 </li>
-<li><p>最后一个全连接层和softmax（原本是1000个类）替换为softmax的对K+1个类别的分类层，和bounding box 回归层。</p>
-<blockquote>
-<p>Second,the network’s last fully connected layer and soft- max (which were trained for 1000-way ImageNet classifi- cation) are replaced with the two sibling layers described earlier (a fully connected layer and softmax over K + 1 cat- egories and category-specific bounding-box regressors). </p>
-</blockquote>
+</ol>
+<p><br></p>
+<h3 id="其他说明及资料"><a href="#其他说明及资料" class="headerlink" title="其他说明及资料"></a>其他说明及资料</h3><p><a href="http://blog.csdn.net/stdcoutzyx/article/details/49022443" target="_blank" rel="external">这篇博文写的非常全面</a></p>
+<ul>
+<li>防止过拟合：<ul>
+<li>效果变差时提前终止训练</li>
+<li>L1和L2正则化</li>
+<li>软权值共享</li>
+<li>Dropout</li>
+</ul>
 </li>
-<li><p>输入修改为两种数据：一组N个图形，R个RoI，batch size和ROI数、图像分辨率都是可变的。</p>
-<blockquote>
-<p>Third, the network is modified to take two data inputs: a list of images and a list of RoIs in those images.</p>
-</blockquote>
+<li><p>Dropout率的选择</p>
+<ul>
+<li>隐含结点的Dropout率等于0.5的时候效果最好，原因是0.5的时候随机生成的网络结构最多</li>
+<li>Dropout也可以作为一种添加噪声的方法，直接对input进行操作。输出层设为更接近1的数。使得输入变化不会太大（0.8）</li>
+</ul>
+</li>
+<li><p>原文没有给出具体的数学原理 <br><br>这里有一篇论文是用贝叶斯机率说明Dropout的原理：<br><br><a href="http://mlg.eng.cam.ac.uk/yarin/PDFs/Dropout_as_a_Bayesian_approximation.pdf" target="_blank" rel="external">Dropout as a Bayesian Approximation: Insights and Applications</a></p>
+</li>
+<li><p>这里：<br><a href="https://www.quora.com/How-does-the-dropout-method-work-in-deep-learning" target="_blank" rel="external">How does the dropout method work in deep learning?</a></p>
+</li>
+<li><p><a href="https://arxiv.org/pdf/1312.6197.pdf" target="_blank" rel="external">An empirical analysis of dropout in piecewise linear networks</a></p>
 </li>
 </ul>
-<h3 id="微调"><a href="#微调" class="headerlink" title="微调"></a>微调</h3><h4 id="论文中提到了几个点："><a href="#论文中提到了几个点：" class="headerlink" title="论文中提到了几个点："></a>论文中提到了几个点：</h4><ul>
-<li>Multi-task loss</li>
-<li>Mini-batch sampling</li>
-<li>Back-propagation through RoI pooling layers</li>
-<li>SGD hyper-parameters</li>
-</ul>
-<p>直接看上面那个<a href="http://blog.csdn.net/liumaolincycle/article/details/50203333" target="_blank" rel="external">博客</a>的中文分析吧</p>
-<h2 id="另外"><a href="#另外" class="headerlink" title="另外"></a>另外</h2><p><a href="https://github.com/rbgirshick/fast-rcnn" target="_blank" rel="external">Fast-RCNN代码</a><br><br><a href="https://arxiv.org/pdf/1504.08083v2.pdf" target="_blank" rel="external">原论文</a></p>
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a href="http://www.cnblogs.com/tornadomeet/p/3258122.html" target="_blank" rel="external">http://www.cnblogs.com/tornadomeet/p/3258122.html</a><br><a href="http://blog.csdn.net/shuzfan/article/details/50580915" target="_blank" rel="external">http://blog.csdn.net/shuzfan/article/details/50580915</a><br><a href="http://blog.csdn.net/u012162613/article/details/44261657" target="_blank" rel="external">http://blog.csdn.net/u012162613/article/details/44261657</a><br><a href="http://blog.csdn.net/stdcoutzyx/article/details/49022443" target="_blank" rel="external">http://blog.csdn.net/stdcoutzyx/article/details/49022443</a></p>
 
       
     </div>
@@ -449,15 +473,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/02/21/FastRCNN/" rel="next" title="FastRCNN">
+                <i class="fa fa-chevron-left"></i> FastRCNN
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/02/21/AboutDropout/" rel="prev" title="AboutDropout">
-                AboutDropout <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -483,8 +507,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2017/02/21/FastRCNN/"
-           data-title="FastRCNN" data-url="http://www.heywe.cn/2017/02/21/FastRCNN/">
+      <div class="ds-thread" data-thread-key="2017/02/21/AboutDropout/"
+           data-title="AboutDropout" data-url="http://www.heywe.cn/2017/02/21/AboutDropout/">
       </div>
     
   </div>
@@ -579,7 +603,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#FAST-RCNN"><span class="nav-number">1.</span> <span class="nav-text">FAST-RCNN</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#缺点"><span class="nav-number">1.1.</span> <span class="nav-text">缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#R-CNN"><span class="nav-number">1.1.1.</span> <span class="nav-text">R-CNN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SPPnet"><span class="nav-number">1.1.2.</span> <span class="nav-text">SPPnet:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.2.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#针对R-CNN和SPPnet缺点，FRCNN有如下优点："><span class="nav-number">1.2.1.</span> <span class="nav-text">针对R-CNN和SPPnet缺点，FRCNN有如下优点：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ROI-POOLING-LAYER"><span class="nav-number">1.2.2.</span> <span class="nav-text">ROI POOLING LAYER</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PRE-TRAINED-NETWORD"><span class="nav-number">1.2.3.</span> <span class="nav-text">PRE-TRAINED NETWORD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#微调"><span class="nav-number">1.2.4.</span> <span class="nav-text">微调</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#论文中提到了几个点："><span class="nav-number">1.2.4.1.</span> <span class="nav-text">论文中提到了几个点：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#另外"><span class="nav-number">1.3.</span> <span class="nav-text">另外</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#关于DROPOUT一些总结"><span class="nav-number">1.</span> <span class="nav-text">关于DROPOUT一些总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">1.0.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对于Dropout-Hintion给出的解释："><span class="nav-number">1.0.2.</span> <span class="nav-text">对于Dropout Hintion给出的解释：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他说明及资料"><span class="nav-number">1.0.3.</span> <span class="nav-text">其他说明及资料</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文章"><span class="nav-number">1.0.4.</span> <span class="nav-text">参考文章</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
