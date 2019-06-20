@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Requests, Python">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Beautiful Soup 库">
+<meta name="keywords" content="Requests, Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="爬虫学习笔记(二)">
+<meta property="og:url" content="http://heywe.cn/2017/03/07/request3/index.html">
+<meta property="og:site_name" content="Wu Yong&#39;s Blog">
+<meta property="og:description" content="Beautiful Soup 库">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-11-03T09:05:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="爬虫学习笔记(二)">
+<meta name="twitter:description" content="Beautiful Soup 库">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://heywe.cn/2017/03/07/request3/">
+
+
+
+
+
+  <title>爬虫学习笔记(二) | Wu Yong's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wu Yong's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Have a nice day!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-talk">
+          <a href="/Talk/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-comments"></i> <br>
+            
+            Talk
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photos">
+          <a href="/photos/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-image"></i> <br>
+            
+            Photos
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://heywe.cn/2017/03/07/request3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wu Yong">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/ori_sr2x.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wu Yong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">爬虫学习笔记(二)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-07T16:20:56+08:00">
+                2017-03-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/Spider/" itemprop="url" rel="index">
+                    <span itemprop="name">Spider</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/Spider/Requests/" itemprop="url" rel="index">
+                    <span itemprop="name">Requests</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/03/07/request3/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2017/03/07/request3/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center><font size="5" color="red"><b>Beautiful Soup 库</b></font></center>
+
+<a id="more"></a>
+
+<h1 id="Beautiful-Soup-库"><a href="#Beautiful-Soup-库" class="headerlink" title="Beautiful Soup 库"></a>Beautiful Soup 库</h1><p>demo  html: <a href="http://python123.io/ws/demo.html" target="_blank" rel="noopener">http://python123.io/ws/demo.html</a></p>
+<p>这里是基本用法示例。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> requests</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r = requests.get(<span class="string">"http://python123.io/ws/demo.html"</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r.text</span><br><span class="line"><span class="string">'&lt;html&gt;&lt;head&gt;&lt;title&gt;This is a python demo page&lt;/title&gt;&lt;/head&gt;\r\n&lt;body&gt;\r\n&lt;p class="title"&gt;&lt;b&gt;The demo python introduces several python courses.&lt;/b&gt;&lt;/p&gt;\r\n&lt;p class="course"&gt;Python is a wonderful general-purpose programming language. You can learn Python from novice to professional by tracking the following courses:\r\n&lt;a href="http://www.icourse163.org/course/BIT-268001" class="py1" id="link1"&gt;Basic Python&lt;/a&gt; and &lt;a href="http://www.icourse163.org/course/BIT-1001870001" class="py2" id="link2"&gt;Advanced Python&lt;/a&gt;.&lt;/p&gt;\r\n&lt;/body&gt;&lt;/html&gt;'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>demo = r.text</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>soup = BeautifulSoup(demo,<span class="string">'html.parser'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(soup.prettify())</span><br><span class="line">&lt;html&gt;</span><br><span class="line"> &lt;head&gt;</span><br><span class="line">  &lt;title&gt;</span><br><span class="line">   This <span class="keyword">is</span> a python demo page</span><br><span class="line">  &lt;/title&gt;</span><br><span class="line"> &lt;/head&gt;</span><br><span class="line"> &lt;body&gt;</span><br><span class="line">  &lt;p class="title"&gt;</span><br><span class="line">   &lt;b&gt;</span><br><span class="line">    The demo python introduces several python courses.</span><br><span class="line">   &lt;/b&gt;</span><br><span class="line">  &lt;/p&gt;</span><br><span class="line">  &lt;p class="course"&gt;</span><br><span class="line">   Python <span class="keyword">is</span> a wonderful general-purpose programming language. You can learn Python <span class="keyword">from</span> novice to professional by tracking the following courses:</span><br><span class="line">   &lt;a class="py1" href="http://www.icourse163.org/course/BIT-268001" id="link1"&gt;</span><br><span class="line">    Basic Python</span><br><span class="line">   &lt;/a&gt;</span><br><span class="line">   <span class="keyword">and</span></span><br><span class="line">   &lt;a class="py2" href="http://www.icourse163.org/course/BIT-1001870001" id="link2"&gt;</span><br><span class="line">    Advanced Python</span><br><span class="line">   &lt;/a&gt;</span><br><span class="line">   .</span><br><span class="line">  &lt;/p&gt;</span><br><span class="line"> &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>soup = BeautifulSoup(<span class="string">'&lt;p&gt;data&lt;/p&gt;'</span>,<span class="string">'html.parser'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(soup.prettify())</span><br><span class="line">&lt;p&gt;</span><br><span class="line"> data</span><br><span class="line">&lt;/p&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Beautiful-Soup库的理解"><a href="#Beautiful-Soup库的理解" class="headerlink" title="Beautiful Soup库的理解"></a>Beautiful Soup库的理解</h2><h3 id="Beautiful-Soup库的引用"><a href="#Beautiful-Soup库的引用" class="headerlink" title="Beautiful Soup库的引用"></a>Beautiful Soup库的引用</h3><p>Beautiful Soup也叫beautifulsoup4或bs4</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">import</span> bs4</span><br></pre></td></tr></table></figure>
+
+<h3 id="Beautiful-Soup类"><a href="#Beautiful-Soup类" class="headerlink" title="Beautiful Soup类"></a>Beautiful Soup类</h3><p>HTML/XML &lt;-&gt; 标签树 &lt;-&gt; Beautiful Soup类</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>soup = BeautifulSoup(<span class="string">"&lt;html&gt;data&lt;/html&gt;"</span>, <span class="string">"html.parser"</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>soup2 = BeautifulSoup(open(<span class="string">"D://demo.html"</span>), <span class="string">"html.parser"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>BeautifulSoup对于一个HTML/XML文档的全部内容。</li>
+</ul>
+<h3 id="Beautiful-Soup库解析器"><a href="#Beautiful-Soup库解析器" class="headerlink" title="Beautiful Soup库解析器"></a>Beautiful Soup库解析器</h3><table>
+<thead>
+<tr>
+<th>解析器</th>
+<th>使用方法</th>
+<th>条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>bs4的HTML解析器</td>
+<td>BeautifulSoup(mk,’html.parser)</td>
+<td>安装bs4库</td>
+</tr>
+<tr>
+<td>lxml的HTML解析器</td>
+<td>BeautifulSoup(mk,’lxml’)</td>
+<td>pip install lxml</td>
+</tr>
+<tr>
+<td>lxml的XML解析器</td>
+<td>BeautifulSoup(mk,’xml’)</td>
+<td>pip install lxml</td>
+</tr>
+<tr>
+<td>html5lib的解析器</td>
+<td>BeautifulSoup(mk,’html5lib’)</td>
+<td>pip install html5lib</td>
+</tr>
+</tbody></table>
+<h3 id="Beautiful-Soup类的基本元素"><a href="#Beautiful-Soup类的基本元素" class="headerlink" title="Beautiful Soup类的基本元素"></a>Beautiful Soup类的基本元素</h3><table>
+<thead>
+<tr>
+<th>基本元素</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Tag</td>
+<td>标签,最基本的信息组织单元,分别用&lt;&gt;&lt;/&gt;标明开头和结尾</td>
+</tr>
+<tr>
+<td>Name</td>
+<td>标签的名字,&lt;p&gt;…&lt;/p&gt;的名字是’p’,格式:&lt;tag&gt;.name</td>
+</tr>
+<tr>
+<td>Attributes</td>
+<td>标签的属性,字典形式组织,格式:&lt;tag&gt;.attrs</td>
+</tr>
+<tr>
+<td>NavigableString</td>
+<td>标签内非属性字符串,&lt;&gt;…&lt;/&gt;中字符串,格式&lt;tag&gt;.string</td>
+</tr>
+<tr>
+<td>Comment</td>
+<td>标签内字符串的注释部分,一种特殊的Comment类型</td>
+</tr>
+</tbody></table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;..&lt;/p&gt;:标签tag</span><br><span class="line"></span><br><span class="line">&lt;p class=&apos;title&apos;&gt;...&lt;/p&gt;</span><br><span class="line"> ↑    ↑</span><br><span class="line">名称  属性</span><br></pre></td></tr></table></figure>
+
+
+<blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">r = requests.get(<span class="string">"http://python123.io/ws/demo.html"</span>)</span><br><span class="line">demo = r.text</span><br><span class="line">soup = BeautifulSoup(demo, <span class="string">'html.parser'</span>)</span><br><span class="line">print(soup.a.name)</span><br><span class="line">print(soup.a.parent.name)</span><br><span class="line">print(soup.a.parent.parent.name)</span><br><span class="line">tag = soup.a</span><br><span class="line">print(tag.attrs)</span><br><span class="line">print(tag.attrs[<span class="string">'class'</span>])</span><br><span class="line">print(tag.attrs[<span class="string">'href'</span>])</span><br><span class="line">print(type(tag.attrs))</span><br><span class="line">print(type(tag))</span><br><span class="line">print(tag.string)</span><br><span class="line">print(soup.p)</span><br><span class="line">print(soup.p.string)</span><br><span class="line">print(type(soup.p.string))</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="标签树的下行遍历"><a href="#标签树的下行遍历" class="headerlink" title="标签树的下行遍历"></a>标签树的下行遍历</h3><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>.contents</td>
+<td>子节点的列表，将<tag>所有儿子结点存入列表</tag></td>
+</tr>
+<tr>
+<td>.children</td>
+<td>子节点的迭代类型，与.contents类似，用于循环遍历</td>
+</tr>
+<tr>
+<td>.descendants</td>
+<td>子孙节点的迭代类型，包含所有子孙节点，用于循环遍历</td>
+</tr>
+</tbody></table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> child <span class="keyword">in</span> soup.body.children:   <span class="comment"># 遍历儿子节点</span></span><br><span class="line">	print(child)</span><br><span class="line">	</span><br><span class="line"><span class="keyword">for</span> child <span class="keyword">in</span> soup.body.descendants:	<span class="comment"># 遍历子孙节点</span></span><br><span class="line">	print(child)</span><br></pre></td></tr></table></figure>
+
+<h3 id="标签树的上行遍历"><a href="#标签树的上行遍历" class="headerlink" title="标签树的上行遍历"></a>标签树的上行遍历</h3><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>.parent</td>
+<td>节点的父亲标签</td>
+</tr>
+<tr>
+<td>.parents</td>
+<td>节点的先辈标签的迭代类型，用于循环遍历先辈节点</td>
+</tr>
+</tbody></table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>soup = BeautifulSoup(demo, <span class="string">"html.parser"</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> parent <span class="keyword">in</span> soup.a.parents:</span><br><span class="line"> 		 <span class="keyword">if</span> parent <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line"> 				print(parent)</span><br><span class="line"> 		 <span class="keyword">else</span>:</span><br><span class="line">	 			print(parent.name)</span><br><span class="line"><span class="comment"># 遍历所有先辈节点，包括soup本身，所以要区别判断</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="标签树的平行遍历"><a href="#标签树的平行遍历" class="headerlink" title="标签树的平行遍历"></a>标签树的平行遍历</h3><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>.next_sibling</td>
+<td>返回按照HTML文本顺序的下一个平行节点标签</td>
+</tr>
+<tr>
+<td>.previous_sibling</td>
+<td>返回按照HTML文本顺序的上一个平行节点标签</td>
+</tr>
+<tr>
+<td>.next_siblings</td>
+<td>迭代类型，返回按照HTML文本顺序的后续所有平行节点标签</td>
+</tr>
+<tr>
+<td>.previous_siblings</td>
+<td>迭代类型，返回按照HTML文本顺序的前续所有平行节点标签</td>
+</tr>
+</tbody></table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> sibling <span class="keyword">in</span> soup.a.next_siblings: <span class="comment"># 遍历后续节点</span></span><br><span class="line">	print(sibling)</span><br><span class="line">	</span><br><span class="line"><span class="keyword">for</span> sibling <span class="keyword">in</span> soup.a.previous_siblings:  <span class="comment"># 遍历前续节点</span></span><br><span class="line">	print(sibling)</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Buy me a coffe. XD</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/coffe.png" alt="Wu Yong WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/ali_coffe.png" alt="Wu Yong Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+            <a href="/tags/爬虫/" rel="tag"># 爬虫</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/03/request2/" rel="next" title="爬虫学习笔记(一)">
+                <i class="fa fa-chevron-left"></i> 爬虫学习笔记(一)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/10/request4/" rel="prev" title="爬虫学习笔记(三)">
+                爬虫学习笔记(三) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/ori_sr2x.png" alt="Wu Yong">
+            
+              <p class="site-author-name" itemprop="name">Wu Yong</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/ackness" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:ackness8@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Beautiful-Soup-库"><span class="nav-number">1.</span> <span class="nav-text">Beautiful Soup 库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Beautiful-Soup库的理解"><span class="nav-number">1.1.</span> <span class="nav-text">Beautiful Soup库的理解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Beautiful-Soup库的引用"><span class="nav-number">1.1.1.</span> <span class="nav-text">Beautiful Soup库的引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Beautiful-Soup类"><span class="nav-number">1.1.2.</span> <span class="nav-text">Beautiful Soup类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Beautiful-Soup库解析器"><span class="nav-number">1.1.3.</span> <span class="nav-text">Beautiful Soup库解析器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Beautiful-Soup类的基本元素"><span class="nav-number">1.1.4.</span> <span class="nav-text">Beautiful Soup类的基本元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标签树的下行遍历"><span class="nav-number">1.1.5.</span> <span class="nav-text">标签树的下行遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标签树的上行遍历"><span class="nav-number">1.1.6.</span> <span class="nav-text">标签树的上行遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标签树的平行遍历"><span class="nav-number">1.1.7.</span> <span class="nav-text">标签树的平行遍历</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">粤ICP备17074505号</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'j7tOdKhEE2pKVLIyH8bwna8d-gzGzoHsz',
+        appKey: 'g7k1HlUKw6IDpMo2514FMnnh',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

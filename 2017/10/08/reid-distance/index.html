@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Metric Learning,Distance">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="度量学习--常用距离">
+<meta name="keywords" content="Metric Learning,Distance">
+<meta property="og:type" content="article">
+<meta property="og:title" content="re-ID 系列笔记(零)">
+<meta property="og:url" content="http://heywe.cn/2017/10/08/reid-distance/index.html">
+<meta property="og:site_name" content="Wu Yong&#39;s Blog">
+<meta property="og:description" content="度量学习--常用距离">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1fkb7wur1qqj306t0a1404.jpg">
+<meta property="og:updated_time" content="2017-11-04T08:03:15.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="re-ID 系列笔记(零)">
+<meta name="twitter:description" content="度量学习--常用距离">
+<meta name="twitter:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1fkb7wur1qqj306t0a1404.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://heywe.cn/2017/10/08/reid-distance/">
+
+
+
+
+
+  <title>re-ID 系列笔记(零) | Wu Yong's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wu Yong's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Have a nice day!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-talk">
+          <a href="/Talk/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-comments"></i> <br>
+            
+            Talk
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photos">
+          <a href="/photos/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-image"></i> <br>
+            
+            Photos
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://heywe.cn/2017/10/08/reid-distance/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wu Yong">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/ori_sr2x.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wu Yong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">re-ID 系列笔记(零)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-08T22:25:25+08:00">
+                2017-10-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Machine Learning</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/Metric-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Metric Learning</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/Metric-Learning/re-ID/" itemprop="url" rel="index">
+                    <span itemprop="name">re-ID</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/10/08/reid-distance/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2017/10/08/reid-distance/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center><font size="5" color="red"><b>度量学习--常用距离</b></font></center>
+
+<a id="more"></a>
+
+
+<h1 id="Metric-Learning"><a href="#Metric-Learning" class="headerlink" title="Metric Learning"></a>Metric Learning</h1><hr>
+<p>ps:由于mathjax的缺陷,可能导致矢量箭头渲染有问题..就将就着看吧..</p>
+<hr>
+<p>度量学习的概念由Eric Xing 在 NIPS 2002 提出.</p>
+<p>度量学习通常的目标是使同类样本之间的距离尽可能缩小,不同类样本之间的距离尽可能放大.</p>
+<p>度量学习的第一个要接触的概念就是距离.</p>
+<h2 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h2><h3 id="距离"><a href="#距离" class="headerlink" title="距离"></a>距离</h3><h4 id="曼哈顿距离-Manhattan-distance"><a href="#曼哈顿距离-Manhattan-distance" class="headerlink" title="曼哈顿距离 Manhattan distance"></a>曼哈顿距离 Manhattan distance</h4><p>$d = |x_1 - x_2| + |y_1 - y_2|$</p>
+<center>![](https://ws1.sinaimg.cn/large/006tNc79gy1fkb7wyw050j307v07vmxo.jpg)
+
+<p>图来自维基百科</p></center><p></p>
+<p>红蓝黄皆为曼哈顿距离，绿色为欧式距离。</p>
+<h4 id="欧几里得距离-Euclidean-Metric"><a href="#欧几里得距离-Euclidean-Metric" class="headerlink" title="欧几里得距离 Euclidean Metric"></a>欧几里得距离 Euclidean Metric</h4><ul>
+<li><p>在欧几里得空间中，点$x =(x_1,…,x_n)$和 $y =(y_1,…,y_n)$之间的欧氏距离为</p>
+<p>  $d(x,y) := \sqrt {\sum (x_{i}-y_{i})^2},i=1,2,…$</p>
+</li>
+<li><p>向量 $\vec{x}$ 的自然长度，即该点到原点的距离为</p>
+<p>  $||\vec{x}||_2 = \sqrt{|x_1|^2+\cdots+|x_n|^2}$</p>
+<p>  在欧几里得度量下，两点之间线段最短。</p>
+</li>
+<li><p>缺点</p>
+<p>  它将样品的不同属性（即各指标或各变量）之间的差别等同看待，这一点有时不能满足实际要求。</p>
+</li>
+</ul>
+<h4 id="马氏距离"><a href="#马氏距离" class="headerlink" title="马氏距离"></a>马氏距离</h4><p>马氏距离表示数据的协方差距离。与欧式距离不同的是它考虑到各种特性之间的联系,例如身高体重之间是有一定关联的,并且是尺度无关的(scale-invariant),即独立与测量尺度.对于一个均值为$\mu = (\mu_1,\mu_2,\cdots,\mu_p)^T$,协方差矩阵为$\sum$的多变量向量$x=(x_1,x_2,\cdots,x_p)^T$,其马氏距离为</p>
+<p>$D_M(x)=\sqrt {(x-\mu)^T\sum^{-1}(x-\mu)}$</p>
+<p>马氏距离也可以定义为两个服从统一发布的并且协方差矩阵为$\sum$的随机变量$\vec{x}$与$\vec{y}$的差异程度</p>
+<p>$d(\vec{x},\vec{y})=\sqrt{(\vec{x}-\vec{y})^T \sum^{-1}(\vec{x}-\vec{y})}$</p>
+<h4 id="切比雪夫距离-Chebyshev-distance"><a href="#切比雪夫距离-Chebyshev-distance" class="headerlink" title="切比雪夫距离 Chebyshev distance"></a>切比雪夫距离 Chebyshev distance</h4><blockquote>
+<p>数学上，切比雪夫距离（Chebyshev distance）或是$L_∞$度量是向量空间中的一种度量，二个点之间的距离定义为其各座标数值差的最大值。以(x1,y1)和(x2,y2)二点为例，其切比雪夫距离为$max(|x_2-x_1|,|y_2-y_1|)$。切比雪夫距离得名自俄罗斯数学家切比雪夫。<br>若将国际象棋棋盘放在二维直角座标系中，格子的边长定义为1，座标的x轴及y轴和棋盘方格平行，原点恰落在某一格的中心点，则王从一个位置走到其他位置需要的步数恰为二个位置的切比雪夫距离，因此切比雪夫距离也称为棋盘距离。例如位置F6和位置E2的切比雪夫距离为4。任何一个不在棋盘边缘的位置，和周围八个位置的切比雪夫距离都是1。</p>
+</blockquote>
+<br>
+
+<blockquote>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79gy1fkb7wur1qqj306t0a1404.jpg" alt></p>
+</blockquote>
+<blockquote>
+<p>图文摘自维基百科</p>
+</blockquote>
+<h4 id="明可夫斯基距离-明氏距离-Minkowski-distance"><a href="#明可夫斯基距离-明氏距离-Minkowski-distance" class="headerlink" title="明可夫斯基距离(明氏距离) Minkowski distance"></a>明可夫斯基距离(明氏距离) Minkowski distance</h4><blockquote>
+<p>明氏距离又叫做明可夫斯基距离，是欧氏空间中的一种测度，被看做是欧氏距离和曼哈顿距离的一种推广。</p>
+</blockquote>
+<ul>
+<li><p>定义:</p>
+<p>  两点$P=(x_1,x_2,\cdots,x_n)$ , $Q=(y_1,y_2,\cdots,y_n)\in \mathbb{R}^n$</p>
+<p>  之间的明氏距离是:</p>
+<p>  $$(\sum_{i=1}^n{|x_i-y_i|^p})^{1/p}$$</p>
+<p>  p取1或2时的明氏距离是最为常用的，p=2即为欧氏距离，而p=1时则为曼哈顿距离。当p取无穷时的极限情况下，可以得到切比雪夫距离：</p>
+<p>  $$\lim\limits_{p \rightarrow \infty}(\sum_{i=1}^n|x_i-y_i|^p)^{1/p}=\max_{i=1}^n|x_i-y_i|$$</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Buy me a coffe. XD</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/coffe.png" alt="Wu Yong WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/ali_coffe.png" alt="Wu Yong Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          
+            <a href="/tags/Tracking/" rel="tag"># Tracking</a>
+          
+            <a href="/tags/Deep-Learning/" rel="tag"># Deep Learning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/29/python-high-level/" rel="next" title="Python常见的高级特性">
+                <i class="fa fa-chevron-left"></i> Python常见的高级特性
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/03/reid-kissme/" rel="prev" title="re-ID 系列笔记(一)">
+                re-ID 系列笔记(一) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/ori_sr2x.png" alt="Wu Yong">
+            
+              <p class="site-author-name" itemprop="name">Wu Yong</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/ackness" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:ackness8@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Metric-Learning"><span class="nav-number">1.</span> <span class="nav-text">Metric Learning</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#相关概念"><span class="nav-number">1.1.</span> <span class="nav-text">相关概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#距离"><span class="nav-number">1.1.1.</span> <span class="nav-text">距离</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#曼哈顿距离-Manhattan-distance"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">曼哈顿距离 Manhattan distance</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#欧几里得距离-Euclidean-Metric"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">欧几里得距离 Euclidean Metric</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#马氏距离"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">马氏距离</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#切比雪夫距离-Chebyshev-distance"><span class="nav-number">1.1.1.4.</span> <span class="nav-text">切比雪夫距离 Chebyshev distance</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#明可夫斯基距离-明氏距离-Minkowski-distance"><span class="nav-number">1.1.1.5.</span> <span class="nav-text">明可夫斯基距离(明氏距离) Minkowski distance</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">粤ICP备17074505号</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'j7tOdKhEE2pKVLIyH8bwna8d-gzGzoHsz',
+        appKey: 'g7k1HlUKw6IDpMo2514FMnnh',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

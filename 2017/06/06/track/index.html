@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="tracking">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="没事读读目标跟踪的资料论文">
+<meta name="keywords" content="tracking">
+<meta property="og:type" content="article">
+<meta property="og:title" content="目标跟踪">
+<meta property="og:url" content="http://heywe.cn/2017/06/06/track/index.html">
+<meta property="og:site_name" content="Wu Yong&#39;s Blog">
+<meta property="og:description" content="没事读读目标跟踪的资料论文">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://olq8hji1u.bkt.clouddn.com/20170512149457817358698.jpg">
+<meta property="og:image" content="http://olq8hji1u.bkt.clouddn.com/20170512149458086758677.jpg">
+<meta property="og:image" content="http://olq8hji1u.bkt.clouddn.com/20170601149628621696254.png">
+<meta property="og:image" content="http://olq8hji1u.bkt.clouddn.com/20170603149645819879466.jpg">
+<meta property="og:image" content="http://olq8hji1u.bkt.clouddn.com/20170603149645808433027.jpg">
+<meta property="og:updated_time" content="2017-11-03T08:58:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="目标跟踪">
+<meta name="twitter:description" content="没事读读目标跟踪的资料论文">
+<meta name="twitter:image" content="http://olq8hji1u.bkt.clouddn.com/20170512149457817358698.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://heywe.cn/2017/06/06/track/">
+
+
+
+
+
+  <title>目标跟踪 | Wu Yong's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wu Yong's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Have a nice day!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-talk">
+          <a href="/Talk/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-comments"></i> <br>
+            
+            Talk
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photos">
+          <a href="/photos/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-image"></i> <br>
+            
+            Photos
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://heywe.cn/2017/06/06/track/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wu Yong">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/ori_sr2x.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wu Yong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">目标跟踪</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-06T13:13:35+08:00">
+                2017-06-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Machine Learning</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/Deep-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Deep Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/06/06/track/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2017/06/06/track/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center><font size="5" color="red"><b>没事读读目标跟踪的资料论文</b></font></center>
+
+<a id="more"></a>
+
+<h1 id="目标跟踪"><a href="#目标跟踪" class="headerlink" title="目标跟踪"></a>目标跟踪</h1><h2 id="视频目标跟踪系统框架和关键技术"><a href="#视频目标跟踪系统框架和关键技术" class="headerlink" title="视频目标跟踪系统框架和关键技术"></a>视频目标跟踪系统框架和关键技术</h2><h3 id="运动模型"><a href="#运动模型" class="headerlink" title="运动模型"></a>运动模型</h3><p>目前 运动模型主要分为三种:</p>
+<ol>
+<li>均值漂移 (Mean shift)</li>
+<li>滑动窗口 (Slide window)</li>
+<li>粒子滤波 (Particle filter)</li>
+</ol>
+<blockquote>
+<p>1) 均值漂移 (Mean shift)<br>均值漂移, 是一种基于核密度估计的非参数估计方法.为经典跟踪方法. 在跟踪时, 需要设定一个目标函数来计算目标与候选窗口的核密度, 而后利用 Bhattacharyya 准则作为匹配条件, 通过移动均值向量来不断优化目标函数从而完成目标搜索. 由于通过梯度优化来完成搜索, 因此基于均值漂移的跟踪算法运行速度快、实时性高.</p>
+</blockquote>
+<blockquote>
+<p>2) 滑动窗口 (Slide window)<br>在目标周边正方形或者圆形范围内进行穷举搜 索的采样策略, 也称为密集采样. 这种方式将搜索范围内所有可能的潜在位置都予以考虑, 但是要付出 较大的计算代价.</p>
+</blockquote>
+<blockquote>
+<p>3) 粒子滤波 (Particle filter)<br>粒子滤波在经典的卡尔曼滤波的基础上发展而来, 先验概率密度用加权粒采样样本 (粒子) 来近 似表示. 每个粒子的权值表示了该样本的重要程度. 每次跟踪结果确定后, 会根据不同粒子的重要程度进行重采样. 粒子滤波方法具有较高的计算效率, 同 可以融入仿射变换信息, 因此目前在一些较好的跟踪算法中应用较多. [^1]</p>
+</blockquote>
+<h3 id="特征提取"><a href="#特征提取" class="headerlink" title="特征提取"></a>特征提取</h3><p>对于视频目标跟踪而言,好的特征应该具备两个基本性质:</p>
+<ol>
+<li>具有较强的区分度</li>
+<li>具有较高的计算效率,以满足跟踪的实时性</li>
+</ol>
+<blockquote>
+<p>目前跟踪算法采用的特征分为人工特征和学习特征两类.人工特征可以分为外观特征和运动特征.外观特征是从目标的物理直观出发, 通过结合数学工具设计出来的特征.运动特征是针对视频的特点, 从视频帧之间的时间关联性出发设计的特征, 这些 特征是静态图像中所没有的. 由机器自动学习到的特征为学习特征. 这些特征通过机器学习的方式自动提取, 无需事先知道目标的物理性质, 从而可以大大提高特征提取的效率. 目前以深度学习为代表的特征学习方法已经成为计算机领域的前沿和热点.</p>
+</blockquote>
+<h4 id="人工特征"><a href="#人工特征" class="headerlink" title="人工特征"></a>人工特征</h4><ul>
+<li>外观特征</li>
+</ul>
+<blockquote>
+<p>外观特征总体上可以分为四类: 灰度特征、颜色特征、梯度特征和纹理特征.</p>
+</blockquote>
+<blockquote>
+<p>灰度特征计算效率高,可以分为原始灰度特征、灰度直方图特征、区域灰度变化特征 (Haar 特征) 三种表征形式. </p>
+</blockquote>
+<blockquote>
+<p>颜色特征主要分为两种: 一种以颜色直方图来表征,另一种则是近年来兴起的具有更好表征能力的 Color name 特征. 颜色特征对姿态、尺度等不敏感, 用于非刚体跟踪时具有一定优势. 但其受光照影响较大, 同时易受颜色相近背景的干扰.</p>
+</blockquote>
+<blockquote>
+<p>纹理特征是对目标外观细节、规则程度的量化,目前跟踪算法中常用的纹理特征是局部二值模式 (Local binary pattern, LBP),纹理特征可以较好地描述目标外观的细节, 但是对于纹理细节少、小尺度、远距离或者背景纹理复杂的目标描述能力较差, 此时跟踪效果往往不理想.</p>
+</blockquote>
+<blockquote>
+<p>梯度特征通过统计目标图像局部的梯度分布来表征外观. 目前主要有 SIFT (Scale invariant feature transform) 特征及其加速版本 SURF (Speeded up robust features) 特征,实时性较差.另一种梯度特征是 HOG (Histogram of oriented gradient) </p>
+</blockquote>
+<ul>
+<li>运动特征</li>
+</ul>
+<p>运动特征旨在挖掘视频帧之间的时空关联性.</p>
+<blockquote>
+<p>光流法: 是对局部图像运动的一种近似表达, 主要通过计算给定视频中局部图像的时间与空间导数, 近 似得出二维运动场.目前有 LK 算法和 HS 算法,LK 算法运算效率较高.</p>
+</blockquote>
+<h3 id="学习特征"><a href="#学习特征" class="headerlink" title="学习特征"></a>学习特征</h3><p>PCA 可以被视为最早的自动特征提取的方法.近几年深度学习的方法成为目前最强的自动特征提取方法.</p>
+<h3 id="外观模型"><a href="#外观模型" class="headerlink" title="外观模型"></a>外观模型</h3><p>之后的会介绍到的产生式和判别式模型正是属于这里的外观模型.</p>
+<h3 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h3><blockquote>
+<p>目前更新策略研究相对较少, 主要的更新策略有:</p>
+</blockquote>
+<blockquote>
+<p>1) 每一帧都进行更新. 该方式较简单, 目前应用较多. 但由于太过频繁, 增加了漂移的可能性.</p>
+</blockquote>
+<blockquote>
+<p>2) 每隔一定的帧数才更新一次.</p>
+</blockquote>
+<blockquote>
+<p>3) 当响应分数 (匹配或分类得分) 低于一定阈值时才更新. 低于阈值往往说明目标外观已发生较大变化. 在该策略中, 增加了对外观变化程度的判断, 减少了更新频率, 因而比策略 1) 效果好一些.</p>
+</blockquote>
+<blockquote>
+<p>4) 分别计算正负样本的响应分数, 当两者的差值低于一定阈值时更新. 该方式在判别式模型中采用. 由于考虑了前景与背景的差异度量, 可使跟踪器具有更好的鉴别能力.</p>
+</blockquote>
+<h2 id="经典的目标跟踪方法分类"><a href="#经典的目标跟踪方法分类" class="headerlink" title="经典的目标跟踪方法分类"></a>经典的目标跟踪方法分类</h2><p>目前分为两大类别</p>
+<ul>
+<li>产生式(generative model)</li>
+</ul>
+<blockquote>
+<p>产生式方法运用生成模型描述目标的表观特征，之后通过搜索候选目标来最小化重构误差。比较有代表性的算法有稀疏编码(sparse coding)，在线密度估计(online density estimation)和主成分分析(PCA)等。产生式方法着眼于对目标本身的刻画，忽略背景信息，在目标自身变化剧烈或者被遮挡时容易产生漂移。</p>
+</blockquote>
+<ul>
+<li>判别式(discriminative model)</li>
+</ul>
+<blockquote>
+<p>与之相对的，判别式方法通过训练分类器来区分目标和背景。这种方法也常被称为tracking-by-detection。近年来，各种机器学习算法被应用在判别式方法上，其中比较有代表性的有多示例学习方法(multiple instance learning), boosting和结构SVM(structured SVM)等。</p>
+</blockquote>
+<blockquote>
+<p>判别式方法因为显著区分背景和前景的信息，表现更为鲁棒，逐渐在目标跟踪领域占据主流地位。值得一提的是，目前大部分深度学习目标跟踪方法也归属于判别式框架。</p>
+</blockquote>
+<h2 id="基于深度学习的目标跟踪"><a href="#基于深度学习的目标跟踪" class="headerlink" title="基于深度学习的目标跟踪"></a>基于深度学习的目标跟踪</h2><p>训练数据较小,目标跟踪仅提供第一帧的bounding-box作为训练数据。</p>
+<p>在线训练深层网络比较困难,在视觉对象跟踪中,缺乏对一个对象的先验知识.</p>
+<h3 id="利用辅助图片预训练深度模型，在线跟踪时微调"><a href="#利用辅助图片预训练深度模型，在线跟踪时微调" class="headerlink" title="利用辅助图片预训练深度模型，在线跟踪时微调"></a>利用辅助图片预训练深度模型，在线跟踪时微调</h3><h4 id="DLT-和-SO-DLT-王乃岩"><a href="#DLT-和-SO-DLT-王乃岩" class="headerlink" title="DLT 和 SO-DLT  王乃岩"></a>DLT 和 SO-DLT  王乃岩</h4><h6 id="DLT"><a href="#DLT" class="headerlink" title="DLT"></a>DLT</h6><p><img src="http://olq8hji1u.bkt.clouddn.com/20170512149457817358698.jpg" alt="20170512149457817358698.jpg"></p>
+<p>使用栈式降噪自编码器(stacked denoising autoencoder，SDAE)在Tiny Images dataset上进行无监督离线预训练。将32*32的彩色图片转为灰度图(文章说彩色图也可以)，传入的是1024维向量，进行训练。应用SDAE 1024-2560-2014-512-256主要的瓶颈式结构，如图b。</p>
+<p>跟踪时采取图c的策略，取得b的encoding部分，加入sigmoid分类层，组成分类网络，这时候没有获取对当前被跟踪物体的特定表达能力，此时利用第一帧获取正负样本，对分类网络径向fine-tune获得对当前跟踪目标和背景更有针对性的分类网络。在跟踪过程中，对当前帧采用粒子滤波(particle filter)的方式提取一批候选的patch(相当于detection中的proposal)，这些patch输入分类网络中，置信度最高的成为最终的预测目标。</p>
+<p>在目标跟踪上，论文采用了限定阈值的方式，即去所有粒子中最高的confidence低于阈值时，认为目标已经发生了较大变化，当前分类网络已经无法适应，需要更新。</p>
+<blockquote>
+<p>存在的问题：<br><br>(1)离线预训练采用的数据集Tiny Images dataset只包含32*32大小的图片，分辨率明显低于主要的跟踪序列，因此SDAE很难学到足够强的特征表示。<br><br>(2)离线阶段的训练目标为图片重构，这与在线跟踪需要区分目标和背景的目标相差甚大。<br><br>(3)SDAE全连接的网络结构使其对目标的特征刻画能力不够优秀，虽然使用了4层的深度模型，但效果仍低于一些使用人工特征的传统跟踪方法如Struck等。</p>
+</blockquote>
+<h5 id="SO-DLT"><a href="#SO-DLT" class="headerlink" title="SO-DLT"></a>SO-DLT</h5><p><img src="http://olq8hji1u.bkt.clouddn.com/20170512149458086758677.jpg" alt="20170512149458086758677.jpg"></p>
+<p>主要延续了DLT利用非跟踪数据预训练加在线微调的策略，来解决跟踪过程中训练数据不足的问题，同时对DLT问题做了很大改进。<br><br>使用CNN作为提取特征和分类的网络模型，结构类似于AlexNet，根据跟踪候选区域的大小输入为100*100，而不是分类或者检测的224*224。输出为50*50，值是在0-1之间的概率图。概率图的每一个像素代表着原图2*2的区域，输出值越高表示该点在目标bounding box中的概率越高，意思就是是否属于分类检测出来的物体。<br><br>在卷积层和全连接层采用SPP-NET中的空间金字塔池化(spatial pyramid pooling)提高精度。<a href="http://blog.csdn.net/liyaohhh/article/details/50614380" target="_blank" rel="noopener">这里有SPP的简单介绍</a></p>
+<h3 id="Hierarchical-Convolutional-Features-for-Visual-Tracking-ICCV15"><a href="#Hierarchical-Convolutional-Features-for-Visual-Tracking-ICCV15" class="headerlink" title="Hierarchical Convolutional Features for Visual Tracking(ICCV15)"></a>Hierarchical Convolutional Features for Visual Tracking(ICCV15)</h3><p>采用了 CNN 提取特征.具体的可以看下面的代码和中文笔记.</p>
+<p><a href="https://github.com/jbhuang0604/CF2" target="_blank" rel="noopener">Github源码</a></p>
+<p><a href="http://blog.csdn.net/autocyz/article/details/50827010" target="_blank" rel="noopener">中文笔记</a></p>
+<h3 id="MDNET-Multi-Domain-Network"><a href="#MDNET-Multi-Domain-Network" class="headerlink" title="MDNET(Multi-Domain Network)"></a>MDNET(Multi-Domain Network)</h3><p>paper: Learning Multi-Domain Convolutional Neural Networks for Visual Tracking<br>CVPR 2016</p>
+<p>CNN 中因为训练数据较少的原因,用很难直接套用之前的网络提取特征.之前分类问题表现较好的 CNN 就很难直接在跟踪定位问题方面应用.</p>
+<p>文章中提到的之前基于 CNN 的目标跟踪算法</p>
+<blockquote>
+<p>J. Fan, W. Xu, Y. Wu, and Y. Gong. Human tracking us-<br>ing convolutional neural networks. IEEE Trans. Neural Net-<br>works, 21(10):1610–1623, 2010. </p>
+</blockquote>
+<blockquote>
+<p>S. Hong, T. You, S. Kwak, and B. Han. Online tracking by learning discriminative saliency map with convolutional neural network. In ICML, 2015.</p>
+</blockquote>
+<blockquote>
+<p>H. Li, Y. Li, and F. Porikli. DeepTrack: Learning discrimina- tive feature representations by convolutional neural networks for visual tracking. In BMVC, 2014.</p>
+</blockquote>
+<blockquote>
+<p>N. Wang, S. Li, A. Gupta, and D.-Y. Yeung. Transferring rich feature hierarchies for robust visual tracking. arXiv preprint arXiv:1501.04587, 2015.</p>
+</blockquote>
+<p><img src="http://olq8hji1u.bkt.clouddn.com/20170601149628621696254.png" alt="20170601149628621696254.png"></p>
+<center>MDNet的结构</center>
+
+<p>MDNet 中 CNN 只有 3层 CONV 和 2层 FC ,很浅.</p>
+<p>论文中提到了为什么选用这种结构,大概意思就是视觉跟踪对于复杂分类的 ImageNet 复杂度较低,就是区分目标和背景2类.第二 CNN 对于精确目标定位的效率变低,因为随着网络的深入,空间信息会被稀释.第三,视觉跟踪的目标比较小,所以期望输入的尺寸小,所以降低了网络的深度,在网络更新测试时一个小的网络会更有效率..(这里有人提出了质疑)..反正这个肯定是作者先试了很多个结构,最后发现这个不错,最后再编原因的…论文嘛,你懂的.</p>
+<blockquote>
+<p>Our network architecture is substantially smaller than the ones commonly used in typical recognition tasks such as AlexNet [27] and VGG-Nets [5, 34]. We believe that such a simple architecture is more appropriate for visual tracking due to the following reasons. First, visual tracking aims to distinguish only two classes, target and background, which requires much less model complexity than general visual recognition problems such as ImageNet classification with 1000 classes. Second, a deep CNN is less effective for pre- cise target localization since the spatial information tends to be diluted as a network goes deeper [20]. Third, since targets in visual tracking are typically small, it is desirable to make input size small, which reduces the depth of the network naturally. Finally, a smaller network is obviously more efficient in visual tracking problem, where training and testing are performed online. When we tested larger networks, the algorithm is less accurate and becomes slower significantly.</p>
+</blockquote>
+<p>学习的算法大概原理是训练一个 Multi-domain CNN 区分一个任意 domain 的目标和背景.<br>虽然 domian 不同但是对于某些属性特征是通用的.例如光照变化,运动的模糊,尺寸变化的鲁棒性等..<br>CNN 用的是 SGD 训练.</p>
+<p><a href="http://backnode.github.io/pages/2015/11/02/CNN-for-tracking.html" target="_blank" rel="noopener">论文中文笔记:backnode</a></p>
+<p><a href="http://www.cnblogs.com/wangxiaocvpr/p/5598608.html" target="_blank" rel="noopener">论文中文笔记:wangxiao</a></p>
+<h3 id="siamese-fc"><a href="#siamese-fc" class="headerlink" title="siamese-fc"></a>siamese-fc</h3><p><a href="https://arxiv.org/abs/1606.09549" target="_blank" rel="noopener">paper:Fully-Convolutional Siamese Networks for Object Tracking</a></p>
+<p><a href="https://github.com/bertinetto/siamese-fc" target="_blank" rel="noopener">Github-source</a></p>
+<p>牛津视觉研究所的发的论文.</p>
+<p><img src="http://olq8hji1u.bkt.clouddn.com/20170603149645819879466.jpg" alt="20170603149645819879466.jpg"></p>
+<p>提出一种<code>全卷积</code>的孪生网络结构</p>
+<p>学习去跟踪任意的物体，通过相似性学习的方法来解决。利用卷积神经网络来解决相似性函数的学习问题。并且通常用 Siamese architecture 来充当深度卷积网络。</p>
+<p>先说自己是目前实时性最高,效果最好的方法.<br><br>然后论文套路说之前一些网络存在的问题,对浅层的方法没有充分利用到端到端的好处,而且在跟踪过程中使用 SGD 没有办法在达到好结果的前提下达到实时性.</p>
+<p>利用 ImageNet video 进行 offline 的训练。这个数据集有 80多G 标注好的 video。<br><br>然后继续数据处理,比如排除一些类别:sanke,train,whale,lizard 等,这些物体经常只出现身体的某一个部分.而且在边缘出现. 排除太小或者太大的物体.  排除离边界很近的.</p>
+<p>由于采用了全卷积,优点很明显,一是可以接受任意大小的输入图像，而不用要求所有的训练图像和测试图像具有同样的尺寸。二是更加高效，因为避免了由于使用像素块而带来的重复存储和计算卷积的问题。</p>
+<p><a href="http://www.cnblogs.com/wangxiaocvpr/p/5897461.html" target="_blank" rel="noopener">中文笔记:wangxiao</a></p>
+<h3 id="CFNet"><a href="#CFNet" class="headerlink" title="CFNet"></a>CFNet</h3><p>依然是牛津视觉研究所(CVPR 17).</p>
+<p><a href="https://arxiv.org/abs/1704.06036v1" target="_blank" rel="noopener">paper:End-to-end representation learning for Correlation Filter based tracking</a></p>
+<p><a href="https://github.com/bertinetto/cfnet" target="_blank" rel="noopener">github-source</a></p>
+<p><img src="http://olq8hji1u.bkt.clouddn.com/20170603149645808433027.jpg" alt="20170603149645808433027.jpg"></p>
+<p>提出 CFNet 的结构,在训练时加入一个 CF 滤波器.然后进行 crop .</p>
+<p>介绍说是能够学习到更深层次的特征.而且可以实现实时.<br><br>第二个版本相比较于第一个版本利用了 CF 进行在线学习,它的速度比使用 SGD 更有效率.<br><br>这个提出将 CF 的在线学习的效率与 CNN 的辨别能力结合起来.然后说在足够深的网络中, CF 不能改善结果.<br>后面是大量的数学公式….</p>
+<h2 id="目标跟踪算法的评价方法"><a href="#目标跟踪算法的评价方法" class="headerlink" title="目标跟踪算法的评价方法"></a>目标跟踪算法的评价方法</h2><p>三个要求: 准确性 鲁棒性 高效性</p>
+<ul>
+<li>准确性</li>
+</ul>
+<ol>
+<li>偏移(Deviation)</li>
+<li>误检(False positive)</li>
+<li>漏检(False negative)</li>
+</ol>
+<ul>
+<li>鲁棒性</li>
+</ul>
+<p>在大多数不同的视频中表现性能都较高.能应对复杂多样的场景.</p>
+<ul>
+<li>高效性</li>
+</ul>
+<p>实时性!</p>
+<h3 id="总体性能要求的评价准则"><a href="#总体性能要求的评价准则" class="headerlink" title="总体性能要求的评价准则"></a>总体性能要求的评价准则</h3><ol>
+<li><p>中心误差 (Center location error): 每一帧中跟踪器输出的矩形框中心与实际中心位置的欧氏距 离. 加和后取平均值为平均中心误差. 中心误差越小, 说明跟踪效果越好.</p>
+</li>
+<li><p>重叠率 (Overlap rate): 设 $S_T$ 是跟踪器输出的跟踪框区域, $S_G$ 为实际目标区域, 则重叠率的定义为两者的交集与并集的比值, 即: </p>
+
+$ R = {{area({S_T}∩{S_G})} \over {area({S_T}∪{S_G})}} $ 
+
+<p>, 重叠率越高, 说明跟踪效果越好.</p>
+</li>
+<li><p>成功率 (Success rate): 对于每一帧而言, 若中心误差小于一定阈值或重叠率大于一定阈值则认为该帧跟踪成功. 跟踪成功的帧数同视频序列总帧数的比值称为成功率.</p>
+</li>
+<li><p>精度图 (Precision plot) 与成功图 (Success plot): 将 3) 中所设置的阈值在一定范围内变动时, 会得到一系列的成功率数值所构成的曲线图, 当对应于中心误差时构成的曲线称为精度图; 对应于重 叠率时称为成功图.</p>
+</li>
+<li><p>时间鲁棒性度量 (Temporal robustness eval- uation, TRE) 和空间鲁棒性度量 (Spatial robust- ness evaluation, SRE). TRE 跟踪器用测 试视频序列中的随机的一帧进行初始化而不是第一帧, 作出其相应的成功图, 以此来衡量跟踪器在时间 轴上的鲁棒性. SRE 跟踪器用第一帧初始化, 但对 初始跟踪框位置进行了一定的平移、缩放等微小扰动, 做出相应的成功图, 以此来测试跟踪器能否在随后帧中稳定跟踪住目标.</p>
+</li>
+<li><p>FPS (Frames per second) 每秒处理的帧数, 是一个用来衡量跟踪算法处理效率和速度的常用指标.</p>
+</li>
+</ol>
+<h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><p>持续更新…</p>
+<ul>
+<li><p>图像识别 ImageNet</p>
+</li>
+<li><p>目标检测 Pascal VOC </p>
+</li>
+<li><p>视频检索 TRECVID</p>
+</li>
+<li><p>视频跟踪 VTB , Object Tracking Benchmark , VOT</p>
+</li>
+</ul>
+<p>参考：</p>
+<p><a href="http://mp.weixin.qq.com/s?__biz=MzI1NTE4NTUwOQ==&mid=2650325425&idx=1&sn=3f3a9ce9aef82af63b28286081c93386#rd" target="_blank" rel="noopener">深度学习在目标跟踪中的应用</a></p>
+<p>[^1]: 管皓, 薛向阳, 安志勇. 深度学习在视频目标跟踪中的应用进展与展望. 自动化学报, 2016, 42(6): 834−847</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Buy me a coffe. XD</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/coffe.png" alt="Wu Yong WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/ali_coffe.png" alt="Wu Yong Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          
+            <a href="/tags/Tracking/" rel="tag"># Tracking</a>
+          
+            <a href="/tags/Deep-Learning/" rel="tag"># Deep Learning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/26/mlenv/" rel="next" title="搭建一个机器学习的环境">
+                <i class="fa fa-chevron-left"></i> 搭建一个机器学习的环境
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/10/opencv-install/" rel="prev" title="macOS Sierra源码编译 opencv3.2">
+                macOS Sierra源码编译 opencv3.2 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/ori_sr2x.png" alt="Wu Yong">
+            
+              <p class="site-author-name" itemprop="name">Wu Yong</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/ackness" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:ackness8@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目标跟踪"><span class="nav-number">1.</span> <span class="nav-text">目标跟踪</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#视频目标跟踪系统框架和关键技术"><span class="nav-number">1.1.</span> <span class="nav-text">视频目标跟踪系统框架和关键技术</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#运动模型"><span class="nav-number">1.1.1.</span> <span class="nav-text">运动模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特征提取"><span class="nav-number">1.1.2.</span> <span class="nav-text">特征提取</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#人工特征"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">人工特征</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#学习特征"><span class="nav-number">1.1.3.</span> <span class="nav-text">学习特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#外观模型"><span class="nav-number">1.1.4.</span> <span class="nav-text">外观模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新"><span class="nav-number">1.1.5.</span> <span class="nav-text">更新</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#经典的目标跟踪方法分类"><span class="nav-number">1.2.</span> <span class="nav-text">经典的目标跟踪方法分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于深度学习的目标跟踪"><span class="nav-number">1.3.</span> <span class="nav-text">基于深度学习的目标跟踪</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#利用辅助图片预训练深度模型，在线跟踪时微调"><span class="nav-number">1.3.1.</span> <span class="nav-text">利用辅助图片预训练深度模型，在线跟踪时微调</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DLT-和-SO-DLT-王乃岩"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">DLT 和 SO-DLT  王乃岩</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#DLT"><span class="nav-number">1.3.1.1.0.1.</span> <span class="nav-text">DLT</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SO-DLT"><span class="nav-number">1.3.1.1.1.</span> <span class="nav-text">SO-DLT</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hierarchical-Convolutional-Features-for-Visual-Tracking-ICCV15"><span class="nav-number">1.3.2.</span> <span class="nav-text">Hierarchical Convolutional Features for Visual Tracking(ICCV15)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MDNET-Multi-Domain-Network"><span class="nav-number">1.3.3.</span> <span class="nav-text">MDNET(Multi-Domain Network)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#siamese-fc"><span class="nav-number">1.3.4.</span> <span class="nav-text">siamese-fc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CFNet"><span class="nav-number">1.3.5.</span> <span class="nav-text">CFNet</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目标跟踪算法的评价方法"><span class="nav-number">1.4.</span> <span class="nav-text">目标跟踪算法的评价方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#总体性能要求的评价准则"><span class="nav-number">1.4.1.</span> <span class="nav-text">总体性能要求的评价准则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据集"><span class="nav-number">1.5.</span> <span class="nav-text">数据集</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">粤ICP备17074505号</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'j7tOdKhEE2pKVLIyH8bwna8d-gzGzoHsz',
+        appKey: 'g7k1HlUKw6IDpMo2514FMnnh',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

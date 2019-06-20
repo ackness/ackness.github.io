@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Requests, Python">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Requests库学习笔记">
+<meta name="keywords" content="Requests, Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python Requests库学习笔记">
+<meta property="og:url" content="http://heywe.cn/2017/03/01/request/index.html">
+<meta property="og:site_name" content="Wu Yong&#39;s Blog">
+<meta property="og:description" content="Requests库学习笔记">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-11-03T09:04:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python Requests库学习笔记">
+<meta name="twitter:description" content="Requests库学习笔记">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://heywe.cn/2017/03/01/request/">
+
+
+
+
+
+  <title>Python Requests库学习笔记 | Wu Yong's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wu Yong's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Have a nice day!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-talk">
+          <a href="/Talk/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-comments"></i> <br>
+            
+            Talk
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photos">
+          <a href="/photos/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-image"></i> <br>
+            
+            Photos
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://heywe.cn/2017/03/01/request/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wu Yong">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/ori_sr2x.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wu Yong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python Requests库学习笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-01T11:14:51+08:00">
+                2017-03-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/Spider/" itemprop="url" rel="index">
+                    <span itemprop="name">Spider</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/Spider/Requests/" itemprop="url" rel="index">
+                    <span itemprop="name">Requests</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/03/01/request/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2017/03/01/request/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center><font size="5" color="red"><b>Requests库学习笔记</b></font></center>
+
+<a id="more"></a>
+
+<h1 id="Requests库学习笔记"><a href="#Requests库学习笔记" class="headerlink" title="Requests库学习笔记"></a>Requests库学习笔记</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><a href="http://docs.python-requests.org/en/master/" target="_blank" rel="noopener">Requests: HTTP for Humans</a><br></p>
+<p>该库作者(<a href="https://www.kennethreitz.org" target="_blank" rel="noopener">KENNETH REITZ</a>)</p>
+<p><a href="http://httpbin.org" target="_blank" rel="noopener">http://httpbin.org</a></p>
+<h2 id="利用-GitHub-API-学习"><a href="#利用-GitHub-API-学习" class="headerlink" title="利用 GitHub API 学习"></a>利用 GitHub API 学习</h2><p><a href="https://developer.github.com" target="_blank" rel="noopener">https://developer.github.com</a></p>
+<h3 id="请求方法"><a href="#请求方法" class="headerlink" title="请求方法"></a>请求方法</h3><font color="red" size="2">
+
+<ul>
+<li>GET: 查看资源<br></li>
+<li>POST: 增加资源</li>
+</ul>
+</font>
+
+<font color="blue" size="2">
+
+<ul>
+<li>PUT: 修改资料<br> </li>
+<li>DELETE: 删除资源</li>
+</ul>
+</font>
+
+<font color="orange" size="2">
+
+<ul>
+<li>HEAD: 查看响应头<br> </li>
+<li>OPTIONS: 查看可用请求方法</li>
+</ul>
+</font>
+
+
+<h3 id="带参数的请求"><a href="#带参数的请求" class="headerlink" title="带参数的请求"></a>带参数的请求</h3><ol>
+<li><p>URL Parameters: URL参数</p>
+<ul>
+<li><a href="https://list.tmall.com/search_product.html" target="_blank" rel="noopener">https://list.tmall.com/search_product.html</a>?<font color="red">cat=50514037&amp;…</font></li>
+<li>params: requests.get(url,<code>params</code>={‘key1’:’value1’})</li>
+</ul>
+</li>
+<li><p>表单参数提交：</p>
+<ul>
+<li>Content-Type: application/x-www-form-urlencoded</li>
+<li>内容: key1=value1&amp;key2=value2</li>
+<li>requests.post(url,data={‘key1’:’value1’,’key2’:’value2’})</li>
+</ul>
+</li>
+<li><p>json参数提交：</p>
+<ul>
+<li>Content-Type: application/json</li>
+<li>内容: ‘{‘key1’:’value1’,’key2’:’value2’}’</li>
+<li>requests.post(url,json={‘key1’:’value1’,’key2’:’value2’})</li>
+</ul>
+</li>
+</ol>
+<h3 id="请求异常处理"><a href="#请求异常处理" class="headerlink" title="请求异常处理"></a>请求异常处理</h3><p><code>requests库</code>包括的异常都继承自<code>requests.exceptions.RequestException</code>类<br></p>
+<center>这是request库包含的所有异常</center>
+
+
+<ul>
+<li>BaseHTTPError</li>
+<li>ChunkedEncodingError</li>
+<li>ConnectTimeout</li>
+<li>ConnectionError</li>
+<li>ContentDecodingError</li>
+<li>HTTPError</li>
+<li>InvalidSchema</li>
+<li>InvalidURL</li>
+<li>MissingSchema</li>
+<li>ProxyError</li>
+<li>ReadTimeout</li>
+<li>RequestException</li>
+<li>RetryError</li>
+<li>SSLError</li>
+<li>StreamConsumedError</li>
+<li>Timeout</li>
+<li>TooMangRedirects</li>
+<li>URLRequired</li>
+</ul>
+<blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">其中常见的</span><br><span class="line">ConnectionError  由于网络原因，无法建立连接。</span><br><span class="line">HTTPError 如果响应的状态码不为<span class="number">200</span>,Response.<span class="keyword">raise</span>\_for\_status()会抛出HTTPError 异常。</span><br><span class="line">Timeout 超时异常。</span><br><span class="line">TooManyRedirects 若请求超过了设定的最大重定向次数，则会抛出一TooManyRedirects 异常。</span><br></pre></td></tr></table></figure>
+</blockquote>
+<ul>
+<li>请求超时处理<br></li>
+</ul>
+<blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">requests.get(url,timeout=(<span class="number">3</span>,<span class="number">7</span>))   <span class="comment"># TCP协议三次握手,对于1过程等待3秒,2过程等待7秒</span></span><br><span class="line">requests.get(url,timeout=<span class="number">10</span>)   <span class="comment"># 总过程10秒</span></span><br><span class="line"></span><br><span class="line">&gt; requests.exceptions.Timeout</span><br></pre></td></tr></table></figure>
+</blockquote>
+<ul>
+<li>HTTPError</li>
+</ul>
+<blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; requests.exceptions.HTTPError</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="自定义-Request"><a href="#自定义-Request" class="headerlink" title="自定义 Request"></a>自定义 Request</h3><p>通过Request Session实现</p>
+<blockquote>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> requests <span class="keyword">import</span> Request, Session</span><br></pre></td></tr></table></figure>
+
+<h3 id="这是实现之前的一个实例"><a href="#这是实现之前的一个实例" class="headerlink" title="这是实现之前的一个实例"></a>这是实现之前的一个实例</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这是调用github一些的api写的实例</span></span><br><span class="line"><span class="comment">#! /usr/bin/.env python3</span></span><br><span class="line"><span class="comment">#-*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url = <span class="string">'http://api.github.com'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">build_uri</span><span class="params">(endpoint)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'/'</span>.join([url, endpoint])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">better_print</span><span class="params">(json_str)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> json.dumps(json.loads(json_str), indent=<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">request_method</span><span class="params">()</span>:</span></span><br><span class="line">    response = requests.get(build_uri(<span class="string">'user/emails'</span>),</span><br><span class="line">                            auth=(<span class="string">'usrname'</span>, <span class="string">'password'</span>)) <span class="comment"># GitHub的用户名及密码</span></span><br><span class="line">    print(better_print(response.text))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">params_request</span><span class="params">()</span>:</span></span><br><span class="line">    response = requests.get(build_uri(<span class="string">'users'</span>), params=&#123;<span class="string">'since'</span>: <span class="number">11</span>&#125;)</span><br><span class="line">    print(better_print(response.text))</span><br><span class="line">    print(response.headers)</span><br><span class="line">    print(response.url)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">json_request</span><span class="params">()</span>:</span></span><br><span class="line">    response = requests.patch(</span><br><span class="line">        build_uri(<span class="string">'user'</span>),</span><br><span class="line">        auth=(<span class="string">'usrname'</span>, <span class="string">'password'</span>), <span class="comment"># GitHub的用户名及密码</span></span><br><span class="line">        json=&#123;<span class="string">'name'</span>: <span class="string">'xxx'</span>,</span><br><span class="line">              <span class="string">'email'</span>: <span class="string">'111@qq.com'</span>&#125;) <span class="comment"># 想改的名字和邮箱</span></span><br><span class="line">    print(better_print(response.text))</span><br><span class="line">    print(response.headers)</span><br><span class="line">    print(response.body)</span><br><span class="line">    print(response.status_code)</span><br><span class="line">    print(response.reason)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">timeout_request</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        response = requests.get(build_uri(<span class="string">'user/emails'</span>), timeout=<span class="number">0.1</span>)</span><br><span class="line">        response.raise_for_status()</span><br><span class="line">    <span class="keyword">except</span> requests.exceptions.Timeout <span class="keyword">as</span> e:</span><br><span class="line">        print(e)</span><br><span class="line">    <span class="keyword">except</span> requests.exceptions.HTTPError <span class="keyword">as</span> e:</span><br><span class="line">        print(e)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(requests.text)</span><br><span class="line">        print(response.text)</span><br><span class="line">        print(response.status_code)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hard_requests</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">from</span> requests <span class="keyword">import</span> Request, Session</span><br><span class="line">    s = Session()</span><br><span class="line">    headers = &#123;<span class="string">'User-Agent'</span>: <span class="string">'fake1.3.4'</span>&#125;  <span class="comment"># 伪造UA</span></span><br><span class="line">    req = requests.Request(</span><br><span class="line">        <span class="string">'GET'</span>,</span><br><span class="line">        build_uri(<span class="string">'user/emails'</span>),</span><br><span class="line">        auth=(<span class="string">'usrname'</span>, <span class="string">'password'</span>), <span class="comment"># GitHub的用户名及密码</span></span><br><span class="line">        headers=headers)</span><br><span class="line">    prepped = req.prepare()</span><br><span class="line">    print(prepped.body)</span><br><span class="line">    print(prepped.headers)</span><br><span class="line"></span><br><span class="line">    resp = s.send(prepped, timeout=<span class="number">5</span>)</span><br><span class="line">    print(resp.status_code)</span><br><span class="line">    print(resp.request.headers)</span><br><span class="line">    print(resp.text)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    hard_requests()</span><br></pre></td></tr></table></figure>
+
+<h3 id="响应基本API"><a href="#响应基本API" class="headerlink" title="响应基本API"></a>响应基本API</h3><p><a href="http://baike.baidu.com/link?url=OSkx-CgOXOO8O7TLAPJ7Zy-bXYfOCkVVwYIINzepYb2JugoMU7LzQevcjLwXWPeqfQr92kSihgvqEY82bRPdqbM4OZgK_vjl3Nm7ZQfsX8L6wPolI1Ei5U1dEhboAP7n" target="_blank" rel="noopener">百度百科：HTTP状态码</a></p>
+<p>1XX:消息 <br>2XX:成功 <br>3XX:重定向 <br>4XX:请求(客户端)错误 <br>5XX:服务器错误 <br>600:源站没有返回响应头部，只返回实体内容</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> requests</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>response = requests.get(<span class="string">'https://api.github.com'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>response.status_code</span><br><span class="line"><span class="number">200</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>response.reason</span><br><span class="line"><span class="string">'OK'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>response.headers</span><br><span class="line">&#123;<span class="string">'X-GitHub-Media-Type'</span>: <span class="string">'github.v3; format=json'</span>, <span class="string">'X-RateLimit-Reset'</span>: <span class="string">'1488289215'</span>, <span class="string">'Content-Type'</span>: <span class="string">'application/json; charset=utf-8'</span>, <span class="string">'ETag'</span>: <span class="string">'W/"7dc470913f1fe9bb6c7355b50a0737bc"'</span>, <span class="string">'Date'</span>: <span class="string">'Tue, 28 Feb 2017 12:40:15 GMT'</span>, <span class="string">'Content-Security-Policy'</span>: <span class="string">"default-src 'none'"</span>, <span class="string">'Transfer-Encoding'</span>: <span class="string">'chunked'</span>, <span class="string">'Server'</span>: <span class="string">'GitHub.com'</span>, <span class="string">'Content-Encoding'</span>: <span class="string">'gzip'</span>, <span class="string">'Cache-Control'</span>: <span class="string">'public, max-age=60, s-maxage=60'</span>, <span class="string">'X-Content-Type-Options'</span>: <span class="string">'nosniff'</span>, <span class="string">'X-XSS-Protection'</span>: <span class="string">'1; mode=block'</span>, <span class="string">'Access-Control-Expose-Headers'</span>: <span class="string">'ETag, Link, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval'</span>, <span class="string">'X-GitHub-Request-Id'</span>: <span class="string">'6E6D:0DDE:61E3A4:7ACD2E:58B56FA3'</span>, <span class="string">'Strict-Transport-Security'</span>: <span class="string">'max-age=31536000; includeSubdomains; preload'</span>, <span class="string">'X-Served-By'</span>: <span class="string">'07ff1c8a09e44b62e277fae50a1b1dc4'</span>, <span class="string">'Access-Control-Allow-Origin'</span>: <span class="string">'*'</span>, <span class="string">'X-Frame-Options'</span>: <span class="string">'deny'</span>, <span class="string">'Vary'</span>: <span class="string">'Accept, Accept-Encoding'</span>, <span class="string">'X-RateLimit-Remaining'</span>: <span class="string">'59'</span>, <span class="string">'Status'</span>: <span class="string">'200 OK'</span>, <span class="string">'X-RateLimit-Limit'</span>: <span class="string">'60'</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>response.url</span><br><span class="line"><span class="string">'https://api.github.com/'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>response.history</span><br><span class="line">[]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>response = requests.get(<span class="string">'http://api.github.com'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>response.history</span><br><span class="line">[&lt;Response [<span class="number">301</span>]&gt;]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>response.elapsed</span><br><span class="line">datetime.timedelta(<span class="number">0</span>, <span class="number">1</span>, <span class="number">664629</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>response.request</span><br><span class="line">&lt;PreparedRequest [GET]&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>response</span><br><span class="line">&lt;Response [<span class="number">200</span>]&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>response.encoding</span><br><span class="line"><span class="string">'utf-8'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>response.raw.read(<span class="number">10</span>)</span><br><span class="line"><span class="string">b''</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>response.json()[<span class="string">'team_url'</span>]</span><br><span class="line"><span class="string">'https://api.github.com/teams'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>response.content</span><br><span class="line"><span class="string">b'&#123;"current_user_url":"https://api.github.com/user","current_user_authorizations_html_url":"https://github.com/settings/connections/applications&#123;/client_id&#125;","authorizations_url":"https://api.github.com/authorizations","code_search_url":"https://api.github.com/search/code?q=&#123;query&#125;&#123;&amp;page,per_page,sort,order&#125;","commit_search_url":"https://api.github.com/search/commits?q=&#123;query&#125;&#123;&amp;page,per_page,sort,order&#125;","emails_url":"https://api.github.com/user/emails","emojis_url":"https://api.github.com/emojis","events_url":"https://api.github.com/events","feeds_url":"https://api.github.com/feeds","followers_url":"https://api.github.com/user/followers","following_url":"https://api.github.com/user/following&#123;/target&#125;","gists_url":"https://api.github.com/gists&#123;/gist_id&#125;","hub_url":"https://api.github.com/hub","issue_search_url":"https://api.github.com/search/issues?q=&#123;query&#125;&#123;&amp;page,per_page,sort,order&#125;","issues_url":"https://api.github.com/issues","keys_url":"https://api.github.com/user/keys","notifications_url":"https://api.github.com/notifications","organization_repositories_url":"https://api.github.com/orgs/&#123;org&#125;/repos&#123;?type,page,per_page,sort&#125;","organization_url":"https://api.github.com/orgs/&#123;org&#125;","public_gists_url":"https://api.github.com/gists/public","rate_limit_url":"https://api.github.com/rate_limit","repository_url":"https://api.github.com/repos/&#123;owner&#125;/&#123;repo&#125;","repository_search_url":"https://api.github.com/search/repositories?q=&#123;query&#125;&#123;&amp;page,per_page,sort,order&#125;","current_user_repositories_url":"https://api.github.com/user/repos&#123;?type,page,per_page,sort&#125;","starred_url":"https://api.github.com/user/starred&#123;/owner&#125;&#123;/repo&#125;","starred_gists_url":"https://api.github.com/gists/starred","team_url":"https://api.github.com/teams","user_url":"https://api.github.com/users/&#123;user&#125;","user_organizations_url":"https://api.github.com/user/orgs","user_repositories_url":"https://api.github.com/users/&#123;user&#125;/repos&#123;?type,page,per_page,sort&#125;","user_search_url":"https://api.github.com/search/users?q=&#123;query&#125;&#123;&amp;page,per_page,sort,order&#125;"&#125;'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>response.text</span><br><span class="line"><span class="string">'&#123;"current_user_url":"https://api.github.com/user","current_user_authorizations_html_url":"https://github.com/settings/connections/applications&#123;/client_id&#125;","authorizations_url":"https://api.github.com/authorizations","code_search_url":"https://api.github.com/search/code?q=&#123;query&#125;&#123;&amp;page,per_page,sort,order&#125;","commit_search_url":"https://api.github.com/search/commits?q=&#123;query&#125;&#123;&amp;page,per_page,sort,order&#125;","emails_url":"https://api.github.com/user/emails","emojis_url":"https://api.github.com/emojis","events_url":"https://api.github.com/events","feeds_url":"https://api.github.com/feeds","followers_url":"https://api.github.com/user/followers","following_url":"https://api.github.com/user/following&#123;/target&#125;","gists_url":"https://api.github.com/gists&#123;/gist_id&#125;","hub_url":"https://api.github.com/hub","issue_search_url":"https://api.github.com/search/issues?q=&#123;query&#125;&#123;&amp;page,per_page,sort,order&#125;","issues_url":"https://api.github.com/issues","keys_url":"https://api.github.com/user/keys","notifications_url":"https://api.github.com/notifications","organization_repositories_url":"https://api.github.com/orgs/&#123;org&#125;/repos&#123;?type,page,per_page,sort&#125;","organization_url":"https://api.github.com/orgs/&#123;org&#125;","public_gists_url":"https://api.github.com/gists/public","rate_limit_url":"https://api.github.com/rate_limit","repository_url":"https://api.github.com/repos/&#123;owner&#125;/&#123;repo&#125;","repository_search_url":"https://api.github.com/search/repositories?q=&#123;query&#125;&#123;&amp;page,per_page,sort,order&#125;","current_user_repositories_url":"https://api.github.com/user/repos&#123;?type,page,per_page,sort&#125;","starred_url":"https://api.github.com/user/starred&#123;/owner&#125;&#123;/repo&#125;","starred_gists_url":"https://api.github.com/gists/starred","team_url":"https://api.github.com/teams","user_url":"https://api.github.com/users/&#123;user&#125;","user_organizations_url":"https://api.github.com/user/orgs","user_repositories_url":"https://api.github.com/users/&#123;user&#125;/repos&#123;?type,page,per_page,sort&#125;","user_search_url":"https://api.github.com/search/users?q=&#123;query&#125;&#123;&amp;page,per_page,sort,order&#125;"&#125;'</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h2><h3 id="自动下载图片-文件"><a href="#自动下载图片-文件" class="headerlink" title="自动下载图片/文件"></a>自动下载图片/文件</h3><ol>
+<li>浏览器模拟</li>
+<li>构建request</li>
+<li>读取流data</li>
+<li>存入数据</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''demo:下载图片</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="comment">#-*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">download_image</span><span class="params">()</span>:</span></span><br><span class="line"></span><br><span class="line">    headers = &#123;</span><br><span class="line">        <span class="string">'User-Agent'</span>:</span><br><span class="line">        <span class="string">'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36'</span></span><br><span class="line">    &#125;</span><br><span class="line">    url = <span class="string">'https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1488296531013&amp;di=689048e17449c05f7d55698526a71ccc&amp;imgtype=0&amp;src=http%3A%2F%2Fpic.baike.soso.com%2Fp%2F20130515%2F20130515150325-379335333.jpg'</span></span><br><span class="line">    response = requests.get(url, headers=headers, stream=<span class="literal">True</span>)  <span class="comment"># 流传入，这种方法没有关闭流</span></span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">'demo.jpg'</span>, <span class="string">'wb'</span>) <span class="keyword">as</span> fd:</span><br><span class="line">        <span class="keyword">for</span> chunk <span class="keyword">in</span> response.iter_content(<span class="number">128</span>):</span><br><span class="line">            fd.write(chunk)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">download_image_improved</span><span class="params">()</span>:</span>  <span class="comment"># 这里使用了一个python的语法糖,来关闭流</span></span><br><span class="line">    <span class="comment"># 伪造headers信息</span></span><br><span class="line">    headers = &#123;</span><br><span class="line">        <span class="string">'User-Agent'</span>:</span><br><span class="line">        <span class="string">'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36'</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment"># 限定url,这是我们需要下载图片的地址</span></span><br><span class="line">    url = <span class="string">'https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1488296531013&amp;di=689048e17449c05f7d55698526a71ccc&amp;imgtype=0&amp;src=http%3A%2F%2Fpic.baike.soso.com%2Fp%2F20130515%2F20130515150325-379335333.jpg'</span></span><br><span class="line">    response = requests.get(url, headers=headers, stream=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">from</span> contextlib <span class="keyword">import</span> closing</span><br><span class="line">    <span class="keyword">with</span> closing(requests.get(url, headers=headers, stream=<span class="literal">True</span>)) <span class="keyword">as</span> response:</span><br><span class="line">        <span class="comment"># 打开文件</span></span><br><span class="line">        <span class="keyword">with</span> open(<span class="string">'demo1.jpg'</span>, <span class="string">'wb'</span>) <span class="keyword">as</span> fd:</span><br><span class="line">            <span class="comment"># 每128写入一次</span></span><br><span class="line">            <span class="keyword">for</span> chunk <span class="keyword">in</span> response.iter_content(<span class="number">128</span>):</span><br><span class="line">                fd.write(chunk)</span><br><span class="line"></span><br><span class="line">download_image_improved()</span><br></pre></td></tr></table></figure>
+
+<h3 id="事件钩子-Event-Hooks"><a href="#事件钩子-Event-Hooks" class="headerlink" title="事件钩子(Event Hooks)"></a>事件钩子(Event Hooks)</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#-*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_key_info</span><span class="params">(response, *args, **kwargs)</span>:</span></span><br><span class="line">    print(response.headers[<span class="string">'Content-Type'</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    requests.get(<span class="string">'https://www.baidu.com'</span>, hooks=dict(response=get_key_info))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">main()</span><br></pre></td></tr></table></figure>
+
+<h3 id="HTTP认证"><a href="#HTTP认证" class="headerlink" title="HTTP认证"></a>HTTP认证</h3><center>![](https://ww2.sinaimg.cn/large/006tKfTcgy1fd6i610odyj31480k6gse.jpg)<br>
+HTTP基本认证</center>
+
+<h3 id="OAUTH认证"><a href="#OAUTH认证" class="headerlink" title="OAUTH认证"></a>OAUTH认证</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#-*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url = <span class="string">'https://api.github.com'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">construct_url</span><span class="params">(endpoint)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'/'</span>.join([url, endpoint])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">basic_auth</span><span class="params">()</span>:</span></span><br><span class="line">    response = requests.get(construct_url(<span class="string">'user'</span>),</span><br><span class="line">                            auth=(<span class="string">'usrname'</span>, <span class="string">'password'</span>))</span><br><span class="line">    print(response.text)</span><br><span class="line">    print(response.request.headers)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">basic_oauth</span><span class="params">()</span>:</span>                      <span class="comment"># 第一种实现</span></span><br><span class="line">    headers = &#123;<span class="string">'Authorization'</span>:<span class="string">'token xxxxPersonal access tokens'</span>&#125;   <span class="comment">#这里token是GitHub的Personal access tokens</span></span><br><span class="line">    response = requests.get(construct_url(<span class="string">'user/emails'</span>),headers=headers)</span><br><span class="line">    print(response.request.headers)</span><br><span class="line">    print(response.text)</span><br><span class="line">    print(response.status_code)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> requests.auth <span class="keyword">import</span> AuthBase      <span class="comment"># 第二种利用面向对象实现</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GithubAuth</span><span class="params">(AuthBase)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, token)</span>:</span></span><br><span class="line">        self.token = token</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span><span class="params">(self, r)</span>:</span></span><br><span class="line">        <span class="comment"># requests 加 headers</span></span><br><span class="line">        r.headers[<span class="string">'Authorization'</span>]=<span class="string">' '</span>.join([<span class="string">'token'</span>,self.token])</span><br><span class="line">        <span class="keyword">return</span> r</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">oauth_advanced</span><span class="params">()</span>:</span></span><br><span class="line">    auth = GithubAuth(<span class="string">'xxxxPersonal access tokens'</span>)</span><br><span class="line">    response = requests.get(construct_url(<span class="string">'user/emails'</span>),auth=auth)</span><br><span class="line">    print(response.request.headers)</span><br><span class="line">    print(response.text)</span><br><span class="line">    print(response.status_code)</span><br><span class="line"></span><br><span class="line">basic_oauth()</span><br><span class="line">oauth_advanced()</span><br></pre></td></tr></table></figure>
+
+<h3 id="代理-Proxy"><a href="#代理-Proxy" class="headerlink" title="代理(Proxy)"></a>代理(Proxy)</h3><ol>
+<li>启动代理服务Heroku</li>
+<li>在主机1080端口启动Socks服务</li>
+<li>将请求转发到1080端口</li>
+<li>获取相应资源</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">proxies = &#123;</span><br><span class="line">    <span class="string">'http'</span>: <span class="string">'socks5://127.0.0.1:1080'</span>,</span><br><span class="line">    <span class="string">'https'</span>: <span class="string">'socks5://127.0.0.1:1080'</span></span><br><span class="line">&#125;</span><br><span class="line">url = <span class="string">'https://www.facebook.com'</span></span><br><span class="line">response = requests.get(url, timeout=<span class="number">3</span>)  <span class="comment"># 这里没有应用代理访问不了</span></span><br><span class="line">response = requests.get(url, proxies=proxies, timeout=<span class="number">3</span>) <span class="comment"># 这里成功访问</span></span><br><span class="line">print(response.status_code) <span class="comment"># 返回200</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Session-和-Cookie"><a href="#Session-和-Cookie" class="headerlink" title="Session 和 Cookie"></a>Session 和 Cookie</h3><ul>
+<li>Session  服务器存储数据</li>
+<li>Cookie 浏览器存储数据</li>
+</ul>
+<blockquote>
+<p>Session 的作用就是它在 Web服务器上保持用户的状态信息供在任何时间从任何设备上的页面进行访问。因为浏览器不需要存储任何这种信息，所以可以使用任何浏览器，即使是像 Pad 或手机这样的浏览器设备。</p>
+</blockquote>
+<blockquote>
+<p>“Cookie”是小量信息，由网络服务器发送出来以存储在网络浏览器上，从而下次这位独一无二的访客又回到该网络服务器时，可从该浏览器读回此信息。这是很有用的，让浏览器记住这位访客的特定信息，如上次访问的位置、花费的时间或用户首选项（如样式表）。Cookie 是个存储在浏览器目录的文本文件，当浏览器运行时，存储在 RAM 中。一旦你从该网站或网络服务器退出，Cookie 也可存储在计算机的硬驱上。当访客结束其浏览器对话时，即终止的所有 Cookie。</p>
+</blockquote>
+<hr>
+<p>源码(python3.x)改自iMOOC的课程<br><a href="http://www.imooc.com/learn/736" target="_blank" rel="noopener">Python-走进Requests库</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Buy me a coffe. XD</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/coffe.png" alt="Wu Yong WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/ali_coffe.png" alt="Wu Yong Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+            <a href="/tags/爬虫/" rel="tag"># 爬虫</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/21/AboutDropout/" rel="next" title="Dropout一些总结">
+                <i class="fa fa-chevron-left"></i> Dropout一些总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/03/request2/" rel="prev" title="爬虫学习笔记(一)">
+                爬虫学习笔记(一) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/ori_sr2x.png" alt="Wu Yong">
+            
+              <p class="site-author-name" itemprop="name">Wu Yong</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/ackness" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:ackness8@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Requests库学习笔记"><span class="nav-number">1.</span> <span class="nav-text">Requests库学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#利用-GitHub-API-学习"><span class="nav-number">1.2.</span> <span class="nav-text">利用 GitHub API 学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#请求方法"><span class="nav-number">1.2.1.</span> <span class="nav-text">请求方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#带参数的请求"><span class="nav-number">1.2.2.</span> <span class="nav-text">带参数的请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#请求异常处理"><span class="nav-number">1.2.3.</span> <span class="nav-text">请求异常处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义-Request"><span class="nav-number">1.2.4.</span> <span class="nav-text">自定义 Request</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#这是实现之前的一个实例"><span class="nav-number">1.2.5.</span> <span class="nav-text">这是实现之前的一个实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#响应基本API"><span class="nav-number">1.2.6.</span> <span class="nav-text">响应基本API</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进阶"><span class="nav-number">1.3.</span> <span class="nav-text">进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#自动下载图片-文件"><span class="nav-number">1.3.1.</span> <span class="nav-text">自动下载图片/文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事件钩子-Event-Hooks"><span class="nav-number">1.3.2.</span> <span class="nav-text">事件钩子(Event Hooks)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP认证"><span class="nav-number">1.3.3.</span> <span class="nav-text">HTTP认证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OAUTH认证"><span class="nav-number">1.3.4.</span> <span class="nav-text">OAUTH认证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代理-Proxy"><span class="nav-number">1.3.5.</span> <span class="nav-text">代理(Proxy)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Session-和-Cookie"><span class="nav-number">1.3.6.</span> <span class="nav-text">Session 和 Cookie</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">粤ICP备17074505号</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'j7tOdKhEE2pKVLIyH8bwna8d-gzGzoHsz',
+        appKey: 'g7k1HlUKw6IDpMo2514FMnnh',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

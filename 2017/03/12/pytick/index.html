@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Python">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="基于python3">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python一些常用的方法技巧">
+<meta property="og:url" content="http://heywe.cn/2017/03/12/pytick/index.html">
+<meta property="og:site_name" content="Wu Yong&#39;s Blog">
+<meta property="og:description" content="基于python3">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-11-03T09:04:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python一些常用的方法技巧">
+<meta name="twitter:description" content="基于python3">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://heywe.cn/2017/03/12/pytick/">
+
+
+
+
+
+  <title>Python一些常用的方法技巧 | Wu Yong's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wu Yong's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Have a nice day!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-talk">
+          <a href="/Talk/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-comments"></i> <br>
+            
+            Talk
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photos">
+          <a href="/photos/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-image"></i> <br>
+            
+            Photos
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://heywe.cn/2017/03/12/pytick/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wu Yong">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/ori_sr2x.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wu Yong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python一些常用的方法技巧</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-12T10:59:51+08:00">
+                2017-03-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/03/12/pytick/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2017/03/12/pytick/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center><font color="gray">基于python3</font></center>
+
+<a id="more"></a>
+
+
+<h1 id="列表元素操作"><a href="#列表元素操作" class="headerlink" title="列表元素操作"></a>列表元素操作</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 插入元素</span></span><br><span class="line">a.insert(位置,<span class="string">'值'</span>)</span><br><span class="line">a.insert(<span class="number">0</span>,<span class="string">'hello'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除元素</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = [<span class="string">'f'</span>, <span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'g'</span>, <span class="string">'d'</span>, <span class="string">'z'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">del</span> a[<span class="number">0</span>] <span class="comment"># 永久删除</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'g'</span>, <span class="string">'d'</span>, <span class="string">'z'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># pop()可删除列表末尾的元素,相当于弹出栈顶元素</span></span><br><span class="line"><span class="comment"># pop(位置)可删除指定位置的元素</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'g'</span>, <span class="string">'d'</span>, <span class="string">'z'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ap = a.pop(<span class="number">1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ap</span><br><span class="line"><span class="string">'b'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'c'</span>, <span class="string">'g'</span>, <span class="string">'d'</span>, <span class="string">'z'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 根据值删除元素</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'c'</span>, <span class="string">'g'</span>, <span class="string">'d'</span>, <span class="string">'z'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a.remove(<span class="string">'g'</span>) </span><br><span class="line"><span class="comment"># remove()只删除第一个指定的值,如果要删除的值可能在列表中出现多次,那么就要循环判断是否删除了所有这样的值</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>, <span class="string">'z'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 组织列表</span></span><br><span class="line"><span class="comment"># sort()永久性修改列表元素的排序</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = [<span class="string">'f'</span>,<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>,<span class="string">'g'</span>,<span class="string">'d'</span>,<span class="string">'z'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a.sort()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>, <span class="string">'f'</span>, <span class="string">'g'</span>, <span class="string">'z'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># sorted()对列表进行临时排序</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = [<span class="string">'f'</span>,<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>,<span class="string">'g'</span>,<span class="string">'d'</span>,<span class="string">'z'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(sorted(a))</span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>, <span class="string">'f'</span>, <span class="string">'g'</span>, <span class="string">'z'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 反序排列reverse()</span></span><br><span class="line"><span class="comment"># 并不是字母倒叙排列,而是按照原来元素的排列顺序</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">[<span class="string">'f'</span>, <span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'g'</span>, <span class="string">'d'</span>, <span class="string">'z'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a.reverse()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">[<span class="string">'z'</span>, <span class="string">'d'</span>, <span class="string">'g'</span>, <span class="string">'c'</span>, <span class="string">'b'</span>, <span class="string">'a'</span>, <span class="string">'f'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 确定列表的长度(从1开始的,不用考虑差1)</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">[<span class="string">'z'</span>, <span class="string">'d'</span>, <span class="string">'g'</span>, <span class="string">'c'</span>, <span class="string">'b'</span>, <span class="string">'a'</span>, <span class="string">'f'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>len(a)</span><br><span class="line"><span class="number">7</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建数值列表:range()</span></span><br><span class="line"><span class="keyword">for</span> value <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">5</span>):</span><br><span class="line">	print(value)	</span><br><span class="line"><span class="comment"># 这里产生1-4的值</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 禁止函数修改列表</span></span><br><span class="line"><span class="comment"># 利用切片表示法[:]创建列表的副本</span></span><br><span class="line">function_name(list_name[:])</span><br><span class="line"><span class="comment"># 这种函数所修改的不会影响到列表list_name</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 传递任意数量的实参</span></span><br><span class="line">function_name(*tuple)</span><br><span class="line"><span class="comment"># 形参名 *tuple 中的星号让python创建一个tuple的空元组</span></span><br><span class="line"><span class="comment"># 并将收到的所有值都封装到这个元组中。</span></span><br><span class="line"><span class="comment"># 例如</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">fu</span><span class="params">(*tuples)</span>:</span></span><br><span class="line"><span class="meta">... </span>    print(<span class="string">"this is start:"</span>)</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">for</span> tuple <span class="keyword">in</span> tuples:</span><br><span class="line"><span class="meta">... </span>            print(<span class="string">'-'</span> + tuple)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fu(<span class="string">'I'</span>)</span><br><span class="line">this <span class="keyword">is</span> start:</span><br><span class="line">-I</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fu(<span class="string">'like'</span>,<span class="string">'you'</span>)</span><br><span class="line">this <span class="keyword">is</span> start:</span><br><span class="line">-like</span><br><span class="line">-you</span><br><span class="line"></span><br><span class="line"><span class="comment"># 传递任意数量的关键字实参</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">build_profile</span><span class="params">(first, last, **user_info)</span>:</span></span><br><span class="line"><span class="meta">... </span>     profile = &#123;&#125;</span><br><span class="line"><span class="meta">... </span>     profile[<span class="string">'first_name'</span>] = first</span><br><span class="line"><span class="meta">... </span>     profile[<span class="string">'last_name'</span>] = last</span><br><span class="line"><span class="meta">... </span>     <span class="keyword">for</span> key,value <span class="keyword">in</span> user_info.items():</span><br><span class="line"><span class="meta">... </span>             profile[key] = value</span><br><span class="line"><span class="meta">... </span>     <span class="keyword">return</span> profile</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_profile = build_profile(<span class="string">'albert'</span>, <span class="string">'einstein'</span>,location=<span class="string">'princeton'</span>,filed=<span class="string">'physics'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(user_profile)</span><br><span class="line">&#123;<span class="string">'location'</span>: <span class="string">'princeton'</span>, <span class="string">'first_name'</span>: <span class="string">'albert'</span>, <span class="string">'last_name'</span>: <span class="string">'einstein'</span>, <span class="string">'filed'</span>: <span class="string">'physics'</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">####################################################</span></span><br><span class="line"><span class="comment"># 如果一个.py文件只有函数,就构成了模块:</span></span><br><span class="line"><span class="comment"># example.py</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">exfun</span><span class="params">()</span>:</span></span><br><span class="line">	print(<span class="string">"hello!"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># demo.py:</span></span><br><span class="line"><span class="keyword">import</span> examples</span><br><span class="line">examples.exfun()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出为:</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>hello!</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入特定的函数:</span></span><br><span class="line"><span class="keyword">from</span> module_name <span class="keyword">import</span> function_name</span><br><span class="line"><span class="comment"># 使用分号导入任意数量的函数</span></span><br><span class="line"><span class="keyword">from</span> module_name <span class="keyword">import</span> function_name1, function_name2</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用as给函数指定别名:</span></span><br><span class="line"><span class="keyword">from</span> module_name <span class="keyword">import</span> function_name <span class="keyword">as</span> fn</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用as给模块指定别名:</span></span><br><span class="line"><span class="keyword">import</span> module_name <span class="keyword">as</span> mn</span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入模块所有函数:</span></span><br><span class="line"><span class="keyword">from</span> module_name <span class="keyword">import</span> *</span><br></pre></td></tr></table></figure>
+
+<h1 id="类"><a href="#类" class="headerlink" title="类"></a>类</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python3 创建类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ClassName</span><span class="params">()</span>:</span></span><br><span class="line">	--snip--</span><br><span class="line">	</span><br><span class="line"><span class="comment"># python2.7 创建类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ClassName</span><span class="params">(object)</span>:</span></span><br><span class="line">	--snip--</span><br><span class="line"></span><br><span class="line"><span class="comment"># python3 继承</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ClassName</span><span class="params">(object)</span>:</span></span><br><span class="line">	--snip--</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ClassName2</span><span class="params">(ClassName)</span>:</span></span><br><span class="line">	--snip--</span><br><span class="line"></span><br><span class="line"><span class="comment"># 例如:</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Car</span><span class="params">()</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, make, model, year)</span>:</span></span><br><span class="line">        self.make = make</span><br><span class="line">        self.model = model</span><br><span class="line">        self.year = year</span><br><span class="line">        self.odometer_reading = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_descriptive_name</span><span class="params">(self)</span>:</span></span><br><span class="line">        long_name = str(self.year) + <span class="string">' '</span> + self.make + <span class="string">' '</span> + self.model</span><br><span class="line">        <span class="keyword">return</span> long_name.title()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">increment_odometer</span><span class="params">(self, miles)</span>:</span></span><br><span class="line">        self.odometer_reading += miles</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ElectricCar</span><span class="params">(Car)</span>:</span></span><br><span class="line">    <span class="string">"""电动汽车独特之处"""</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, make, model, year)</span>:</span></span><br><span class="line">        <span class="string">"""初始化父类属性"""</span></span><br><span class="line">        super().__init__(make, model, year)</span><br><span class="line"></span><br><span class="line">my_tesla = ElectricCar(<span class="string">'tesla'</span>, <span class="string">'model s'</span>, <span class="number">2016</span>)</span><br><span class="line">print(my_tesla.get_descriptive_name())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># python2.7 继承</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ClassName</span><span class="params">()</span>:</span></span><br><span class="line">	--snip--</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ClassName2</span><span class="params">(ClassName)</span>:</span></span><br><span class="line">	--snip--</span><br><span class="line"></span><br><span class="line"><span class="comment"># python2.7 super()需要两个实参:子类名和对象self。</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ElectricCar</span><span class="params">(Car)</span>:</span></span><br><span class="line">    <span class="string">"""电动汽车独特之处"""</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, make, model, year)</span>:</span></span><br><span class="line">        <span class="string">"""初始化父类属性"""</span></span><br><span class="line">        super(ElectricCar, self).__init__(make, model, year)</span><br><span class="line">        </span><br><span class="line"><span class="comment"># 导入类的方法和导入函数的方法类似</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="文件和异常"><a href="#文件和异常" class="headerlink" title="文件和异常"></a>文件和异常</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Linux 和 OS X中文件路径使用斜杠(/)</span></span><br><span class="line"><span class="comment"># 例如</span></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'text_file / filename.txt'</span>) <span class="keyword">as</span> file_object:</span><br><span class="line"><span class="comment"># 在Windows中使用反斜杠(\)</span></span><br><span class="line"><span class="comment"># 例如</span></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'text_file \ filename.txt'</span>) <span class="keyword">as</span> file_object:</span><br><span class="line"></span><br><span class="line"><span class="comment"># 写入空文件</span></span><br><span class="line">filename = <span class="string">'programing.txt'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> open(filename, <span class="string">'w'</span>) <span class="keyword">as</span> file_object:</span><br><span class="line">    file_object.write(<span class="string">"I love programing."</span>) <span class="comment"># write()不会再写入的文本末尾加换行符</span></span><br><span class="line">    </span><br><span class="line"><span class="comment"># 'w'写入模式   'r'只读模式   'r+'读写  'a'附加模式</span></span><br><span class="line"><span class="comment"># 以'w'打开文件时，如果指定的问价已经存在，python将在返回文件对象前清空该文件</span></span><br><span class="line"><span class="comment"># 写入多行需要在行后加入换行符'\n'还可偶一使用空格制表符空行来设置输出的格式</span></span><br><span class="line"><span class="comment"># 如果以附加模式('a')打开文件，python不会在返回文件对象前清空文件，而写入到文件的行都讲添加到文件末尾。如果指定的文件不存在，python将会创建一个空白文件。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 异常</span></span><br><span class="line"><span class="comment"># 使用try-except代码块</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">	print(<span class="number">5</span>/<span class="number">0</span>)</span><br><span class="line"><span class="keyword">except</span> ZeroDivisionError:</span><br><span class="line">	print(<span class="string">'you can not divide by zero!'</span>)</span><br><span class="line"><span class="comment"># 这时就不会出现traceback 输出为"you can not divide by zero!"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># try-except-else</span></span><br><span class="line"><span class="comment"># python尝试执行try代码块中的代码;只有可能引发异常的代码才需要放在try语句中,</span></span><br><span class="line"><span class="comment"># 有时候一些仅在try代码块成功执行时才需要运行的代码;这些代码应放在else代码块中。</span></span><br><span class="line"><span class="comment"># except代码块告诉python如果它尝试执行try代码块中的代码时引发了指定异常,该怎么办.</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 用json保存和读取用户生成的数据</span></span><br><span class="line"><span class="comment"># demo1.py</span></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line">username = input(<span class="string">"what is your name?"</span>)</span><br><span class="line">filename = <span class="string">'username.json'</span></span><br><span class="line"><span class="keyword">with</span> open(filename, <span class="string">'w'</span>) <span class="keyword">as</span> f_obj:</span><br><span class="line">    json.dump(username, f_obj)</span><br><span class="line">    print(<span class="string">"we'll remember you when you come back , "</span> + username + <span class="string">"!"</span>)</span><br><span class="line">    </span><br><span class="line"><span class="comment"># demo2.py</span></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line">filename = <span class="string">'username.json'</span></span><br><span class="line"><span class="keyword">with</span> open(filename) <span class="keyword">as</span> fn:</span><br><span class="line">    username = json.load(fn)</span><br><span class="line">    print(<span class="string">"welcome back,"</span> + username + <span class="string">"!"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者用FileNotFoundError异常处理</span></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line">filename = <span class="string">'username.json'</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">with</span> open(filename) <span class="keyword">as</span> fn:</span><br><span class="line">        username = json.load(fn)</span><br><span class="line"><span class="keyword">except</span> FileNotFoundError:</span><br><span class="line">    username = input(<span class="string">"what is your name?"</span>)</span><br><span class="line">    <span class="keyword">with</span> open(filename, <span class="string">'w'</span>) <span class="keyword">as</span> fn:</span><br><span class="line">        json.dump(username, f_obj)</span><br><span class="line">        print(<span class="string">"we'll remember you when you come back , "</span> + username + <span class="string">"!"</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">"welcome back,"</span> + username + <span class="string">"!"</span>)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Buy me a coffe. XD</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/coffe.png" alt="Wu Yong WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/ali_coffe.png" alt="Wu Yong Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/10/request4/" rel="next" title="爬虫学习笔记(三)">
+                <i class="fa fa-chevron-left"></i> 爬虫学习笔记(三)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/23/request5/" rel="prev" title="爬虫学习笔记(四)">
+                爬虫学习笔记(四) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/ori_sr2x.png" alt="Wu Yong">
+            
+              <p class="site-author-name" itemprop="name">Wu Yong</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/ackness" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:ackness8@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#列表元素操作"><span class="nav-number">1.</span> <span class="nav-text">列表元素操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数"><span class="nav-number">2.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类"><span class="nav-number">3.</span> <span class="nav-text">类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件和异常"><span class="nav-number">4.</span> <span class="nav-text">文件和异常</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">粤ICP备17074505号</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'j7tOdKhEE2pKVLIyH8bwna8d-gzGzoHsz',
+        appKey: 'g7k1HlUKw6IDpMo2514FMnnh',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

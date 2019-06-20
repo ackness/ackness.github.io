@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Nginx,Hexo,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="云服务器搭建Hexo博客">
+<meta name="keywords" content="Nginx,Hexo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="云服务器搭建Hexo博客!">
+<meta property="og:url" content="http://heywe.cn/2017/05/12/hexo/index.html">
+<meta property="og:site_name" content="Wu Yong&#39;s Blog">
+<meta property="og:description" content="云服务器搭建Hexo博客">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://olq8hji1u.bkt.clouddn.com/2017051214945922734243.png">
+<meta property="og:updated_time" content="2017-11-03T09:03:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="云服务器搭建Hexo博客!">
+<meta name="twitter:description" content="云服务器搭建Hexo博客">
+<meta name="twitter:image" content="http://olq8hji1u.bkt.clouddn.com/2017051214945922734243.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://heywe.cn/2017/05/12/hexo/">
+
+
+
+
+
+  <title>云服务器搭建Hexo博客! | Wu Yong's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wu Yong's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Have a nice day!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-talk">
+          <a href="/Talk/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-comments"></i> <br>
+            
+            Talk
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photos">
+          <a href="/photos/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-image"></i> <br>
+            
+            Photos
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://heywe.cn/2017/05/12/hexo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wu Yong">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/ori_sr2x.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wu Yong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">云服务器搭建Hexo博客!</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-12T20:49:52+08:00">
+                2017-05-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/05/12/hexo/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2017/05/12/hexo/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center><font size="5" color="red"><b>云服务器搭建Hexo博客</b></font></center>
+
+<a id="more"></a>
+
+<hr>
+<h1 id="云服务器搭建Hexo博客"><a href="#云服务器搭建Hexo博客" class="headerlink" title="云服务器搭建Hexo博客"></a>云服务器搭建Hexo博客</h1><p>这里介绍一下云服务器搭建Hexo博客,并且利用Nginx做代理,并且利用<a href="https://coding.net/" target="_blank" rel="noopener">Coding.net</a>或者<a href="https://github.com" target="_blank" rel="noopener">Github</a>同步页面,最后发布。</p>
+<p>效果参考:<a href="http://b.heywe.cn" target="_blank" rel="noopener">我的博客</a></p>
+<p>我还有一个<a href="http://heywe.cn">博客</a>架设在github pages上面,为什么我不喜欢用github pages创建呢,因为中国伟大的墙,导致github不稳定,这会使得没梯子时经常抽风,虽然理论上是称github是没被墙的,但是访问经常缓慢,什么的很不方便(做开发、搞研究还是得自备梯子)。另外没事练练动手能力吧。</p>
+<h2 id="搭建Hexo本地环境"><a href="#搭建Hexo本地环境" class="headerlink" title="搭建Hexo本地环境"></a>搭建Hexo本地环境</h2><p>先在本地搭建好hexo环境。</p>
+<p>这个我不多说,网上教程一大堆。最好是看到那种搭建并且有创建Github Pages的博客教程。</p>
+<p><code>需要注意的是Hexo自带的Markdown解析器解析Markdown格式时会有bug存在。</code></p>
+<p>例如在表格中转义“|”这个竖杠时产生BUG,在生成html时会产生大量<code>&lt;br&gt;</code>,我在写正则表达式笔记时候在Macdown和Atom这些当作都可以正常解析,但是在Hexo中解析不了。</p>
+<p>网上提出的解决方法是使用<code>pandoc</code>,进入博客目录:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-renderer-pandoc --save</span><br><span class="line"><span class="comment"># ps: 但是我当初没有采用这个,好像还是存在问题,又或者产生了新的问题</span></span><br></pre></td></tr></table></figure>
+
+<p>还有一种解决方法是在<code>&#39;youblog&#39;/node_modules/marked/lib</code>中<code>marked.js</code></p>
+<p>备份一下然后</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*在450行左右找到*/</span></span><br><span class="line"><span class="built_in">escape</span>: <span class="regexp">/^\\([\\`*&#123;&#125;\[\]()#+\-.!_&gt;])/</span>,</span><br><span class="line"><span class="comment">/*改为*/</span></span><br><span class="line"><span class="built_in">escape</span>: <span class="regexp">/^\\([`*\[\]()#+\-.!_&gt;])/</span>,</span><br><span class="line"><span class="comment">/*850行左右找到*/</span></span><br><span class="line"><span class="keyword">return</span> <span class="string">'&lt;em&gt;'</span> + text + <span class="string">'&lt;/em&gt;'</span>;</span><br><span class="line"><span class="comment">/*改为*/</span></span><br><span class="line"><span class="keyword">return</span> <span class="string">'_'</span> + text + <span class="string">'_'</span>;</span><br></pre></td></tr></table></figure>
+
+<p>如果文章中有公式使用Mathjax引擎,在使用默认主题的时候</p>
+<p>进入<code>&#39;youblog&#39;/themes/landscape/layout/_partial/</code></p>
+<ul>
+<li>仿照别的主题用法在 after-footer.ejs 加入</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;% <span class="keyword">if</span> (theme.mathjax)&#123; %&gt;</span><br><span class="line">&lt;%- partial(<span class="string">'mathjax'</span>) %&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>再新建文件 mathjax.ejs 里面写入</li>
+</ul>
+<p>这里因为mathjax提供的官方CDN关闭，采用了第三方的CDN，你也可以自己修改CDN，或者自己搭建mathjax。。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">"text/x-mathjax-config"</span>&gt;</span><br><span class="line">    MathJax.Hub.Config(&#123;<span class="string">"HTML-CSS"</span>: &#123; <span class="attr">preferredFont</span>: <span class="string">"TeX"</span>, <span class="attr">availableFonts</span>: [<span class="string">"STIX"</span>,<span class="string">"TeX"</span>], <span class="attr">linebreaks</span>: &#123; <span class="attr">automatic</span>:<span class="literal">true</span> &#125;, <span class="attr">EqnChunk</span>: (MathJax.Hub.Browser.isMobile ? <span class="number">10</span> : <span class="number">50</span>) &#125;,</span><br><span class="line">        tex2jax: &#123; <span class="attr">inlineMath</span>: [ [<span class="string">"$"</span>, <span class="string">"$"</span>], [<span class="string">"\\("</span>,<span class="string">"\\)"</span>] ], <span class="attr">processEscapes</span>: <span class="literal">true</span>, <span class="attr">ignoreClass</span>: <span class="string">"tex2jax_ignore|dno"</span>,<span class="attr">skipTags</span>: [<span class="string">'script'</span>, <span class="string">'noscript'</span>, <span class="string">'style'</span>, <span class="string">'textarea'</span>, <span class="string">'pre'</span>, <span class="string">'code'</span>]&#125;,</span><br><span class="line">        TeX: &#123;  <span class="attr">noUndefined</span>: &#123; <span class="attr">attributes</span>: &#123; <span class="attr">mathcolor</span>: <span class="string">"red"</span>, <span class="attr">mathbackground</span>: <span class="string">"#FFEEEE"</span>, <span class="attr">mathsize</span>: <span class="string">"90%"</span> &#125; &#125;, <span class="attr">Macros</span>: &#123; <span class="attr">href</span>: <span class="string">"&#123;&#125;"</span> &#125; &#125;,</span><br><span class="line">        messageStyle: <span class="string">"none"</span></span><br><span class="line">    &#125;);</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;script type="text/</span>x-mathjax-config<span class="string">"&gt;</span></span><br><span class="line"><span class="string">    MathJax.Hub.Queue(function() &#123;</span></span><br><span class="line"><span class="string">        var all = MathJax.Hub.getAllJax(), i;</span></span><br><span class="line"><span class="string">        for(i=0; i &lt; all.length; i += 1) &#123;</span></span><br><span class="line"><span class="string">            all[i].SourceElement().parentNode.className += ' has-jax';</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    &#125;);</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;script src="</span><span class="comment">//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>之后在theme/landscape/_config.yml配置中加入</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mathjax: true</span><br></pre></td></tr></table></figure>
+
+<p>这时候你应该可以使用mathjax引擎了,测试一下,新建一个文章<code>hexo n &quot;test&quot;</code>,然后输入:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$$</span><br><span class="line">\begin &#123;aligned&#125; </span><br><span class="line">\frac&#123;\partial&#125;&#123;\partial \theta_i&#125;J(\theta) &amp;= \frac&#123;\partial&#125;&#123;\partial \theta_i&#125;&#123;\frac&#123;1&#125;&#123;2&#125;&#125;&#123;(h_\theta(x)-y)^2&#125; \\\</span><br><span class="line">&amp;=(h_\theta(x)-y) \frac&#123;\partial&#125;&#123;\partial \theta_i&#125;(\theta_0x_0+\cdots+\theta_nx_n-y) \\\</span><br><span class="line">&amp;=(h_\theta(x)-y)x_i</span><br><span class="line">\end &#123;aligned&#125;  \\</span><br><span class="line">$$</span><br><span class="line"></span><br><span class="line">$$</span><br><span class="line">\theta_i:=\theta_i-\alpha\sum_&#123;j=1&#125;^n (h_\theta(x^&#123;(j)&#125;)-y^&#123;(j)&#125;)x_i^&#123;(j)&#125;</span><br><span class="line">$$</span><br></pre></td></tr></table></figure>
+
+<p>之后<code>hexo g</code>,<code>hexo s</code>测试一下</p>
+<p>成功的效果应该如下:</p>
+<p>$$<br>\begin {aligned}<br>\frac{\partial}{\partial \theta_i}J(\theta) &amp;= \frac{\partial}{\partial \theta_i}{\frac{1}{2}}{(h_\theta(x)-y)^2} \<br>&amp;=(h_\theta(x)-y) \frac{\partial}{\partial \theta_i}(\theta_0x_0+\cdots+\theta_nx_n-y) \<br>&amp;=(h_\theta(x)-y)x_i<br>\end {aligned}  \<br>$$</p>
+<p>$$<br>\theta_i:=\theta_i-\alpha\sum_{j=1}^n (h_\theta(x^{(j)})-y^{(j)})x_i^{(j)}<br>$$</p>
+<ul>
+<li>如果你使用主题,如next,yilia等,一般都会在<code>主题配置文件</code>,<code>_config.yml</code>中找到mathjax的相关设置。一般直接启用就可以了。</li>
+</ul>
+<h2 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h2><p>之后需要使用云服务器</p>
+<p>我使用的是腾讯云或者阿里云的ubuntu服务器,centos也行,操作差不多。</p>
+<p>之后就要下载一些常用的软件</p>
+<h3 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h3><ul>
+<li>这里用到了<code>git</code>:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ubuntu</span></span><br><span class="line">sudo apt-get install git</span><br><span class="line"><span class="comment"># centos</span></span><br><span class="line">yum install git</span><br><span class="line"><span class="comment"># 你要喜欢hub也可以用hub ←_←</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>设置Git的user name和email:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下面的引号里面的东西替换成你的名字和邮箱</span></span><br><span class="line">$ git config --global user.name <span class="string">"username"</span></span><br><span class="line">$ git config --global user.email <span class="string">"youmail@mail.com"</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>之后设置SSH密钥:</li>
+</ul>
+<p>如果你之前有了ssh密钥: <code>cat ~/.ssh/id_rsa.pub</code></p>
+<p>没有的话生成密钥: <code>ssh-keygen -t rsa -C &quot;youmail@mail.com&quot;</code></p>
+<p>要不怕以后每次git什么的都要密码的话就直接留空,敲三次回车。</p>
+<p>之后一样<code>cat ~/.ssh/id_rsa.pub</code>查看密钥内容:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-rsa ....这里是一大串字母什么的.... youmail@mail.com</span><br></pre></td></tr></table></figure>
+
+<p>注：这git什么的你本地配置hexo的时候也需要在本地创建,你看的配置hexo的教程应该都会提到这个。这里不多说。</p>
+<ul>
+<li>然后复制这些东西加入到你的github/coding.net的设置里面的SSH keys中,就是找到ssh keys的设置中,点新建密钥(new keys什么的)之后把刚刚cat到的复制到里面,随便起一个名字。</li>
+</ul>
+<p>然后测试一下:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br><span class="line"></span><br><span class="line">如果没问题会显示如下信息:</span><br><span class="line">Hi xxx! You<span class="string">'ve successfully authenticated, but GitHub does not provide shell access.</span></span><br></pre></td></tr></table></figure>
+
+<p>这时候git就配置好了。</p>
+<p>然后找个目录我就以个人目录为例吧</p>
+<blockquote>
+<p>之后的操作可能需要权限,之后的操作为了方便我就不写sudo了,如果出现Permission denied什么的就自己加权限。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line">mkdir blog</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后把这个目录权限提高,这个目录将作为我的网站目录地址</span></span><br><span class="line">chmod -R 755 ~/blog</span><br></pre></td></tr></table></figure>
+
+<h3 id="nignx的配置"><a href="#nignx的配置" class="headerlink" title="nignx的配置"></a>nignx的配置</h3><p>下载nginx什么的就不说了,而且一般云服务器都会自带有nignx</p>
+<p>我以我的Ubuntu服务器为例,自带的是在<code>/usr/local/nginx/</code>中</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> conf</span><br><span class="line"><span class="comment"># 配置文件是nginx.conf先看一下,回车往下翻,q退出</span></span><br><span class="line">more nginx.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 把第一行的user改为你想要设置的用户,这里我用ubuntu(不推荐,图方便点),一般的是给nginx</span></span><br><span class="line"><span class="comment"># 如果你设置用户为nginx,把nginx程序使用的用户(nginx)给予目录权限,这里目录就是我刚刚mkdir的目录:</span></span><br><span class="line">chown -R nginx ~/blog</span><br><span class="line"></span><br><span class="line"><span class="comment"># 之后就是配置nginx.conf</span></span><br><span class="line">sudo vim nginx.conf</span><br><span class="line"><span class="comment"># 第一行不说了</span></span><br><span class="line"><span class="comment"># 然后在http&#123;&#125;中填入类似于:</span></span><br><span class="line">server&#123;</span><br><span class="line">              listen        80;</span><br><span class="line">              server_name   www.xxx.com;</span><br><span class="line">              root          /home/ubuntu/blog;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"><span class="comment"># root中填入的是你刚刚创建的博客目录的地址也就是`cd ~/blog` 然后`pwd`的值</span></span><br><span class="line"><span class="comment"># 我试了一下用~/blog不对。。具体我也不清楚,nginx没怎么接触太多</span></span><br><span class="line"><span class="comment"># server_name 填写的是你的域名,要没有的话,就填服务器ip地址。。</span></span><br><span class="line"><span class="comment"># 如果是域名的话看下面</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>域名解析,刚刚填写的server_name,你要到你自己域名的解析中添加。</li>
+</ul>
+<p>我以腾讯云为例,买了域名之后,控制台-云解析-你自己的域名</p>
+<p>添加记录类型为A的,主机记录随便你,之后记录值就是你服务器的地址。</p>
+<p><img src="http://olq8hji1u.bkt.clouddn.com/2017051214945922734243.png" alt="2017051214945922734243.png"></p>
+<p>然后刚刚的server_name就填你刚刚设置的<code>主机记录.域名.com</code>什么的。这里就不再多说。</p>
+<p>然后回到刚刚的配置问题,编辑好之后按<code>esc</code>,输如<code>:wq</code>保存退出。</p>
+<p>然后</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 载入nginx.conf配置,重新启动nginx</span></span><br><span class="line">/usr/<span class="built_in">local</span>/nginx/sbin/nginx -s reload /usr/<span class="built_in">local</span>/nginx/conf/nginx.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 关于nginx更多的可以自行查阅资料</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="然后就是git-clone一些源代码"><a href="#然后就是git-clone一些源代码" class="headerlink" title="然后就是git clone一些源代码"></a>然后就是git clone一些源代码</h3><p><code>回到本地</code></p>
+<p>在你创建好的博客中</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+
+<p>这时候你的博客目录中的public应该会被发送到github/coding.net的仓库中。</p>
+<p>然后再在<code>服务器</code>中,克隆你自己的仓库,推荐coding国内比较快…</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/blog</span><br><span class="line"><span class="comment"># coding</span></span><br><span class="line">git <span class="built_in">clone</span> git@git.coding.net:xxx/blog.git</span><br><span class="line"><span class="comment"># github</span></span><br><span class="line">git <span class="built_in">clone</span> git@github.com:xxx/blog.git</span><br></pre></td></tr></table></figure>
+
+<p>之后你访问自己的域名或者服务器地址,应该可以看见你的博客了!</p>
+<p>然后你以后发文章更新博客很简单了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 本地</span></span><br><span class="line">hexo n <span class="string">"新文章"</span></span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br><span class="line"></span><br><span class="line"><span class="comment"># 服务器</span></span><br><span class="line"><span class="built_in">cd</span> ~/blog</span><br><span class="line">git pull</span><br></pre></td></tr></table></figure>
+
+<p>之后刷新网页,every thing is OK~</p>
+<p>你应该能感受到比Github Pages快很多。</p>
+<p>ps: 此教程纯手打,转载请注明原文来自<a href="http://heywe.cn/2017/05/12/hexo/">http://heywe.cn</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Buy me a coffe. XD</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/coffe.png" alt="Wu Yong WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/ali_coffe.png" alt="Wu Yong Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Nginx/" rel="tag"># Nginx</a>
+          
+            <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/21/tensorflow5/" rel="next" title="TensorFlow学习笔记(五)">
+                <i class="fa fa-chevron-left"></i> TensorFlow学习笔记(五)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/26/mlenv/" rel="prev" title="搭建一个机器学习的环境">
+                搭建一个机器学习的环境 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/ori_sr2x.png" alt="Wu Yong">
+            
+              <p class="site-author-name" itemprop="name">Wu Yong</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/ackness" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:ackness8@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#云服务器搭建Hexo博客"><span class="nav-number">1.</span> <span class="nav-text">云服务器搭建Hexo博客</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建Hexo本地环境"><span class="nav-number">1.1.</span> <span class="nav-text">搭建Hexo本地环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务器"><span class="nav-number">1.2.</span> <span class="nav-text">服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Git"><span class="nav-number">1.2.1.</span> <span class="nav-text">Git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nignx的配置"><span class="nav-number">1.2.2.</span> <span class="nav-text">nignx的配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#然后就是git-clone一些源代码"><span class="nav-number">1.2.3.</span> <span class="nav-text">然后就是git clone一些源代码</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">粤ICP备17074505号</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'j7tOdKhEE2pKVLIyH8bwna8d-gzGzoHsz',
+        appKey: 'g7k1HlUKw6IDpMo2514FMnnh',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

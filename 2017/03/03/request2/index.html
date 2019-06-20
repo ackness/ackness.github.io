@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Requests, Python">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Requests库">
+<meta name="keywords" content="Requests, Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="爬虫学习笔记(一)">
+<meta property="og:url" content="http://heywe.cn/2017/03/03/request2/index.html">
+<meta property="og:site_name" content="Wu Yong&#39;s Blog">
+<meta property="og:description" content="Requests库">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-11-03T09:04:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="爬虫学习笔记(一)">
+<meta name="twitter:description" content="Requests库">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://heywe.cn/2017/03/03/request2/">
+
+
+
+
+
+  <title>爬虫学习笔记(一) | Wu Yong's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wu Yong's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Have a nice day!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-talk">
+          <a href="/Talk/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-comments"></i> <br>
+            
+            Talk
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photos">
+          <a href="/photos/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-image"></i> <br>
+            
+            Photos
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://heywe.cn/2017/03/03/request2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wu Yong">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/ori_sr2x.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wu Yong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">爬虫学习笔记(一)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-03T09:17:21+08:00">
+                2017-03-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/Spider/" itemprop="url" rel="index">
+                    <span itemprop="name">Spider</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/Spider/Requests/" itemprop="url" rel="index">
+                    <span itemprop="name">Requests</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/03/03/request2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2017/03/03/request2/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center><font size="5" color="red"><b>Requests库</b></font></center>
+
+<a id="more"></a>
+
+<h1 id="Requests库"><a href="#Requests库" class="headerlink" title="Requests库"></a>Requests库</h1><table>
+<thead>
+<tr>
+<th>Requests库的7个主要方法</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>requests.request()</td>
+<td>构造一个请求，支撑以下各方法的基础方法</td>
+</tr>
+<tr>
+<td>requests.get()</td>
+<td>获取HTML网页的主要方法，对于与HTTP的GET</td>
+</tr>
+<tr>
+<td>requests.head()</td>
+<td>获取HTML网页头信息的方法，对应于HTTP的HEAD</td>
+</tr>
+<tr>
+<td>requests.post()</td>
+<td>向HTML网页提交POST请求的方法，对应于HTTP的POST</td>
+</tr>
+<tr>
+<td>requests.put()</td>
+<td>向HTML网页提交PUT请求的方法，对应于HTTP的PUT</td>
+</tr>
+<tr>
+<td>requests.patch()</td>
+<td>向HTML网页提交局部修改请求，对应于HTTP的PATCH</td>
+</tr>
+<tr>
+<td>requests.delete()</td>
+<td>向HTML页面提交删除请求，对应于HTTP的DELETE</td>
+</tr>
+</tbody></table>
+<h2 id="get方法"><a href="#get方法" class="headerlink" title="get方法"></a>get方法</h2><p><font size="4"><code>r = requests.get(url, params=None, **kwargs)</code><br> </font></p>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">url:</td>
+<td>拟获取页面的url链接</td>
+</tr>
+<tr>
+<td align="center">params:</td>
+<td>url中的额外参数,字典或字节流格式,可选</td>
+</tr>
+<tr>
+<td align="center">**kwargs:</td>
+<td>12个控制访问的参数</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>Response对象属性</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>r.status_code</td>
+<td>HTTP请求的返回状态,200表示连接成功,404表示失败</td>
+</tr>
+<tr>
+<td>r.text</td>
+<td>HTTP响应内容的字符串形式,即,url对应的页面内容</td>
+</tr>
+<tr>
+<td>r.encoding</td>
+<td>从HTTP header中猜测的响应内容编码方式</td>
+</tr>
+<tr>
+<td>r.apparent_encoding</td>
+<td>从内容中分析出的响应内容编码方式(备选编码方式)</td>
+</tr>
+<tr>
+<td>r.content</td>
+<td>HTTP响应内容的二进制形式</td>
+</tr>
+</tbody></table>
+<p><font size="5">理解Response的编码</font></p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>r.encoding</td>
+<td>从HTTP header中猜测的响应内容编码方式</td>
+</tr>
+<tr>
+<td>r.apparent_encoding</td>
+<td>从内容中分析出的响应内容编码方式(备选编码方式)</td>
+</tr>
+</tbody></table>
+</blockquote>
+<blockquote>
+<p><code>r.encoding: 如果header中不存在charset,则默认编码为ISO-8859-1</code></p>
+</blockquote>
+<h2 id="爬取网页的通用代码框架"><a href="#爬取网页的通用代码框架" class="headerlink" title="爬取网页的通用代码框架"></a>爬取网页的通用代码框架</h2><h3 id="一些基本的Requests中的异常"><a href="#一些基本的Requests中的异常" class="headerlink" title="一些基本的Requests中的异常"></a>一些基本的Requests中的异常</h3><table>
+<thead>
+<tr>
+<th>异常</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>requests.ConnectionError</td>
+<td>网络连接错误异常,如DNS查询失败、拒绝连接等</td>
+</tr>
+<tr>
+<td>requests.HTTPError</td>
+<td>HTTP错误异常</td>
+</tr>
+<tr>
+<td>requests.URLRequired</td>
+<td>URL缺失异常</td>
+</tr>
+<tr>
+<td>requests.TooManyRedirects</td>
+<td>超过最大重定向次数,产生重定向异常</td>
+</tr>
+<tr>
+<td>requests.ConnectTimeout</td>
+<td>连接远程服务器超时异常</td>
+</tr>
+<tr>
+<td>requests.Timeout</td>
+<td>请求URL超时,产生超时异常</td>
+</tr>
+<tr>
+<td>r.raise_for_status()</td>
+<td>如果不是200,产生异常requests.HTTPError</td>
+</tr>
+</tbody></table>
+<center><font size="4">通用代码框架:</font></center>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getHTMLText</span><span class="params">(url)</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        r = requests.get(url, timeout=<span class="number">30</span>)</span><br><span class="line">        r.raise_for_status()  <span class="comment"># 如果状态不是200,引发HTTPError异常</span></span><br><span class="line">        r.encoding = r.apparent_encoding</span><br><span class="line">        <span class="keyword">return</span> r.text</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"产生异常"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    url = <span class="string">'http://www.baidu.com'</span></span><br><span class="line">    print(getHTMLText(url))</span><br></pre></td></tr></table></figure>
+
+<h2 id="HTTP协议"><a href="#HTTP协议" class="headerlink" title="HTTP协议"></a>HTTP协议</h2><p><font size="3"><b>超文本传输协议（HTTP，HyperText Transfer Protocol)<br><br>HTTP是一个基于“请求与响应”模式的、无状态的应用层协议。<br><br>HTTP协议采用URL作为定位网络资源的标识。<br><br>URL格式 <a href="http://host[" target="_blank" rel="noopener">http://host[</a><font color="orange">:port</font>][<font color="orange">path</font>]<br><br><font color="orange">host:</font> 合法的Internet主机域名或IP地址<br><br><font color="orange">port:</font> 端口号,缺失端口为80<br><br><font color="orange">path:</font> 请求资源的路径</b></font></p>
+<center>HTTP协议对资源的操作</center>
+
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GET</td>
+<td>请求获取URL位置的资源</td>
+</tr>
+<tr>
+<td>HEAD</td>
+<td>请求获取URL位置的资源的响应消息报告,即获得该资源的头部消息</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>请求向URL位置的资源后附加新的数据</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td>请求想URL位置存储一个资源,覆盖URL位置的资源</td>
+</tr>
+<tr>
+<td>PATCH</td>
+<td>请求局部更新URL位置的资源,即改变该处资源的部分内容</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>请求删除URL位置存储的资源</td>
+</tr>
+</tbody></table>
+<p>理解PATCH和PUT的区别</p>
+<p>假设URL位置有一组数据UserInfo,包括UserID、UserName等20个字段。<br>需求: 用户修改了UserName,其他不变。</p>
+<ul>
+<li>采用PATCH,仅向URL提交UserName的局部更新请求。</li>
+<li>采用PUT,必须将所有20个字段一并提交到URL,未提交的字段被删除</li>
+</ul>
+<p>PATCH的最主要好处: 节省网络带宽</p>
+<p>HTTP协议与Requests库是一一对应的</p>
+<p>Requests库的post()方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> requests</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>payload = &#123;<span class="string">'key1'</span>:<span class="string">'value1'</span>,<span class="string">'key2'</span>:<span class="string">'value2'</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r = requests.post(<span class="string">'http://httpbin.org/post'</span>,data = payload)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(r.text)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"args"</span>: &#123;&#125;, </span><br><span class="line">  <span class="string">"data"</span>: <span class="string">""</span>, </span><br><span class="line">  <span class="string">"files"</span>: &#123;&#125;, </span><br><span class="line">  <span class="string">"form"</span>: &#123;</span><br><span class="line">    <span class="string">"key1"</span>: <span class="string">"value1"</span>, </span><br><span class="line">    <span class="string">"key2"</span>: <span class="string">"value2"</span></span><br><span class="line">  &#125;, </span><br><span class="line">  <span class="string">"headers"</span>: &#123;</span><br><span class="line">    <span class="string">"Accept"</span>: <span class="string">"*/*"</span>, </span><br><span class="line">    <span class="string">"Accept-Encoding"</span>: <span class="string">"gzip, deflate"</span>, </span><br><span class="line">    <span class="string">"Content-Length"</span>: <span class="string">"23"</span>, </span><br><span class="line">    <span class="string">"Content-Type"</span>: <span class="string">"application/x-www-form-urlencoded"</span>, </span><br><span class="line">    <span class="string">"Host"</span>: <span class="string">"httpbin.org"</span>, </span><br><span class="line">    <span class="string">"User-Agent"</span>: <span class="string">"python-requests/2.11.1"</span></span><br><span class="line">  &#125;, </span><br><span class="line">  <span class="string">"json"</span>: null, </span><br><span class="line">  <span class="string">"origin"</span>: <span class="string">"116.7.245.180"</span>, </span><br><span class="line">  <span class="string">"url"</span>: <span class="string">"http://httpbin.org/post"</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment"># 向URL POST一个字典 自动编码为form(表单)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r = requests.post(<span class="string">'http://httpbin.org/post'</span>,data=<span class="string">'ABC'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(r.text)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"args"</span>: &#123;&#125;, </span><br><span class="line">  <span class="string">"data"</span>: <span class="string">"ABC"</span>, </span><br><span class="line">  <span class="string">"files"</span>: &#123;&#125;, </span><br><span class="line">  <span class="string">"form"</span>: &#123;&#125;, </span><br><span class="line">  <span class="string">"headers"</span>: &#123;</span><br><span class="line">    <span class="string">"Accept"</span>: <span class="string">"*/*"</span>, </span><br><span class="line">    <span class="string">"Accept-Encoding"</span>: <span class="string">"gzip, deflate"</span>, </span><br><span class="line">    <span class="string">"Content-Length"</span>: <span class="string">"3"</span>, </span><br><span class="line">    <span class="string">"Host"</span>: <span class="string">"httpbin.org"</span>, </span><br><span class="line">    <span class="string">"User-Agent"</span>: <span class="string">"python-requests/2.11.1"</span></span><br><span class="line">  &#125;, </span><br><span class="line">  <span class="string">"json"</span>: null, </span><br><span class="line">  <span class="string">"origin"</span>: <span class="string">"116.7.245.180"</span>, </span><br><span class="line">  <span class="string">"url"</span>: <span class="string">"http://httpbin.org/post"</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment"># 向URL POST一个字符串 自动编码为data</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Requests库的各个方法"><a href="#Requests库的各个方法" class="headerlink" title="Requests库的各个方法"></a>Requests库的各个方法</h2><h3 id="requests-request-method-url-kwargs"><a href="#requests-request-method-url-kwargs" class="headerlink" title="requests.request(method, url, **kwargs)"></a>requests.request(method, url, **kwargs)</h3><ul>
+<li>method: 请求方式,对应get/put/post等7种</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">requests.request(<span class="string">'GET'</span>, url, **kwargs)</span><br><span class="line">requests.request(<span class="string">'HEAD'</span>, url, **kwargs)</span><br><span class="line">requests.request(<span class="string">'POST'</span>, url, **kwargs)</span><br><span class="line">requests.request(<span class="string">'PUT'</span>, url, **kwargs)</span><br><span class="line">requests.request(<span class="string">'PATCH'</span>, url, **kwargs)</span><br><span class="line">requests.request(<span class="string">'DELETE'</span>, url, **kwargs)</span><br><span class="line">requests.request(<span class="string">'OPTIONS'</span>, url, **kwargs)</span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li><p>url: 拟获取页面的url链接</p>
+</li>
+<li><p>**kwargs: 控制访问的参数,共13个,均为可选项</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>params</td>
+<td>字典或字节序列,作为参数增加到url中</td>
+</tr>
+<tr>
+<td>data</td>
+<td>字典、字节序列或文件对象,作为Request的内容</td>
+</tr>
+<tr>
+<td>json</td>
+<td>JSON格式的数据,作为Request的内容</td>
+</tr>
+<tr>
+<td>headers</td>
+<td>字典,HTTP定制头</td>
+</tr>
+<tr>
+<td>cookies</td>
+<td>字典或CookieJar,Request中的cookie</td>
+</tr>
+<tr>
+<td>auth</td>
+<td>元组,支持HTTP认证功能</td>
+</tr>
+<tr>
+<td>files</td>
+<td>字典类型,传输文件</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td>设定超时时间,秒为单位</td>
+</tr>
+<tr>
+<td>proxies</td>
+<td>字典类型,设定访问代理服务器,可以增加登陆认证</td>
+</tr>
+<tr>
+<td>allow_redirects</td>
+<td>True/False,均默认为True,重定向开关</td>
+</tr>
+<tr>
+<td>stream</td>
+<td>True/False,默认为True,获取内容立即下载开关</td>
+</tr>
+<tr>
+<td>verify</td>
+<td>True/False,默认为True,认证SSL证书开关</td>
+</tr>
+<tr>
+<td>cert</td>
+<td>本地SSL证书路径</td>
+</tr>
+</tbody></table>
+<blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>fs = &#123;<span class="string">'file'</span>: open(<span class="string">'data.xls'</span>, <span class="string">'rb'</span>)&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r = requests.request(<span class="string">'POST'</span>,<span class="string">'http://python123.io/ws'</span>, files = fs)</span><br><span class="line"> </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pxs = &#123;<span class="string">'http'</span>: <span class="string">'http://user:pass@10.10.10.1:1234'</span></span><br><span class="line">	 		  <span class="string">'https'</span>: <span class="string">'https://0.10.10.1:1234'</span>, proxies = pxs&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r = requests.request(<span class="string">'GET'</span>,<span class="string">'https://www.baidu.com'</span>, proxies = pxs)</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="requests-get-url-params-None-kwargs"><a href="#requests-get-url-params-None-kwargs" class="headerlink" title="requests.get(url, params=None, **kwargs)"></a>requests.get(url, params=None, **kwargs)</h3><ul>
+<li><p>url: 拟获取页面的url链接</p>
+</li>
+<li><p>params: url中的额外参数,字典或字节流格式,可选</p>
+</li>
+<li><p>**kwargs: 12个控制访问的参数 (除了params)</p>
+</li>
+</ul>
+<h3 id="requests-head-url-kwargs"><a href="#requests-head-url-kwargs" class="headerlink" title="requests.head(url, **kwargs)"></a>requests.head(url, **kwargs)</h3><ul>
+<li><p>url: 拟获取页面的url链接</p>
+</li>
+<li><p>**kwargs: 13个控制访问的参数 </p>
+</li>
+</ul>
+<h3 id="requests-post-url-data-None-json-None-kwargs"><a href="#requests-post-url-data-None-json-None-kwargs" class="headerlink" title="requests.post(url, data=None, json=None, **kwargs)"></a>requests.post(url, data=None, json=None, **kwargs)</h3><ul>
+<li><p>url: 拟更新页面的url链接</p>
+</li>
+<li><p>data: 字典、字节序列或文件,Request的内容</p>
+</li>
+<li><p>json: JSON格式的数据,Request的内容</p>
+</li>
+<li><p>**kwargs: 11个控制访问的参数 </p>
+</li>
+</ul>
+<h3 id="requests-put-url-data-None-kwargs"><a href="#requests-put-url-data-None-kwargs" class="headerlink" title="requests.put(url, data=None, **kwargs)"></a>requests.put(url, data=None, **kwargs)</h3><ul>
+<li><p>url: 拟更新页面的url链接</p>
+</li>
+<li><p>data: 字典、字节序列或文件,Request的内容</p>
+</li>
+<li><p>**kwargs: 12个控制访问的参数 </p>
+</li>
+</ul>
+<h3 id="requests-patch-url-data-None-kwargs"><a href="#requests-patch-url-data-None-kwargs" class="headerlink" title="requests.patch(url, data=None, **kwargs)"></a>requests.patch(url, data=None, **kwargs)</h3><ul>
+<li><p>url: 拟更新页面的url链接</p>
+</li>
+<li><p>data: 字典、字节序列或文件,Request的内容</p>
+</li>
+<li><p>**kwargs: 12个控制访问的参数 </p>
+</li>
+</ul>
+<h3 id="requests-delete-url-kwargs"><a href="#requests-delete-url-kwargs" class="headerlink" title="requests.delete(url, **kwargs)"></a>requests.delete(url, **kwargs)</h3><ul>
+<li><p>url: 拟删除页面的url链接</p>
+</li>
+<li><p>**kwargs: 13个控制访问的参数 </p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Buy me a coffe. XD</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/coffe.png" alt="Wu Yong WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/ali_coffe.png" alt="Wu Yong Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/爬虫/" rel="tag"># 爬虫</a>
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/01/request/" rel="next" title="Python Requests库学习笔记">
+                <i class="fa fa-chevron-left"></i> Python Requests库学习笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/07/request3/" rel="prev" title="爬虫学习笔记(二)">
+                爬虫学习笔记(二) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/ori_sr2x.png" alt="Wu Yong">
+            
+              <p class="site-author-name" itemprop="name">Wu Yong</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/ackness" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:ackness8@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Requests库"><span class="nav-number">1.</span> <span class="nav-text">Requests库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#get方法"><span class="nav-number">1.1.</span> <span class="nav-text">get方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#爬取网页的通用代码框架"><span class="nav-number">1.2.</span> <span class="nav-text">爬取网页的通用代码框架</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一些基本的Requests中的异常"><span class="nav-number">1.2.1.</span> <span class="nav-text">一些基本的Requests中的异常</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP协议"><span class="nav-number">1.3.</span> <span class="nav-text">HTTP协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Requests库的各个方法"><span class="nav-number">1.4.</span> <span class="nav-text">Requests库的各个方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#requests-request-method-url-kwargs"><span class="nav-number">1.4.1.</span> <span class="nav-text">requests.request(method, url, **kwargs)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#requests-get-url-params-None-kwargs"><span class="nav-number">1.4.2.</span> <span class="nav-text">requests.get(url, params=None, **kwargs)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#requests-head-url-kwargs"><span class="nav-number">1.4.3.</span> <span class="nav-text">requests.head(url, **kwargs)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#requests-post-url-data-None-json-None-kwargs"><span class="nav-number">1.4.4.</span> <span class="nav-text">requests.post(url, data=None, json=None, **kwargs)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#requests-put-url-data-None-kwargs"><span class="nav-number">1.4.5.</span> <span class="nav-text">requests.put(url, data=None, **kwargs)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#requests-patch-url-data-None-kwargs"><span class="nav-number">1.4.6.</span> <span class="nav-text">requests.patch(url, data=None, **kwargs)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#requests-delete-url-kwargs"><span class="nav-number">1.4.7.</span> <span class="nav-text">requests.delete(url, **kwargs)</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">粤ICP备17074505号</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'j7tOdKhEE2pKVLIyH8bwna8d-gzGzoHsz',
+        appKey: 'g7k1HlUKw6IDpMo2514FMnnh',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

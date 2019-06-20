@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Machine Learning,Deep Learning,Python,Tensorflow,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="自编码器及多层感知器">
+<meta name="keywords" content="Machine Learning,Deep Learning,Python,Tensorflow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TensorFlow学习笔记(四)">
+<meta property="og:url" content="http://heywe.cn/2017/04/08/tensorflow4/index.html">
+<meta property="og:site_name" content="Wu Yong&#39;s Blog">
+<meta property="og:description" content="自编码器及多层感知器">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://ww4.sinaimg.cn/large/006tNc79gy1fef3h7g0l9j30kn0d0gn8.jpg">
+<meta property="og:updated_time" content="2017-11-03T09:06:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TensorFlow学习笔记(四)">
+<meta name="twitter:description" content="自编码器及多层感知器">
+<meta name="twitter:image" content="https://ww4.sinaimg.cn/large/006tNc79gy1fef3h7g0l9j30kn0d0gn8.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://heywe.cn/2017/04/08/tensorflow4/">
+
+
+
+
+
+  <title>TensorFlow学习笔记(四) | Wu Yong's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wu Yong's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Have a nice day!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-talk">
+          <a href="/Talk/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-comments"></i> <br>
+            
+            Talk
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photos">
+          <a href="/photos/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-image"></i> <br>
+            
+            Photos
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://heywe.cn/2017/04/08/tensorflow4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wu Yong">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/ori_sr2x.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wu Yong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">TensorFlow学习笔记(四)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-08T23:09:30+08:00">
+                2017-04-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Machine Learning</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/Deep-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Deep Learning</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/Deep-Learning/Tensorflow/" itemprop="url" rel="index">
+                    <span itemprop="name">Tensorflow</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/04/08/tensorflow4/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2017/04/08/tensorflow4/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center><font size="5" color="red"><b>自编码器及多层感知器</b></font></center>
+
+<a id="more"></a>
+
+
+<h1 id="MNIST介绍"><a href="#MNIST介绍" class="headerlink" title="MNIST介绍"></a>MNIST介绍</h1><ul>
+<li><p>MNIST是在机器学习领域中的一个经典问题。该问题解决的是把28x28像素的灰度手写数字图片识别为相应的数字，其中数字的范围从0到9.</p>
+</li>
+<li><p>首先需要下载数据集 <a href="http://yann.lecun.com/exdb/mnist/" target="_blank" rel="noopener">LeCun给出了下载地址</a></p>
+</li>
+<li><p>这里有非常详细的MNIST介绍以及可视化的图片演示<a href="http://colah.github.io/posts/2014-10-Visualizing-MNIST/" target="_blank" rel="noopener">Chris Olah’s visualizations of MNIST.</a></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>train-images-idx3-ubyte.gz</td>
+<td>training set images (9912422 bytes)</td>
+</tr>
+<tr>
+<td>train-labels-idx1-ubyte.gz</td>
+<td>training set labels (28881 bytes)</td>
+</tr>
+<tr>
+<td>t10k-images-idx3-ubyte.gz</td>
+<td>test set images (1648877 bytes)</td>
+</tr>
+<tr>
+<td>t10k-labels-idx1-ubyte.gz</td>
+<td>test set labels (4542 bytes)</td>
+</tr>
+</tbody></table>
+<p>TensorFlow直接提供了MNIST的下载</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> tensorflow.examples.tutorials.mnist <span class="keyword">import</span> input_data</span><br><span class="line">mnist = input_data.read_data_sets(<span class="string">'data/'</span>, one_hot=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">文件已存在会这样显示,不存在时会有一行是显示文件大小的</span></span><br><span class="line"><span class="string">Extracting data/train-images-idx3-ubyte.gz</span></span><br><span class="line"><span class="string">Extracting data/train-labels-idx1-ubyte.gz</span></span><br><span class="line"><span class="string">Extracting data/t10k-images-idx3-ubyte.gz</span></span><br><span class="line"><span class="string">Extracting data/t10k-labels-idx1-ubyte.gz</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="先查看MNIST数据集的情况"><a href="#先查看MNIST数据集的情况" class="headerlink" title="先查看MNIST数据集的情况"></a>先查看MNIST数据集的情况</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">print(mnist.train.images.shape,mnist.train.labels.shape) <span class="comment"># 训练集</span></span><br><span class="line">print(mnist.test.images.shape,mnist.test.labels.shape) <span class="comment"># 测试集</span></span><br><span class="line">print(mnist.validation.images.shape,mnist.validation.labels.shape) <span class="comment"># 验证数据集</span></span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">(55000, 784) (55000, 10)</span></span><br><span class="line"><span class="string">(10000, 784) (10000, 10)</span></span><br><span class="line"><span class="string">(5000, 784) (5000, 10)</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用Softmax Regression实现一个简单的机器学习</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> tensorflow.examples.tutorials.mnist <span class="keyword">import</span> input_data</span><br><span class="line">mnist = input_data.read_data_sets(<span class="string">'mnist/data/'</span>, one_hot=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">print(mnist.train.images.shape, mnist.train.labels.shape)</span><br><span class="line">print(mnist.test.images.shape, mnist.test.labels.shape)</span><br><span class="line">print(mnist.validation.images.shape, mnist.validation.labels.shape)</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line">sess = tf.InteractiveSession() <span class="comment"># 注册为默认session</span></span><br><span class="line">x = tf.placeholder(tf.float32, [<span class="literal">None</span>, <span class="number">784</span>]) <span class="comment"># None表示不限制条数的输入</span></span><br><span class="line"></span><br><span class="line">W = tf.Variable(tf.zeros([<span class="number">784</span>, <span class="number">10</span>]))</span><br><span class="line">b = tf.Variable(tf.zeros([<span class="number">10</span>]))</span><br><span class="line"></span><br><span class="line">y = tf.nn.softmax(tf.matmul(x, W) + b) <span class="comment"># softmax regression算法</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># cross—entropy  </span></span><br><span class="line">y_ = tf.placeholder(tf.float32,[<span class="literal">None</span>,<span class="number">10</span>])</span><br><span class="line">cross_entropy = tf.reduce_mean(-tf.reduce_sum(y_*tf.log(y),reduction_indices=[<span class="number">1</span>]))</span><br><span class="line"></span><br><span class="line"><span class="comment"># SGD</span></span><br><span class="line">train_step = tf.train.GradientDescentOptimizer(<span class="number">0.5</span>).minimize(cross_entropy)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化所有变量</span></span><br><span class="line">tf.global_variables_initializer().run()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 每次随机从训练集选择100个进行训练构成mini-batch</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1000</span>):</span><br><span class="line">    batch_xs,batch_ys = mnist.train.next_batch(<span class="number">100</span>)</span><br><span class="line">    train_step.run(&#123;x:batch_xs,y_:batch_ys&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># tf.argmax是从一个tensor中找到最大的序号,tf.argmax(y,1)求各个预测的数字中概率最大的一个</span></span><br><span class="line"><span class="comment"># tf.argmax(y_,1)找样本的真实数字类别,tf.equal表示是否相等</span></span><br><span class="line">correct_prediction = tf.equal(tf.argmax(y,<span class="number">1</span>),tf.argmax(y_,<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 用tf.cast将之前的correct_prediction输出的bool值转换为float32;之后再求平均</span></span><br><span class="line">accuracy = tf.reduce_mean(tf.cast(correct_prediction,tf.float32))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出准确率</span></span><br><span class="line">print(accuracy.eval(&#123;x:mnist.test.images,y_:mnist.test.labels&#125;))</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">输出(每次可能不一样)</span></span><br><span class="line"><span class="string">0.9194</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>这个可以看成是一个没有隐藏层的最浅的神经网络,一共有4步:</p>
+<ol>
+<li>定义算法公式,也就是神经网络forward时的计算</li>
+<li>定义loss,选定优化器,并制定优化器优化loss</li>
+<li>迭代地对数据进行训练</li>
+<li>在测试集或是验证集上对准确率进行评测</li>
+</ol>
+</li>
+</ul>
+<h1 id="TensorFlow实现自编码器"><a href="#TensorFlow实现自编码器" class="headerlink" title="TensorFlow实现自编码器"></a>TensorFlow实现自编码器</h1><ul>
+<li><p>自编码器</p>
+<p>  传统的机器学习的任务很大程度上依赖于特征工程。但是特征工程往往非常耗时耗力,而且在图像、视频、语音中提取到有效特征更难。而深度学习可以大大缓解机器学习模型对特征工程的依赖。深度学习在早期一度被认为是一种无监督的特征学习,模仿了人脑的对特征逐层抽象提取的过程。</p>
+<p>  早年有学者研究稀疏编码时,收集了大量的黑白风景照片,并从中提取了许多16*16的图像碎片。他们发现机会所有的图像碎片都可以由64种正交的边组合得到。还有学者同事发现声音也存在这种情况。这就是特征的稀疏表达,使用少量的基本特征组合拼装得到更高层抽象的特征。通常我们需要多层的神经网络,对于每一层神经网络来说,前一层的输出都是为加工的像素,而这一层则是对像素进行加工组织成更高阶的特征。</p>
+<p>  <img src="https://ww4.sinaimg.cn/large/006tNc79gy1fef3h7g0l9j30kn0d0gn8.jpg" alt></p>
+<p>  自编码器,即可以使用自身的高阶特征编码自己。自编码器其实也是一种神经网络,它的输入和输入是一致的,它借助稀疏编码的思想,目标是使用稀疏的一些高阶特征重构自己。因此,它的特点非常明显:第一,期望输入/输出一致;第二,希望使用高阶特征来重构自己,而不只是复制像素点。</p>
+<p>  Hinton 在<code>Reducing the dimensionality of data with neural networks</code> <a href="http://www.utstat.toronto.edu/~rsalakhu/papers/science.pdf" target="_blank" rel="noopener">论文</a>中讲解了使用自编码器对数据进行降维的方法。Hinton还提出了基于深度信念网络(Deep Belief Networks,DBN)可使用无监督的逐层训练的贪心算法,为训练很深的网络提供了一个可行的方案:很难直接训练极深的网络,但是可以用无监督的逐层训练提取特征,将网络的权重初始化到一个比较好的位置,辅助后面的监督训练。这个思想是相当于学习一个恒等式y=x,自编码器的输入节点和输出节点的数量是一致的,但是如果只是单纯地逐个重复输入节点则没有意义,所以希望使用少量稀疏的高阶特征来重构输入,所以可以加入几种限制。</p>
+<p>  (1) 如果限制中间隐含层节点的数量,比如让中间隐含层节点的数量小与输入/输出节点的数量,就相当于一个降维的过程。此时如果再给中间隐含层的权重加一个L1正则,则可以通过惩罚系数控制隐含节点的稀疏程度,惩罚系数越大,学到的特征组合越稀疏。至于为什么L1正则化可以增加稀疏性,请看<a href="http://freemind.pluskid.org/machine-learning/sparsity-and-some-basics-of-l1-regularization/" target="_blank" rel="noopener">某大神博客</a>有数学推导。</p>
+<p>  (2) 如果给数据加入噪声,那么就构成了去噪自编码器,我们将从噪声中学习出数据的特征。同样,我们也不可能完全复制节点,完全复制并不能去除我们添加的噪声,无法完全复原数据。所以唯有学习数据频繁出现的模式和结构,将无规律的噪声略去,才可以复原数据。去噪自编码器最常用的噪声是加性高斯噪声。</p>
+</li>
+</ul>
+<ul>
+<li><p>TensorFlow实现去噪自编码器</p>
+<blockquote>
+<p>刚刚用Linux配置sklearn简直要疯。顺带提一下坑的地方,import sklearn一直提示没找到 _bz2 ,查了好久是要先安装bz2的模块<code>yum install bzip2-devel</code><br>  然后重新编译python3.6:<code>./configure</code> <code>make all</code> <code>make install</code> <code>make clean</code> <code>make distclean</code></p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> sklearn.preprocessing <span class="keyword">as</span> prep</span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow.examples.tutorials.mnist <span class="keyword">import</span> input_data</span><br></pre></td></tr></table></figure>
+
+<p>xavier initialization 是一种参数初始化方法。<br>Xavier在caffe早期版本频繁使用 它的特点是根据某一层网络的输入输出节点数量自动的调整最合适的分布。<br>Yoshua Bengio 在一篇论文中指出,如果学习模型的权重初始化得太小,<br>那么信号将在每层间传递时逐渐缩小而难以产生作用,如果初始化的太大,那信号将在每层间的传递时逐渐放大而导致发散和失效。</p>
+<p>而Xavier初始化就是让初始化得到不大不小的值。<br>从数学上就是使权重0均值,方差为$2 / (n_{in}+n_{out})$,分布可以用均匀分布或者高斯分布。<br>这里创建了一个$(- \sqrt{6 \over {n_{in}+n_{out}}},\sqrt{6 \over {n_{in}+n_{out}}})$ 范围内的均匀分布<br>它的方差根据公式$D(X)={(max-min)}^2 / 12$刚好等于$2 / (n_{in}+n_{out})$</p>
+<p>因此这里实现了标准均匀分布的Xavier初始化器,其中fan_in是输入节点的数量,fan_out是输出节点的数量</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">xavier_init</span><span class="params">(fan_in, fan_out, constant=<span class="number">1</span>)</span>:</span></span><br><span class="line">    low = -constant * np.sqrt(<span class="number">6.0</span> / (fan_in + fan_out))</span><br><span class="line">    high = constant * np.sqrt(<span class="number">6.0</span> / (fan_in + fan_out))</span><br><span class="line">    <span class="keyword">return</span> tf.random_uniform(</span><br><span class="line">        (fan_in, fan_out), minval=low, maxval=high, dtype=tf.float32)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">n_input, 输入变量数</span><br><span class="line">n_hidden, 隐含层节点数</span><br><span class="line">transfer_function=tf.nn.softplus, 隐含层激活函数,默认tf.nn.softplus</span><br><span class="line">optimizer=tf.train.AdamOptimizer(), 优化器,默认为Adam</span><br><span class="line">scale=0.1, 高斯噪声系数,默认为0.1</span><br><span class="line">其中class内的scale参数做成了一个placeholder</span><br><span class="line">参数初始化使用了接下来定义的_initialize_weifghts函数</span><br><span class="line">这里只用了一个隐含层</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AdditiveGausssianNoiseAutoencoder</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,</span></span></span><br><span class="line"><span class="function"><span class="params">                 n_input,</span></span></span><br><span class="line"><span class="function"><span class="params">                 n_hidden,</span></span></span><br><span class="line"><span class="function"><span class="params">                 transfer_function=tf.nn.softplus,</span></span></span><br><span class="line"><span class="function"><span class="params">                 optimizer=tf.train.AdamOptimizer<span class="params">()</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                 scale=<span class="number">0.1</span>)</span>:</span></span><br><span class="line">        self.n_input = n_input</span><br><span class="line">        self.n_hidden = n_hidden</span><br><span class="line">        self.transfer = transfer_function</span><br><span class="line">        self.scale = tf.placeholder(tf.float32)</span><br><span class="line">        self.training_scale = scale</span><br><span class="line">        network_weights = self._initialize_weights()</span><br><span class="line">        self.weights = network_weights</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">定义网络结构</span><br><span class="line">输入x创建了一个维度为n_input的placeholder</span><br><span class="line">建立了一个能提取特征的隐含层,先将输入x加入噪声,即self.x + scale * tf.random_normal((n_input, ))</span><br><span class="line">然后用tf.matmul将计入噪声的输入与隐含层的权重w1相乘</span><br><span class="line">并使用tf.add加上隐含层的偏置b1,最后使用self.transfer对结果进行激活函数处理</span><br><span class="line">经过隐含层之后我们需要在输出层进行数据复原、重建操作(即建立reconstruction层)</span><br><span class="line">这里就不需要激活函数了,直接将隐含层的输出self.hidden乘上输出层的权重w2,再加上输出层的权重b2即可</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">self.x = tf.placeholder(tf.float32, [<span class="literal">None</span>, self.n_input])</span><br><span class="line">self.hidden = self.transfer(</span><br><span class="line">    tf.add(</span><br><span class="line">        tf.matmul(self.x + scale * tf.random_normal((n_input, )),</span><br><span class="line">                  self.weights[<span class="string">'w1'</span>]), self.weights[<span class="string">'b1'</span>]))</span><br><span class="line">self.reconstruction = tf.add(</span><br><span class="line">    tf.matmul(self.hidden, self.weights[<span class="string">'w2'</span>]), self.weights[<span class="string">'b2'</span>])</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">定义自编码器的损失函数</span><br><span class="line">这里使用平方误差作为cost,即用tf.subtract计算输出(self.reconstruction)与输入(self.x)之差,</span><br><span class="line">再使用tf.pow求差的平方,最后使用tf.reduce_sum求和即可得到平方误差。</span><br><span class="line">定义训练操作作为优化器self.optimizer对损失self.cost进行优化。</span><br><span class="line">最后创建Session,并初始化自编码器的全部模型参数</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">self.cost = <span class="number">0.5</span> * tf.reduce_sum(</span><br><span class="line">    tf.pow(tf.subtract(self.reconstruction, self.x), <span class="number">2.0</span>))</span><br><span class="line">self.optimizer = optimizer.minimize(self.cost)</span><br><span class="line"></span><br><span class="line">init = tf.global_variables_initializer()</span><br><span class="line">self.sess = tf.Session()</span><br><span class="line">self.sess.run(init)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">创建初始化函数</span><br><span class="line">先创建一个字典,将w1,b1,w2,b2存入字典中</span><br><span class="line">最后返回</span><br><span class="line">w1要使用之前创建的xavier_init初始化,所以输入 输入节点数和隐含层节点数</span><br><span class="line">而偏置b1只需要使用tf.zeros全部置0即可</span><br><span class="line">对于输出层,没有激活函数直接将w2,b2全初始化为0</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_initialize_weights</span><span class="params">(self)</span>:</span></span><br><span class="line">   all_weights = dict()</span><br><span class="line">   all_weights[<span class="string">'w1'</span>] = tf.Variable(</span><br><span class="line">       xavier_init(self.n_input, self.n_hidden))</span><br><span class="line">   all_weights[<span class="string">'b1'</span>] = tf.Variable(</span><br><span class="line">       tf.zeros(</span><br><span class="line">           [self.n_hidden], dtype=tf.float32))</span><br><span class="line">   all_weights[<span class="string">'w2'</span>] = tf.Variable(</span><br><span class="line">       tf.zeros(</span><br><span class="line">           [self.n_hidden, self.n_input], dtype=tf.float32))</span><br><span class="line">   all_weights[<span class="string">'b2'</span>] = tf.Variable(</span><br><span class="line">       tf.zeros(</span><br><span class="line">           [self.n_input], dtype=tf.float32))</span><br><span class="line">   <span class="keyword">return</span> all_weights</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">定义计算损失及执行一步训练的函数partial_fit</span><br><span class="line">函数里只需让Session执行两个计算图的节点,分别是损失cost和训练过程中的optimizer</span><br><span class="line">输入的feed_dict包括输入数据x,以及噪声的系数scale</span><br><span class="line">函数partial_fit的作用就是用一个batch的数据进行训练并返回当前的损失cost</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">partial_fit</span><span class="params">(self, X)</span>:</span></span><br><span class="line">    cost, opt = self.sess.run(</span><br><span class="line">        (self.cost, self.optimizer),</span><br><span class="line">        feed_dict=&#123;self.x: X,</span><br><span class="line">                   self.scale: self.training_scale&#125;)</span><br><span class="line">    <span class="keyword">return</span> cost</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">只求损失cost的函数</span><br><span class="line">就只让Session执行一个计算图节点self.cost</span><br><span class="line">传入的参数和之前的partial_fit一致</span><br><span class="line">这个函数是在自编码器训练完毕后,在测试集上对模型的性能进行评测时会用到的,</span><br><span class="line">它不会像partial_fit那样触发训练操作</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">calc_total_cost</span><span class="params">(self, X)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> self.sess.run(</span><br><span class="line">        self.cost, feed_dict=&#123;self.x: X,</span><br><span class="line">                              self.scale: self.training_scale&#125;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">定义了transform函数,返回自编码器隐含层的输出结果</span><br><span class="line">提供一个接口来获取抽象后的特征,自编码器的隐含层的最主要的功能就是学习出数据中的高阶特征</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">transform</span><span class="params">(self, X)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> self.sess.run(</span><br><span class="line">        self.hidden, feed_dict=&#123;self.x: X,</span><br><span class="line">                                self.scale: self.training_scale&#125;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">再定义generate函数,它将隐含层的输出结果作为输入,通过之后的重建层将提取到的高阶特征复原为原始数据</span><br><span class="line">这个接口和前面的transform正好将整个自编码器拆分为两部分,这里的generate接口是后半部分</span><br><span class="line">将高阶特征复原为原始数据的步骤</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generate</span><span class="params">(self, hidden=None)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> hidden <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        hidden = np.random_normal(size=self.weights[<span class="string">'b1'</span>])</span><br><span class="line">    <span class="keyword">return</span> self.sess.run(self.reconstruction,</span><br><span class="line">                         feed_dict=&#123;self.hidden: hidden&#125;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">定义reconstruct</span><br><span class="line">它整体运行一遍复原过程</span><br><span class="line">包括提取高阶特征和通过高阶特征提取数据,即包括transform和generate两块</span><br><span class="line">输入是原数据、输出是复原后的数据</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reconstruct</span><span class="params">(self, X)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> self.sess.run(</span><br><span class="line">        self.reconstruction,</span><br><span class="line">        feed_dict=&#123;self.x: X,</span><br><span class="line">                   self.scale: self.training_scale&#125;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">获取隐含层的权重和偏差</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getWeights</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> self.sess.run(self.weights[<span class="string">'w1'</span>])</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getBiases</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> self.sess.run(self.weights[<span class="string">'b1'</span>])</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">加载MNIST数据集</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mnist = input_data.read_data_sets(<span class="string">'data/'</span>, one_hot=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">对训练测试数据标准化的函数</span><br><span class="line">标准化让数据变成0均值,标准差为1的分布</span><br><span class="line">方法是先减去平均值,再除以标准差</span><br><span class="line">直接使用sklearn.preprossing的StandardScaler类,现在训练集上进行fit再将这个Scaler用到训练集和测试集上</span><br><span class="line">这里必须要保证训练测试数据都使用完全相同的Scaler,这样才能保证后面模型处理数据的一致性,这就是先在训练集上fit出一个公用的Scaler的原因</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">standard_scale</span><span class="params">(X_train, X_test)</span>:</span></span><br><span class="line">    preprocessor = prep.StandardScaler().fit(X_train)</span><br><span class="line">    X_train = preprocessor.transform(X_train)</span><br><span class="line">    X_test = preprocessor.transform(X_test)</span><br><span class="line">    <span class="keyword">return</span> X_train, X_test</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">定义一个获取随机block数据的函数:</span><br><span class="line">取一个从0到len(data)-batch_size之间的随机整数 再以这个随机数作为block的起始位置,然后顺序取到一个batch size的数据</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_random_block_from_data</span><span class="params">(data, batch_size)</span>:</span></span><br><span class="line">    start_index = np.random.randint(<span class="number">0</span>, len(data) - batch_size)</span><br><span class="line">    <span class="keyword">return</span> data[start_index:(start_index + batch_size)]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">使用之前定义的standard_scale函数对训练集、测试集进行标准化变换</span><br><span class="line"></span><br><span class="line">定义参数</span><br><span class="line">epoch 最大训练轮数</span><br><span class="line">batch_size </span><br><span class="line">display_step 每隔几轮显示一次cost</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">X_train, X_test = standard_scale(mnist.train.images, mnist.test.images)</span><br><span class="line">n_samples = int(mnist.train.num_examples)</span><br><span class="line">training_epochs = <span class="number">20</span></span><br><span class="line">batch_size = <span class="number">128</span></span><br><span class="line">display_step = <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">创建一个AGN自编码器的实例</span><br><span class="line">定义输入节点数n_input为784 隐含层为节点数200</span><br><span class="line">隐含层的激活函数transfer_function为softplus</span><br><span class="line">优化器为Adam,学习速率为0.001</span><br><span class="line">噪声系数scale为0.01</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">autoencoder = AdditiveGausssianNoiseAutoencoder(</span><br><span class="line">    n_input=<span class="number">784</span>,</span><br><span class="line">    n_hidden=<span class="number">200</span>,</span><br><span class="line">    transfer_function=tf.nn.softplus,</span><br><span class="line">    optimizer=tf.train.AdamOptimizer(learning_rate=<span class="number">0.001</span>),</span><br><span class="line">    scale=<span class="number">0.01</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">开始训练过程</span><br><span class="line">在每一轮循环开始时,将平均损失avg_vost设置为0</span><br><span class="line">计算一共需要的batch数,在每一个batch的循环中,partial_fit训练这个batch的数据计算当前的cost</span><br><span class="line">最后将cost整合到avg_cost中。在每一轮迭代后,显示当前迭代数和这一轮的平均cost</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> range(training_epochs):</span><br><span class="line">    avg_cost = <span class="number">0.</span></span><br><span class="line">    total_batch = int(n_samples / batch_size)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(total_batch):</span><br><span class="line">        batch_xs = get_random_block_from_data(X_train, batch_size)</span><br><span class="line">        cost = autoencoder.partial_fit(batch_xs)</span><br><span class="line">        avg_cost += cost / n_samples * batch_size</span><br><span class="line">    <span class="keyword">if</span> epoch % display_step == <span class="number">0</span>:</span><br><span class="line">        print(<span class="string">"Epoch:"</span>, <span class="string">"%04d"</span> % (epoch + <span class="number">1</span>), <span class="string">"cost="</span>,</span><br><span class="line">              <span class="string">"&#123;:.9f&#125;"</span>.format(avg_cost))</span><br><span class="line">    </span><br><span class="line">print(<span class="string">"Total cost: "</span>+ str(autoencoder.calc_total_cost(X_test)))</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">最终的输出结果 我这里大约需要<span class="number">2</span>分多钟</span><br><span class="line">Epoch: <span class="number">0001</span> cost = <span class="number">19775.792931818</span></span><br><span class="line">Epoch: <span class="number">0002</span> cost = <span class="number">11964.003212500</span></span><br><span class="line">Epoch: <span class="number">0003</span> cost = <span class="number">9655.042776705</span></span><br><span class="line">Epoch: <span class="number">0004</span> cost = <span class="number">9977.502384091</span></span><br><span class="line">Epoch: <span class="number">0005</span> cost = <span class="number">9495.442856250</span></span><br><span class="line">Epoch: <span class="number">0006</span> cost = <span class="number">8875.182430114</span></span><br><span class="line">Epoch: <span class="number">0007</span> cost = <span class="number">9942.972260227</span></span><br><span class="line">Epoch: <span class="number">0008</span> cost = <span class="number">8377.960607386</span></span><br><span class="line">Epoch: <span class="number">0009</span> cost = <span class="number">8419.574784091</span></span><br><span class="line">Epoch: <span class="number">0010</span> cost = <span class="number">7888.692389773</span></span><br><span class="line">Epoch: <span class="number">0011</span> cost = <span class="number">8359.316435227</span></span><br><span class="line">Epoch: <span class="number">0012</span> cost = <span class="number">9017.994824432</span></span><br><span class="line">Epoch: <span class="number">0013</span> cost = <span class="number">8194.735139773</span></span><br><span class="line">Epoch: <span class="number">0014</span> cost = <span class="number">8732.054455114</span></span><br><span class="line">Epoch: <span class="number">0015</span> cost = <span class="number">8273.645841477</span></span><br><span class="line">Epoch: <span class="number">0016</span> cost = <span class="number">8323.325909091</span></span><br><span class="line">Epoch: <span class="number">0017</span> cost = <span class="number">8407.965837500</span></span><br><span class="line">Epoch: <span class="number">0018</span> cost = <span class="number">7300.461956818</span></span><br><span class="line">Epoch: <span class="number">0019</span> cost = <span class="number">7638.011763636</span></span><br><span class="line">Epoch: <span class="number">0020</span> cost = <span class="number">8552.155968750</span></span><br><span class="line">Total cost: <span class="number">650998.0</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="TensorFlow实现多层感知器"><a href="#TensorFlow实现多层感知器" class="headerlink" title="TensorFlow实现多层感知器"></a>TensorFlow实现多层感知器</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow.examples.tutorials.mnist <span class="keyword">import</span> input_data</span><br><span class="line">mnist = input_data.read_data_sets(<span class="string">'data/'</span>, one_hot=<span class="literal">True</span>)</span><br><span class="line">sess = tf.InteractiveSession()</span><br><span class="line"></span><br><span class="line">in_units = <span class="number">784</span>  <span class="comment"># 输入节点</span></span><br><span class="line">h1_units = <span class="number">300</span>  <span class="comment"># 隐含层输出节点</span></span><br><span class="line">W1 = tf.Variable(tf.truncated_normal([in_units, h1_units], stddev=<span class="number">0.1</span>))</span><br><span class="line">W2 = tf.Variable(tf.zeros([h1_units, <span class="number">10</span>]))</span><br><span class="line">b1 = tf.Variable(tf.zeros([h1_units]))</span><br><span class="line">b2 = tf.Variable(tf.zeros([<span class="number">10</span>]))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义输入x的placeholder,dropout的比率为keep_prob(保留节点的概率)</span></span><br><span class="line">x = tf.placeholder(tf.float32, [<span class="literal">None</span>, in_units])</span><br><span class="line">keep_prob = tf.placeholder(tf.float32)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 隐含层的命名为hidden1</span></span><br><span class="line"><span class="comment"># 激活函数为ReLU</span></span><br><span class="line">hidden1 = tf.nn.relu(tf.matmul(x, W1) + b1)</span><br><span class="line">hidden1_drop = tf.nn.dropout(hidden1, keep_prob)</span><br><span class="line">y = tf.nn.softmax(tf.matmul(hidden1_drop, W2) + b2)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这里使用Adagrad优化,优化算法可以参考下面cs231n</span></span><br><span class="line"><span class="comment"># http://cs231n.github.io/neural-networks-3/</span></span><br><span class="line"><span class="comment"># 这里有非常非常详细的介绍</span></span><br><span class="line">y_ = tf.placeholder(tf.float32, [<span class="literal">None</span>, <span class="number">10</span>])</span><br><span class="line">cross_entropy = tf.reduce_mean(-tf.reduce_sum(</span><br><span class="line">    y_ * tf.log(y), reduction_indices=[<span class="number">1</span>]))</span><br><span class="line">train_step = tf.train.AdagradOptimizer(<span class="number">0.3</span>).minimize(cross_entropy)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 训练,这里keep_prob=0.75指训练时随机保留75%的节点,其余的节点为0</span></span><br><span class="line"><span class="comment"># cs231n提到过使dropout率为0.5最优</span></span><br><span class="line">tf.global_variables_initializer().run()</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3000</span>):</span><br><span class="line">    batch_xs, batch_ys = mnist.train.next_batch(<span class="number">100</span>)</span><br><span class="line">    train_step.run(&#123;x: batch_xs, y_: batch_ys, keep_prob: <span class="number">0.75</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 预测时让keep_prob=1</span></span><br><span class="line">correct_prediction = tf.equal(tf.argmax(y, <span class="number">1</span>), tf.argmax(y_, <span class="number">1</span>))</span><br><span class="line">accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))</span><br><span class="line">print(accuracy.eval(&#123;</span><br><span class="line">    x: mnist.test.images,</span><br><span class="line">    y_: mnist.test.labels,</span><br><span class="line">    keep_prob: <span class="number">1.0</span></span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Buy me a coffe. XD</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/coffe.png" alt="Wu Yong WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/ali_coffe.png" alt="Wu Yong Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          
+            <a href="/tags/Deep-Learning/" rel="tag"># Deep Learning</a>
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+            <a href="/tags/Tensorflow/" rel="tag"># Tensorflow</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/01/tensorflow3/" rel="next" title="TensorFlow学习笔记(三)">
+                <i class="fa fa-chevron-left"></i> TensorFlow学习笔记(三)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/21/tensorflow5/" rel="prev" title="TensorFlow学习笔记(五)">
+                TensorFlow学习笔记(五) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/ori_sr2x.png" alt="Wu Yong">
+            
+              <p class="site-author-name" itemprop="name">Wu Yong</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/ackness" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:ackness8@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MNIST介绍"><span class="nav-number">1.</span> <span class="nav-text">MNIST介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#先查看MNIST数据集的情况"><span class="nav-number">1.1.</span> <span class="nav-text">先查看MNIST数据集的情况</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TensorFlow实现自编码器"><span class="nav-number">2.</span> <span class="nav-text">TensorFlow实现自编码器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TensorFlow实现多层感知器"><span class="nav-number">3.</span> <span class="nav-text">TensorFlow实现多层感知器</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">粤ICP备17074505号</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'j7tOdKhEE2pKVLIyH8bwna8d-gzGzoHsz',
+        appKey: 'g7k1HlUKw6IDpMo2514FMnnh',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

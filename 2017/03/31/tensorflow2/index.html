@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Machine Learning,Deep Learning,Python,Tensorflow,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="实现第一个神经网络">
+<meta name="keywords" content="Machine Learning,Deep Learning,Python,Tensorflow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TensorFlow学习笔记(二)">
+<meta property="og:url" content="http://heywe.cn/2017/03/31/tensorflow2/index.html">
+<meta property="og:site_name" content="Wu Yong&#39;s Blog">
+<meta property="og:description" content="实现第一个神经网络">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://ww4.sinaimg.cn/large/006tNc79gy1fe64aske70j30dq0aigm7.jpg">
+<meta property="og:updated_time" content="2017-11-03T09:06:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TensorFlow学习笔记(二)">
+<meta name="twitter:description" content="实现第一个神经网络">
+<meta name="twitter:image" content="https://ww4.sinaimg.cn/large/006tNc79gy1fe64aske70j30dq0aigm7.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://heywe.cn/2017/03/31/tensorflow2/">
+
+
+
+
+
+  <title>TensorFlow学习笔记(二) | Wu Yong's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wu Yong's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Have a nice day!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-talk">
+          <a href="/Talk/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-comments"></i> <br>
+            
+            Talk
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photos">
+          <a href="/photos/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-image"></i> <br>
+            
+            Photos
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://heywe.cn/2017/03/31/tensorflow2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wu Yong">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/ori_sr2x.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wu Yong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">TensorFlow学习笔记(二)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-31T16:11:47+08:00">
+                2017-03-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Machine Learning</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/Deep-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Deep Learning</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/Deep-Learning/Tensorflow/" itemprop="url" rel="index">
+                    <span itemprop="name">Tensorflow</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/03/31/tensorflow2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2017/03/31/tensorflow2/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center><font size="5" color="red"><b>实现第一个神经网络</b></font></center>
+
+<a id="more"></a>
+
+<h1 id="实现一个简单的神经网络"><a href="#实现一个简单的神经网络" class="headerlink" title="实现一个简单的神经网络"></a>实现一个简单的神经网络</h1><h2 id="前向传播算法"><a href="#前向传播算法" class="headerlink" title="前向传播算法"></a>前向传播算法</h2><p>假设存在如下图所示的三层神经网络:</p>
+<p><img src="https://ww4.sinaimg.cn/large/006tNc79gy1fe64aske70j30dq0aigm7.jpg" alt></p>
+<p>前向传播可以表示成矩阵乘法。将输入$x_1$、$x_2$组织成一个$1\times2$的矩阵,而$W^{(1)}$组织成一个$2\times3$的矩阵:</p>
+<p>$$<br>W^{(1)}=\begin{bmatrix}<br>W^{(1)}<em>{1,1}&amp;W^{(1)}</em>{1,2}&amp;W^{(1)}<em>{1,3}\<br>W^{(1)}</em>{2,1}&amp;W^{(1)}<em>{2,2}&amp;W^{(1)}</em>{2,3}\<br>\end{bmatrix}<br>$$</p>
+<p>这样通过矩阵乘法可以得到隐藏层三个节点所组成的向量取值:</p>
+<p>[这里之前出了点公式的问题，原因是 mathjax 解析中括号改了。。]</p>
+<p>$$<br>a^{(1)}=[a_{11},a_{12},a_{13}]=xW^{(1)}=[x1,x2]\begin{bmatrix}<br>W^{(1)}<em>{1,1}&amp;W^{(1)}</em>{1,2}&amp;W^{(1)}<em>{1,3}\<br>W^{(1)}</em>{2,1}&amp;W^{(1)}<em>{2,2}&amp;W^{(1)}</em>{2,3}\<br>\end{bmatrix}\<br>=[W^{(1)}<em>{1,1}x_1+W^{(1)}</em>{2,1}x_2+W^{(1)}<em>{1,2}x_1+W^{(1)}</em>{2,2}x_2+W^{(1)}<em>{1,3}x_1+W^{(1)}</em>{2,3}x_2]<br>$$</p>
+<p>类似的输出层可以表示为:</p>
+<p>$$<br>y=a^{(1)}W^{(2)}=[a_{11},a_{12},a_{13}]\begin{bmatrix}W^{(2)}<em>{1,1}\W^{(2)}</em>{2,1}\<br>W^{(2)}<em>{3,1}\<br>\end{bmatrix}=[W^{(2)}</em>{1,1}a_{11}+W^{(2)}<em>{2,1}a</em>{12}+W^{(2)}<em>{3,1}a</em>{13}]<br>$$</p>
+<p>这样就将前向传播的算法通过矩阵的乘法表示出来了。在TensorFlow中提供了一个函数直接可以进行这样的矩阵计算。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = tf.matmul(x, w1)</span><br><span class="line">b = tf.matmul(a, w2)</span><br></pre></td></tr></table></figure>
+
+<h2 id="神经网络的参数"><a href="#神经网络的参数" class="headerlink" title="神经网络的参数"></a>神经网络的参数</h2><ul>
+<li>下面给出在TensorFlow中声明了一个$2*3$的矩阵变量的方法:</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">weights = tf.Variable(tf.random_normal([<span class="number">2</span>, <span class="number">3</span>], stddev=<span class="number">2</span>))</span><br><span class="line"><span class="comment"># tf.random_normal([2, 3], stddev=2)函数是产生一个均值为0,方差为2的随机数,</span></span><br><span class="line"><span class="comment"># 其中可以通过添加mean参数指定平均值,没有指定时默认为0。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 随机变量中可以通过seed参数设定随机数种子,可以保证每次运行结果相同:</span></span><br><span class="line"><span class="comment"># tf.random_normal([2, 3], stddev=2, seed=1)</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>tf.random_normal</code> 正态分布,参数为:平均值、标准差、取值类型<br><br>官方API:<a href="https://www.tensorflow.org/versions/r0.12/api_docs/python/constant_op.html#random_normal" target="_blank" rel="noopener">tf.random_normal</a><br><br><code>tf.truncated_normal</code> 正态分布,但如果随机出来的值偏离平均值超过两2个标准差,重新随机<br><br>官方API:<a href="https://www.tensorflow.org/versions/r0.12/api_docs/python/constant_op.html#truncated_normal" target="_blank" rel="noopener">tf.truncated_normal</a><br><br><code>tf.random_uniform</code> 平均分布,参数为:最小、最大取值、取值类型<br><br>官方API:<a href="https://www.tensorflow.org/versions/r0.12/api_docs/python/constant_op.html#random_uniform" target="_blank" rel="noopener">tf.random_uniform</a><br><br><code>tf.random_gamma</code> Gamma分布,参数为:形状参数alpha、尺度参数beta、取值类型<br><br>官方API:<a href="https://www.tensorflow.org/versions/r0.12/api_docs/python/constant_op.html#random_gamma" target="_blank" rel="noopener">tf.random_gamma</a></p>
+</blockquote>
+<ul>
+<li>NN中通常会使用常数初始化bias</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">biases = tf.Variable(tf.zeros([<span class="number">3</span>]))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>TensorFlow中也支持使用其他变量初始值来初始化新变量:</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">w2 = tf.Variable(weights.initialized_value())</span><br><span class="line">w3 = tf.Variable(weights.initialized_value() * <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>将前向传播过程写成代码:</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="comment"># 声明weights1 weights2</span></span><br><span class="line">weights1 = tf.Variable(tf.truncated_normal([<span class="number">2</span>, <span class="number">3</span>], stddev=<span class="number">2</span>, seed=<span class="number">1</span>))</span><br><span class="line">weights2 = tf.Variable(tf.truncated_normal([<span class="number">3</span>, <span class="number">1</span>], stddev=<span class="number">2</span>, seed=<span class="number">1</span>))</span><br><span class="line"><span class="comment"># 假设输如向量为一个1*2的常量:</span></span><br><span class="line">x = tf.constant([<span class="number">0.7</span>, <span class="number">0.9</span>], shape=[<span class="number">1</span>, <span class="number">2</span>])</span><br><span class="line"><span class="comment"># 前向传播算法</span></span><br><span class="line">a = tf.matmul(x, weights1)</span><br><span class="line">y = tf.matmul(a, weights2)</span><br><span class="line"></span><br><span class="line">sess = tf.Session()</span><br><span class="line"><span class="comment"># 不能直接求y,要先初始化参数</span></span><br><span class="line">sess.run(weights1.initializer)</span><br><span class="line">sess.run(weights2.initializer)</span><br><span class="line">print(sess.run(y))</span><br><span class="line">sess.close()</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">输出</span></span><br><span class="line"><span class="string">W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.</span></span><br><span class="line"><span class="string">W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.</span></span><br><span class="line"><span class="string">W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.</span></span><br><span class="line"><span class="string">W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.</span></span><br><span class="line"><span class="string">W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.</span></span><br><span class="line"><span class="string">[[ 11.53417969]]</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果存在很多变量,再对每个变量初始化会导致很麻烦,TensorFlow提供了一种便捷的方式初始化:</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">init_w = global_variables_initializer()</span><br><span class="line">sess.run(init_w)</span><br><span class="line"><span class="comment"># init_w = tf.initialize_all_variables()这个是1.0之前的API</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="简单的监督学习"><a href="#简单的监督学习" class="headerlink" title="简单的监督学习"></a>简单的监督学习</h2><p>使用监督学习的方式设置神经网络参数需要有标注好的训练数据集。</p>
+<p>之前所有的变量的取值都是随机的,但是在实际过程中,可能需要更好的设置参数的值,这时就需要一种优化算法。而神经网络优化算法中最常用的方法是反向传播算法。</p>
+<p>反向传播算法实现了一个迭代的过程,在每次迭代的开始,首先需要选取一小部分训练数据,这部分的叫做batch。然后,这个batch的样例会通过前向传播算法得到预测结果,因为训练数据都有标注,所以计算出当前计算的值和真实值之间的差距,反向传播算法会更新神经网络参数的取值,使得在这个batch上神经网络模型的预测结果和真实答案更接近。</p>
+<p>这里要注意,如果每轮迭代中选取的数据都要通过常量来表示,那么TensorFlow的计算图将会太大。因为每生成一个常量,TensorFlow将会在计算图中增加一个节点。一般来说一个神经网络的训练要经过非常多次的迭代,这样就会产生非常大的计算图,利用率很低。为了避免这个问题,TensorFlow提供了placeholder机制用于提供输入数据,而只需要将数据通过placeholder传入计算图。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line">w1 = tf.Variable(tf.random_normal([<span class="number">2</span>, <span class="number">3</span>], stddev=<span class="number">1</span>))</span><br><span class="line">w2 = tf.Variable(tf.random_normal([<span class="number">3</span>, <span class="number">1</span>], stddev=<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">x = tf.placeholder(tf.float32, shape=(<span class="number">1</span>, <span class="number">2</span>), name=<span class="string">"input"</span>)</span><br><span class="line">a = tf.matmul(x, w1)</span><br><span class="line">y = tf.matmul(a, w2)</span><br><span class="line">sess = tf.Session()</span><br><span class="line">init_w = tf.global_variables_initializer()</span><br><span class="line">sess.run(init_w)</span><br><span class="line"><span class="comment"># 这行会出错</span></span><br><span class="line">print(sess.run(y))</span><br><span class="line"><span class="comment"># 输出</span></span><br><span class="line">InvalidArgumentError (see above <span class="keyword">for</span> traceback): You must feed a value <span class="keyword">for</span> placeholder tensor <span class="string">'input'</span> <span class="keyword">with</span> dtype float <span class="keyword">and</span> shape [<span class="number">1</span>,<span class="number">2</span>]</span><br><span class="line">	 [[Node: input = Placeholder[dtype=DT_FLOAT, shape=[<span class="number">1</span>,<span class="number">2</span>], _device=<span class="string">"/job:localhost/replica:0/task:0/cpu:0"</span>]()]]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这样就会正常输出</span></span><br><span class="line">print(sess.run(y, feed_dict=&#123;x: [[<span class="number">0.7</span>, <span class="number">0.9</span>]]&#125;))</span><br><span class="line"><span class="comment"># 输出</span></span><br><span class="line">[[<span class="number">-1.25927997</span>]]</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">这里替换了原来通过常量定义的输入x。在新的程序中计算前向传播结果时,</span></span><br><span class="line"><span class="string">需要提供一个feed_dict来指定x的取值。feed_dict是一个字典,</span></span><br><span class="line"><span class="string">在字典中需要给出每个placeholder的值。如果没有某个需要的placeholder的取值,</span></span><br><span class="line"><span class="string">那么程序在运行时会报错</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+
+<p>如果需要一次性计算多个样例前向传播结果。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = tf.placeholder(tf.float32, shape=(<span class="number">3</span>, <span class="number">2</span>), name=<span class="string">"input"</span>)</span><br><span class="line">print(sess.run(y, feed_dict=&#123;x: [[<span class="number">0.7</span>, <span class="number">0.9</span>],[<span class="number">0.1</span>,<span class="number">0.4</span>],[<span class="number">0.5</span>,<span class="number">0.8</span>]&#125;))</span><br></pre></td></tr></table></figure>
+
+<p>利用损失函数反向传播调整参数<br>之后详细介绍</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 损失函数</span></span><br><span class="line">cross_entropy = -tf.reduce_mean(y_ * tf.log(tf.clip_by_value(y, <span class="number">1e-10</span>, <span class="number">1.0</span>)))</span><br><span class="line"><span class="comment"># 学习率</span></span><br><span class="line">learning_rate = <span class="number">0.001</span></span><br><span class="line"><span class="comment"># 反向传播算法</span></span><br><span class="line">train_step = tf.train.AdamOptimizer(learning_rate).minimize(cross_entropy)</span><br></pre></td></tr></table></figure>
+
+<h2 id="完整神经网络样例"><a href="#完整神经网络样例" class="headerlink" title="完整神经网络样例"></a>完整神经网络样例</h2><ul>
+<li>这是一个完整程序训练二分类问题</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> numpy.random <span class="keyword">import</span> RandomState</span><br><span class="line"><span class="comment"># 训练数据batch大小</span></span><br><span class="line">batch_size = <span class="number">8</span></span><br><span class="line"><span class="comment"># 定义神经网络的参数</span></span><br><span class="line">weights1 = tf.Variable(tf.truncated_normal([<span class="number">2</span>, <span class="number">3</span>], stddev=<span class="number">2</span>, seed=<span class="number">1</span>))</span><br><span class="line">weights2 = tf.Variable(tf.truncated_normal([<span class="number">3</span>, <span class="number">1</span>], stddev=<span class="number">2</span>, seed=<span class="number">1</span>))</span><br><span class="line"><span class="comment"># 这里None是方便改变batch大小,训练时把数据分成较小的batch,测试使用全部数据</span></span><br><span class="line"><span class="comment"># 当数据集较小时这样容易测试,但数据集较大时,将大量数据放入一个batch</span></span><br><span class="line">x = tf.placeholder(tf.float32, shape=(<span class="literal">None</span>, <span class="number">2</span>), name=<span class="string">"x-input"</span>)</span><br><span class="line">y_ = tf.placeholder(tf.float32, shape=(<span class="literal">None</span>, <span class="number">1</span>), name=<span class="string">"y-input"</span>)</span><br><span class="line"></span><br><span class="line">a = tf.matmul(x, weights1)</span><br><span class="line">y = tf.matmul(a, weights2)</span><br><span class="line"></span><br><span class="line">cross_entropy = -tf.reduce_mean(y_ * tf.log(tf.clip_by_value(y, <span class="number">1e-10</span>, <span class="number">1.0</span>)))</span><br><span class="line">learning_rate = <span class="number">0.001</span></span><br><span class="line">train_step = tf.train.AdamOptimizer(learning_rate).minimize(cross_entropy)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 随机模拟数据集</span></span><br><span class="line">rdm = RandomState(<span class="number">1</span>)</span><br><span class="line">dataset_size = <span class="number">128</span></span><br><span class="line">X = rdm.rand(dataset_size, <span class="number">2</span>)</span><br><span class="line"><span class="comment"># 这里用x1+x2&lt;1表示为正样本(1),其他为负样本(0)</span></span><br><span class="line">Y = [[int(x1 + x2 &lt; <span class="number">1</span>)] <span class="keyword">for</span> (x1, x2) <span class="keyword">in</span> X]</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    init_w = tf.global_variables_initializer()</span><br><span class="line">    sess.run(init_w)</span><br><span class="line">    print(sess.run(weights1))</span><br><span class="line">    print(sess.run(weights2))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 训练轮数</span></span><br><span class="line">    step = <span class="number">5000</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(step):</span><br><span class="line">        <span class="comment"># 每次选取batch_size个样本进行训练</span></span><br><span class="line">        start = (i * batch_size) % dataset_size</span><br><span class="line">        end = min(start + batch_size, dataset_size)</span><br><span class="line">        <span class="comment"># 对选取的样本训练神经网络并更新参数</span></span><br><span class="line">        sess.run(train_step, feed_dict=&#123;x: X[start:end], y_: Y[start:end]&#125;)</span><br><span class="line">        <span class="comment"># 每隔1000次 将输出所有数据的交叉熵。</span></span><br><span class="line">        <span class="keyword">if</span> i % <span class="number">1000</span> == <span class="number">0</span>:</span><br><span class="line">            total_cross_entropy = sess.run(cross_entropy,</span><br><span class="line">                                           feed_dict=&#123;x: X,</span><br><span class="line">                                                      y_: Y&#125;)</span><br><span class="line">            print(<span class="string">"After %d trainning steps,cross entropy on all data is %g"</span> %</span><br><span class="line">                  (i, total_cross_entropy))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 在训练之后输出神经网络的值</span></span><br><span class="line">    print(sess.run(weights1))</span><br><span class="line">    print(sess.run(weights2))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">输出</span></span><br><span class="line"><span class="string">W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.</span></span><br><span class="line"><span class="string">W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.</span></span><br><span class="line"><span class="string">W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.</span></span><br><span class="line"><span class="string">W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.</span></span><br><span class="line"><span class="string">W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.</span></span><br><span class="line"><span class="string">[[-1.62263644  2.96919751  0.13065873]</span></span><br><span class="line"><span class="string"> [ 0.1984968   1.27939415  3.22174239]]</span></span><br><span class="line"><span class="string">[[-1.62263644]</span></span><br><span class="line"><span class="string"> [ 2.96919751]</span></span><br><span class="line"><span class="string"> [ 0.13065873]]</span></span><br><span class="line"><span class="string">After 0 trainning steps,cross entropy on all data is 0.00922738</span></span><br><span class="line"><span class="string">After 1000 trainning steps,cross entropy on all data is 0.00651872</span></span><br><span class="line"><span class="string">After 2000 trainning steps,cross entropy on all data is 0.0046435</span></span><br><span class="line"><span class="string">After 3000 trainning steps,cross entropy on all data is 0.00296163</span></span><br><span class="line"><span class="string">After 4000 trainning steps,cross entropy on all data is 0.00143799</span></span><br><span class="line"><span class="string">可以看出这里交叉熵越来越小，表示离真实值越来越接近</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[[-2.77095127  4.07181215  1.52858329]</span></span><br><span class="line"><span class="string"> [-0.9112885   2.34183121  4.59349394]]</span></span><br><span class="line"><span class="string">[[-2.86135674]</span></span><br><span class="line"><span class="string"> [ 4.07957268]</span></span><br><span class="line"><span class="string"> [ 1.23969376]]</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Buy me a coffe. XD</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/coffe.png" alt="Wu Yong WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/ali_coffe.png" alt="Wu Yong Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          
+            <a href="/tags/Deep-Learning/" rel="tag"># Deep Learning</a>
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+            <a href="/tags/Tensorflow/" rel="tag"># Tensorflow</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/30/tensorflow1/" rel="next" title="TensorFlow学习笔记(一)">
+                <i class="fa fa-chevron-left"></i> TensorFlow学习笔记(一)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/01/tensorflow3/" rel="prev" title="TensorFlow学习笔记(三)">
+                TensorFlow学习笔记(三) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/ori_sr2x.png" alt="Wu Yong">
+            
+              <p class="site-author-name" itemprop="name">Wu Yong</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/ackness" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:ackness8@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实现一个简单的神经网络"><span class="nav-number">1.</span> <span class="nav-text">实现一个简单的神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前向传播算法"><span class="nav-number">1.1.</span> <span class="nav-text">前向传播算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#神经网络的参数"><span class="nav-number">1.2.</span> <span class="nav-text">神经网络的参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单的监督学习"><span class="nav-number">1.3.</span> <span class="nav-text">简单的监督学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完整神经网络样例"><span class="nav-number">1.4.</span> <span class="nav-text">完整神经网络样例</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">粤ICP备17074505号</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'j7tOdKhEE2pKVLIyH8bwna8d-gzGzoHsz',
+        appKey: 'g7k1HlUKw6IDpMo2514FMnnh',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
