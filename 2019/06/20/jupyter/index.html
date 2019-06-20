@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="春水初生,春林初盛,春风十里,不如你.">
+  <meta name="keywords" content="Linux,Jupyter,Python,">
 
 
 
@@ -79,14 +79,18 @@
 
 
 
-<meta name="keywords" content="Coding">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Wu Yong&#39;s Blog">
-<meta property="og:url" content="http://heywe.cn/archives/2017/02/index.html">
+<meta name="description" content="网上的都是抄来抄去的辣鸡文档，直接搜官方文档 这里我使用 conda 管理多 Python 环境 Python 多环境增加自己的 kernel12345678910111213141516171819202122# 需要安装：conda install ipykernel# (可选)创建你自己的环境, 指定某python环境conda create -n 环境名称 python=3.6# 比如">
+<meta name="keywords" content="Linux,Jupyter,Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jupyter 多kernel配置">
+<meta property="og:url" content="http://heywe.cn/2019/06/20/jupyter/index.html">
 <meta property="og:site_name" content="Wu Yong&#39;s Blog">
+<meta property="og:description" content="网上的都是抄来抄去的辣鸡文档，直接搜官方文档 这里我使用 conda 管理多 Python 环境 Python 多环境增加自己的 kernel12345678910111213141516171819202122# 需要安装：conda install ipykernel# (可选)创建你自己的环境, 指定某python环境conda create -n 环境名称 python=3.6# 比如">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-06-20T05:50:26.003Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Wu Yong&#39;s Blog">
+<meta name="twitter:title" content="Jupyter 多kernel配置">
+<meta name="twitter:description" content="网上的都是抄来抄去的辣鸡文档，直接搜官方文档 这里我使用 conda 管理多 Python 环境 Python 多环境增加自己的 kernel12345678910111213141516171819202122# 需要安装：conda install ipykernel# (可选)创建你自己的环境, 指定某python环境conda create -n 环境名称 python=3.6# 比如">
 
 
 
@@ -116,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://heywe.cn/archives/2017/02/">
+  <link rel="canonical" href="http://heywe.cn/2019/06/20/jupyter/">
 
 
 
 
 
-  <title>Archive | Wu Yong's Blog</title>
+  <title>Jupyter 多kernel配置 | Wu Yong's Blog</title>
   
 
 
@@ -141,7 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -297,107 +301,229 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
-
-      <span class="archive-page-counter">
-        
-        
-        
-          
-        
-        Um..! 27 posts in total. Keep on posting.
-      </span>
-
-      
-
-        
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2017">2017</h1>
-          </div>
-        
-        
-
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://heywe.cn/2019/06/20/jupyter/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wu Yong">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/ori_sr2x.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wu Yong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2017/02/21/AboutDropout/" itemprop="url">
-              
-                <span itemprop="name">Dropout一些总结</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">Jupyter 多kernel配置</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2017-02-21T20:30:26+08:00" content="2017-02-21">
-          02-21
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-20T13:36:17+08:00">
+                2019-06-20
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/06/20/jupyter/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/06/20/jupyter/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/02/21/FastRCNN/" itemprop="url">
-              
-                <span itemprop="name">Fast RCNN</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2017-02-21T10:48:45+08:00" content="2017-02-21">
-          02-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
+      
+        <a id="more"></a>
+
+<p>网上的都是抄来抄去的辣鸡文档，直接搜<a href="http://ipython.readthedocs.io/en/latest/install/kernel_install.html" target="_blank" rel="noopener">官方文档</a></p>
+<p>这里我使用 conda 管理多 Python 环境</p>
+<h1 id="Python-多环境"><a href="#Python-多环境" class="headerlink" title="Python 多环境"></a>Python 多环境</h1><h2 id="增加自己的-kernel"><a href="#增加自己的-kernel" class="headerlink" title="增加自己的 kernel"></a>增加自己的 kernel</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 需要安装：</span></span><br><span class="line">conda install ipykernel</span><br><span class="line"></span><br><span class="line"><span class="comment"># (可选)创建你自己的环境, 指定某python环境</span></span><br><span class="line">conda create -n 环境名称 python=3.6</span><br><span class="line"><span class="comment"># 比如</span></span><br><span class="line">conda create -n wy36 python=3.6</span><br><span class="line"></span><br><span class="line"><span class="comment"># 你要有自己的环境之后且能切换到对应的conda环境, 即下面命令有效</span></span><br><span class="line"><span class="built_in">source</span> activate 环境名称</span><br><span class="line"><span class="comment"># 新版本的 conda 已经将命令改为</span></span><br><span class="line">conda activate 环境名称</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将环境写入notebook的kernel中</span></span><br><span class="line">python -m ipykernel install --user --name 环境名称 --display-name <span class="string">"自定义显示的昵称"</span></span><br><span class="line"><span class="comment"># 比如</span></span><br><span class="line">python -m ipykernel install --user --name wy35 --display-name <span class="string">"Python (wy35)"</span></span><br><span class="line">python -m ipykernel install --user --name nlp --display-name <span class="string">"nlp"</span></span><br><span class="line">python -m ipykernel install --user --name at --display-name <span class="string">"autokeras"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新打开notebook, 即可在新建文件的时候看到选项</span></span><br><span class="line">jupyter notebook</span><br></pre></td></tr></table></figure>
+
+<h1 id="其他语言"><a href="#其他语言" class="headerlink" title="其他语言"></a>其他语言</h1><h2 id="R-语言"><a href="#R-语言" class="headerlink" title="R 语言"></a>R 语言</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">install.packages(<span class="string">'devtools'</span>)</span><br><span class="line">devtools::install_github(<span class="string">'IRkernel/IRkernel'</span>)</span><br><span class="line">IRkernel::installspec()</span><br><span class="line">install.packages(<span class="string">'ggplot2'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>IRkernel::installspec()可能出现问题</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Error <span class="keyword">in</span> IRkernel::installspec() : </span><br><span class="line">  jupyter-client has to be installed but “jupyter kernelspec --version<span class="string">" exited with code 127.</span></span><br></pre></td></tr></table></figure>
+
+<p>解决方法</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">install.packages(c(<span class="string">'repr'</span>, <span class="string">'IRdisplay'</span>, <span class="string">'evaluate'</span>, <span class="string">'crayon'</span>, <span class="string">'pbdZMQ'</span>, <span class="string">'devtools'</span>, <span class="string">'uuid'</span>, <span class="string">'digest'</span>))</span><br></pre></td></tr></table></figure>
+
+<h2 id="Julia"><a href="#Julia" class="headerlink" title="Julia"></a>Julia</h2><p><a href="https://github.com/JuliaLang/IJulia.jl" target="_blank" rel="noopener">IJulia</a></p>
+<figure class="highlight julia"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> Pkg</span><br><span class="line">Pkg.add(<span class="string">"IJulia"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> IJulia</span><br><span class="line">notebook()</span><br><span class="line"></span><br><span class="line">退出 julia prompt 不影响 jupyter 可以使用:</span><br><span class="line">julia&gt; <span class="keyword">using</span> IJulia; notebook(detached=<span class="literal">true</span>)</span><br></pre></td></tr></table></figure>
+
+<h1 id="安装-Jupyter-notebook-插件"><a href="#安装-Jupyter-notebook-插件" class="headerlink" title="安装 Jupyter notebook 插件"></a>安装 Jupyter notebook 插件</h1><p><a href="https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/" target="_blank" rel="noopener">jupyter-contrib-nbextensions</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 pip 安装</span></span><br><span class="line">pip install jupyter_contrib_nbextensions</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 conda</span></span><br><span class="line">conda install -c conda-forge jupyter_contrib_nbextensions</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从 Github repo 安装</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/ipython-contrib/jupyter_contrib_nbextensions.git</span><br></pre></td></tr></table></figure>
+      
     </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Buy me a coffe. XD</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/coffe.png" alt="Wu Yong WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/ali_coffe.png" alt="Wu Yong Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+            <a href="/tags/Jupyter/" rel="tag"># Jupyter</a>
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/10/tmux-download-without-sudo/" rel="next" title="无 sudo 权限下载安装 tmux">
+                <i class="fa fa-chevron-left"></i> 无 sudo 权限下载安装 tmux
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -405,6 +531,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -425,8 +558,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -504,6 +646,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Python-多环境"><span class="nav-number">1.</span> <span class="nav-text">Python 多环境</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#增加自己的-kernel"><span class="nav-number">1.1.</span> <span class="nav-text">增加自己的 kernel</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他语言"><span class="nav-number">2.</span> <span class="nav-text">其他语言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#R-语言"><span class="nav-number">2.1.</span> <span class="nav-text">R 语言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Julia"><span class="nav-number">2.2.</span> <span class="nav-text">Julia</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装-Jupyter-notebook-插件"><span class="nav-number">3.</span> <span class="nav-text">安装 Jupyter notebook 插件</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -651,6 +809,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
